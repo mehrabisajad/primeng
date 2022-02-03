@@ -1,5 +1,5 @@
 import {Component,OnInit} from '@angular/core';
-import {MessageService} from 'primeng/api';
+import {MessageService} from 'avan-primeng/api';
 
 @Component({
     templateUrl: './progressbardemo.html',
@@ -8,7 +8,7 @@ import {MessageService} from 'primeng/api';
 export class ProgressBarDemo {
 
     value: number = 0;
-    
+
     constructor(private messageService: MessageService) {}
 
     ngOnInit() {

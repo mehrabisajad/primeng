@@ -2,13 +2,13 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ScrollTopDemo} from './scrolltopdemo';
 import {ScrollTopDemoRoutingModule} from './scrolltopdemo-routing.module';
-import {ButtonModule} from 'primeng/button';
-import {PanelModule} from 'primeng/panel';
-import {TabViewModule} from 'primeng/tabview';
+import {ButtonModule} from 'avan-primeng/button';
+import {PanelModule} from 'avan-primeng/panel';
+import {TabViewModule} from 'avan-primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
-import {TableModule} from 'primeng/table';
-import {ScrollTopModule} from 'primeng/scrolltop';
-import {ScrollPanelModule} from 'primeng/scrollpanel';
+import {TableModule} from 'avan-primeng/table';
+import {ScrollTopModule} from 'avan-primeng/scrolltop';
+import {ScrollPanelModule} from 'avan-primeng/scrollpanel';
 import {AppDemoActionsModule} from '../../app.demoactions.component';
 
 @NgModule({

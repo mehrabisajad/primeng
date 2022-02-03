@@ -1,9 +1,9 @@
 import {NgModule,Component,ElementRef,OnInit,AfterContentInit,Input,Output,EventEmitter,ContentChild,ContentChildren,QueryList,TemplateRef,OnChanges,SimpleChanges,ChangeDetectionStrategy,ChangeDetectorRef, ViewEncapsulation, OnDestroy} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ObjectUtils} from 'primeng/utils';
-import {Header,Footer,PrimeTemplate,SharedModule,FilterService, TranslationKeys, PrimeNGConfig} from 'primeng/api';
-import {PaginatorModule} from 'primeng/paginator';
-import {BlockableUI} from 'primeng/api';
+import {ObjectUtils} from 'avan-primeng/utils';
+import {Header,Footer,PrimeTemplate,SharedModule,FilterService, TranslationKeys, PrimeNGConfig} from 'avan-primeng/api';
+import {PaginatorModule} from 'avan-primeng/paginator';
+import {BlockableUI} from 'avan-primeng/api';
 import { Subscription } from 'rxjs';
 
 @Component({

@@ -2,11 +2,11 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ConfirmPopupDemo} from './confirmpopupdemo';
 import {ConfirmPopupDemoRoutingModule} from './confirmpopupdemo-routing.module';
-import {ConfirmPopupModule} from 'primeng/confirmpopup';
-import {ToastModule} from 'primeng/toast';
-import {ButtonModule} from 'primeng/button';
-import {MessagesModule} from 'primeng/messages';
-import {TabViewModule} from 'primeng/tabview';
+import {ConfirmPopupModule} from 'avan-primeng/confirmpopup';
+import {ToastModule} from 'avan-primeng/toast';
+import {ButtonModule} from 'avan-primeng/button';
+import {MessagesModule} from 'avan-primeng/messages';
+import {TabViewModule} from 'avan-primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
 import {AppDemoActionsModule} from '../../app.demoactions.component';
 

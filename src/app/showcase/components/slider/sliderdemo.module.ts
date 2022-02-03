@@ -3,9 +3,9 @@ import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {SliderDemo} from './sliderdemo';
 import {SliderDemoRoutingModule} from './sliderdemo-routing.module';
-import {SliderModule} from 'primeng/slider';
-import {InputTextModule} from 'primeng/inputtext';
-import {TabViewModule} from 'primeng/tabview';
+import {SliderModule} from 'avan-primeng/slider';
+import {InputTextModule} from 'avan-primeng/inputtext';
+import {TabViewModule} from 'avan-primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
 import {AppDemoActionsModule} from '../../app.demoactions.component';
 

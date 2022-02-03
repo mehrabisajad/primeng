@@ -1,6 +1,6 @@
 import {Component,OnInit} from '@angular/core';
 import {NodeService} from '../../service/nodeservice';
-import {TreeNode} from 'primeng/api';
+import {TreeNode} from 'avan-primeng/api';
 
 @Component({
     templateUrl: './treehorizontaldemo.html'
@@ -10,7 +10,7 @@ export class TreeHorizontalDemo implements OnInit {
     files: TreeNode[];
 
     selectedFile: TreeNode;
-    
+
     constructor(private nodeService: NodeService) { }
 
     ngOnInit() {

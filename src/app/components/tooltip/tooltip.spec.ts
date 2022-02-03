@@ -3,7 +3,7 @@ import { By } from '@angular/platform-browser';
 import { Tooltip, TooltipModule } from './tooltip';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
-import { InputText } from 'primeng/inputtext';
+import { InputText } from 'avan-primeng/inputtext';
 
 @Component({
     template: `

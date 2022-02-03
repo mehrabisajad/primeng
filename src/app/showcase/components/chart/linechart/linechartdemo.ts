@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {MessageService} from 'primeng/api';
+import {MessageService} from 'avan-primeng/api';
 import {Subscription} from 'rxjs';
 import {AppConfigService} from '../../../service/appconfigservice';
 import {AppConfig} from '../../../domain/appconfig';

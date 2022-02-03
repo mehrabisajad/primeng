@@ -2,10 +2,10 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DragDropDemo} from './dragdropdemo';
 import {DragDropDemoRoutingModule} from './dragdropdemo-routing.module';
-import {DragDropModule} from 'primeng/dragdrop';
-import {PanelModule} from 'primeng/panel';
-import {TableModule} from 'primeng/table';
-import {TabViewModule} from 'primeng/tabview';
+import {DragDropModule} from 'avan-primeng/dragdrop';
+import {PanelModule} from 'avan-primeng/panel';
+import {TableModule} from 'avan-primeng/table';
+import {TabViewModule} from 'avan-primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
 import {AppDemoActionsModule} from '../../app.demoactions.component';
 

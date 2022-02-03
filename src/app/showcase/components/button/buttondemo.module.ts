@@ -2,10 +2,10 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ButtonDemo} from './buttondemo';
 import {ButtonDemoRoutingModule} from './buttondemo-routing.module';
-import {ButtonModule} from 'primeng/button';
-import {TabViewModule} from 'primeng/tabview';
-import {ProgressSpinnerModule} from 'primeng/progressspinner';
-import {RippleModule} from 'primeng/ripple';
+import {ButtonModule} from 'avan-primeng/button';
+import {TabViewModule} from 'avan-primeng/tabview';
+import {ProgressSpinnerModule} from 'avan-primeng/progressspinner';
+import {RippleModule} from 'avan-primeng/ripple';
 import {AppCodeModule} from '../../app.code.component';
 import {AppDemoActionsModule} from '../../app.demoactions.component';
 

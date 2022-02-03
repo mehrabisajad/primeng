@@ -3,7 +3,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { AppConfigService } from './service/appconfigservice';
 import { AppConfig } from './domain/appconfig';
 import { Subscription } from 'rxjs';
-import { DomHandler } from 'primeng/dom';
+import { DomHandler } from 'avan-primeng/dom';
 
 @Component({
     selector: 'app-config',

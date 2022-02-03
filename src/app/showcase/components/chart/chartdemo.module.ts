@@ -9,9 +9,9 @@ import {LineChartDemo} from './linechart/linechartdemo';
 import {PolarAreaChartDemo} from './polarareachart/polarareachartdemo';
 import {ComboChartDemo} from './combochart/comobochartdemo';
 import {RadarChartDemo} from './radarchart/radarchartdemo';
-import {ChartModule} from 'primeng/chart';
-import {ToastModule} from 'primeng/toast';
-import {TabViewModule} from 'primeng/tabview';
+import {ChartModule} from 'avan-primeng/chart';
+import {ToastModule} from 'avan-primeng/toast';
+import {TabViewModule} from 'avan-primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
 import {AppDemoActionsModule} from '../../app.demoactions.component';
 

@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
-import { TerminalService } from 'primeng/terminal';
+import { MenuItem, MessageService } from 'avan-primeng/api';
+import { TerminalService } from 'avan-primeng/terminal';
 import { Subscription } from 'rxjs';
 import { NodeService } from '../../service/nodeservice';
 import { PhotoService } from '../../service/photoservice';

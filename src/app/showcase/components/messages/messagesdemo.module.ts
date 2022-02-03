@@ -2,12 +2,12 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MessagesDemo} from './messagesdemo';
 import {MessagesDemoRoutingModule} from './messagesdemo-routing.module';
-import {MessagesModule} from 'primeng/messages';
-import {MessageModule} from 'primeng/message';
-import {InputTextModule} from 'primeng/inputtext';
-import {ButtonModule} from 'primeng/button';
-import {TabViewModule} from 'primeng/tabview';
-import {RippleModule} from 'primeng/ripple';
+import {MessagesModule} from 'avan-primeng/messages';
+import {MessageModule} from 'avan-primeng/message';
+import {InputTextModule} from 'avan-primeng/inputtext';
+import {ButtonModule} from 'avan-primeng/button';
+import {TabViewModule} from 'avan-primeng/tabview';
+import {RippleModule} from 'avan-primeng/ripple';
 import {AppCodeModule} from '../../app.code.component';
 import {AppDemoActionsModule} from '../../app.demoactions.component';
 

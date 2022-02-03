@@ -1,12 +1,12 @@
 import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, TemplateRef, ContentChildren, QueryList, ElementRef, Output, EventEmitter, ViewChild, forwardRef, ChangeDetectorRef, Renderer2, OnDestroy, OnInit, AfterContentInit, Inject} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule, PrimeTemplate, PrimeNGConfig, OverlayService } from 'primeng/api';
-import { ObjectUtils, ZIndexUtils } from 'primeng/utils';
-import { DomHandler } from 'primeng/dom';
+import { SharedModule, PrimeTemplate, PrimeNGConfig, OverlayService } from 'avan-primeng/api';
+import { ObjectUtils, ZIndexUtils } from 'avan-primeng/utils';
+import { DomHandler } from 'avan-primeng/dom';
 import { trigger,style,transition,animate,AnimationEvent} from '@angular/animations';
-import { ConnectedOverlayScrollHandler } from 'primeng/dom';
+import { ConnectedOverlayScrollHandler } from 'avan-primeng/dom';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { RippleModule } from 'primeng/ripple';
+import { RippleModule } from 'avan-primeng/ripple';
 
 export const CASCADESELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,

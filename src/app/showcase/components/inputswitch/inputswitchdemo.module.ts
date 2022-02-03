@@ -3,8 +3,8 @@ import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {InputSwitchDemo} from './inputswitchdemo';
 import {InputSwitchDemoRoutingModule} from './inputswitchdemo-routing.module';
-import {InputSwitchModule} from 'primeng/inputswitch';
-import {TabViewModule} from 'primeng/tabview';
+import {InputSwitchModule} from 'avan-primeng/inputswitch';
+import {TabViewModule} from 'avan-primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
 import {AppDemoActionsModule} from '../../app.demoactions.component';
 

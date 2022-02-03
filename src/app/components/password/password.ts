@@ -2,10 +2,10 @@ import {NgModule,Directive,ElementRef,HostListener,Input,OnDestroy,DoCheck,NgZon
 import {CommonModule} from '@angular/common';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
-import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
-import {OverlayService, PrimeNGConfig, PrimeTemplate, TranslationKeys, SharedModule} from 'primeng/api';
-import {ZIndexUtils} from 'primeng/utils';
-import {InputTextModule} from 'primeng/inputtext';
+import {DomHandler, ConnectedOverlayScrollHandler} from 'avan-primeng/dom';
+import {OverlayService, PrimeNGConfig, PrimeTemplate, TranslationKeys, SharedModule} from 'avan-primeng/api';
+import {ZIndexUtils} from 'avan-primeng/utils';
+import {InputTextModule} from 'avan-primeng/inputtext';
 import { Subscription } from 'rxjs';
 
 @Directive({

@@ -2,13 +2,13 @@ import {NgModule,Component,ElementRef,OnDestroy,OnInit,Input,Output,EventEmitter
         ViewChild,ChangeDetectorRef,TemplateRef,ContentChildren,QueryList,NgZone,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
-import {ButtonModule} from 'primeng/button';
-import {RippleModule} from 'primeng/ripple';
-import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
-import {SharedModule,PrimeTemplate,PrimeNGConfig,TranslationKeys, OverlayService} from 'primeng/api';
+import {ButtonModule} from 'avan-primeng/button';
+import {RippleModule} from 'avan-primeng/ripple';
+import {DomHandler, ConnectedOverlayScrollHandler} from 'avan-primeng/dom';
+import {SharedModule,PrimeTemplate,PrimeNGConfig,TranslationKeys, OverlayService} from 'avan-primeng/api';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 import {Subscription} from 'rxjs';
-import {UniqueComponentId, ZIndexUtils, ObjectUtils} from 'primeng/utils';
+import {UniqueComponentId, ZIndexUtils, ObjectUtils} from 'avan-primeng/utils';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,

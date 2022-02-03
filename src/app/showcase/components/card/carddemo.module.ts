@@ -2,9 +2,9 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {CardDemo} from './carddemo';
 import {CardDemoRoutingModule} from './carddemo-routing.module';
-import {CardModule} from 'primeng/card';
-import {TabViewModule} from 'primeng/tabview';
-import {ButtonModule} from 'primeng/button';
+import {CardModule} from 'avan-primeng/card';
+import {TabViewModule} from 'avan-primeng/tabview';
+import {ButtonModule} from 'avan-primeng/button';
 import {AppCodeModule} from '../../app.code.component';
 import {AppDemoActionsModule} from '../../app.demoactions.component';
 

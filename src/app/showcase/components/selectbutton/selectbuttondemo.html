@@ -28,7 +28,7 @@
         <p-tabPanel header="Documentation">
             <h5>Import</h5>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
-import &#123;SelectButtonModule&#125; from 'primeng/selectbutton';
+import &#123;SelectButtonModule&#125; from 'avan-primeng/selectbutton';
 </app-code>
 
             <h5>Getting Started</h5>
@@ -37,7 +37,7 @@ import &#123;SelectButtonModule&#125; from 'primeng/selectbutton';
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-selectButton [options]="cities" [(ngModel)]="selectedCity" optionLabel="name"&gt;&lt;/p-selectButton&gt;
 </app-code>
-    
+
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 interface City &#123;
     name: string,
@@ -68,7 +68,7 @@ export class SelectButtonDemo &#123;
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-selectButton [options]="cities" [(ngModel)]="selectedCityCode" optionLabel="name" optionValue="code"&gt;&lt;/p-selectButton&gt;
 </app-code>
-    
+
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class SelectButtonDemo &#123;
 
@@ -95,7 +95,7 @@ export class SelectButtonDemo &#123;
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-selectButton [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" [multiple]="true"&gt;&lt;/p-selectButton&gt;
 </app-code>
-    
+
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
 export class SelectButtonDemo &#123;
 
@@ -166,7 +166,7 @@ export class SelectButtonDemo &#123;
 
     value: any;
 
-    constructor() &#123;    
+    constructor() &#123;
         this.justifyOptions = [
             &#123;icon: 'pi pi-align-left', justify: 'Left'&#125;,
             &#123;icon: 'pi pi-align-right', justify: 'Right'&#125;,

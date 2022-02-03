@@ -1,11 +1,11 @@
 import {NgModule,Component,Input,ContentChildren,QueryList,AfterContentInit,AfterViewInit,AfterViewChecked,TemplateRef,ChangeDetectionStrategy, ViewEncapsulation, ViewChild, ElementRef, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {MenuItem} from 'primeng/api';
-import {RippleModule} from 'primeng/ripple';
-import {PrimeTemplate, SharedModule} from 'primeng/api';
+import {MenuItem} from 'avan-primeng/api';
+import {RippleModule} from 'avan-primeng/ripple';
+import {PrimeTemplate, SharedModule} from 'avan-primeng/api';
 import {ActivatedRoute, Router, RouterModule} from '@angular/router';
-import {DomHandler} from 'primeng/dom';
-import {TooltipModule} from 'primeng/tooltip';
+import {DomHandler} from 'avan-primeng/dom';
+import {TooltipModule} from 'avan-primeng/tooltip';
 
 @Component({
     selector: 'p-tabMenu',
@@ -101,7 +101,7 @@ export class TabMenu implements AfterContentInit,AfterViewInit,AfterViewChecked 
 
             return this.router.isActive(this.router.createUrlTree(routerLink, {relativeTo: this.route}).toString(), false);
         }
-            
+
         return item === this.activeItem;
     }
 

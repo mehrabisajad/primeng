@@ -4,10 +4,10 @@ import {DynamicDialogModule} from '../../../components/dynamicdialog/dynamicdial
 import {ProductListDemo} from './productlistdemo';
 import {DynamicDialogDemo} from './dynamicdialogdemo';
 import {DynamicDialogDemoRoutingModule} from './dynamicdialogdemo-routing.module';
-import {ToastModule} from 'primeng/toast';
-import {TableModule} from 'primeng/table';
-import {ButtonModule} from 'primeng/button';
-import {TabViewModule} from 'primeng/tabview';
+import {ToastModule} from 'avan-primeng/toast';
+import {TableModule} from 'avan-primeng/table';
+import {ButtonModule} from 'avan-primeng/button';
+import {TabViewModule} from 'avan-primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
 import {AppDemoActionsModule} from '../../app.demoactions.component';
 

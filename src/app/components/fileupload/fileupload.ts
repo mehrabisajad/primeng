@@ -2,14 +2,14 @@ import {NgModule,Component,OnDestroy,Input,Output,EventEmitter,TemplateRef,After
             ContentChildren,QueryList,ViewChild,ElementRef,NgZone,ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DomSanitizer} from '@angular/platform-browser';
-import {ButtonModule} from 'primeng/button';
-import {MessagesModule} from 'primeng/messages';
-import {ProgressBarModule} from 'primeng/progressbar';
-import {DomHandler} from 'primeng/dom';
-import {Message, TranslationKeys} from 'primeng/api';
-import {PrimeTemplate,SharedModule,PrimeNGConfig} from 'primeng/api';
-import {BlockableUI} from 'primeng/api';
-import {RippleModule} from 'primeng/ripple';
+import {ButtonModule} from 'avan-primeng/button';
+import {MessagesModule} from 'avan-primeng/messages';
+import {ProgressBarModule} from 'avan-primeng/progressbar';
+import {DomHandler} from 'avan-primeng/dom';
+import {Message, TranslationKeys} from 'avan-primeng/api';
+import {PrimeTemplate,SharedModule,PrimeNGConfig} from 'avan-primeng/api';
+import {BlockableUI} from 'avan-primeng/api';
+import {RippleModule} from 'avan-primeng/ripple';
 import {HttpClient, HttpEvent, HttpEventType, HttpHeaders} from "@angular/common/http";
 import {Subscription} from 'rxjs';
 

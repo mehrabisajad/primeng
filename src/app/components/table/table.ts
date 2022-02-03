@@ -2,22 +2,22 @@ import { NgModule, Component, HostListener, OnInit, OnDestroy, AfterViewInit, Di
     Input, Output, EventEmitter, ElementRef, ContentChildren, TemplateRef, QueryList, ViewChild, NgZone, ChangeDetectorRef, OnChanges, SimpleChanges, ChangeDetectionStrategy, Query, ViewEncapsulation, Renderer2} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PrimeTemplate, SharedModule, FilterMatchMode, FilterOperator, SelectItem, PrimeNGConfig, TranslationKeys, FilterService, OverlayService } from 'primeng/api';
-import { PaginatorModule } from 'primeng/paginator';
-import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
-import { CalendarModule } from 'primeng/calendar';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { DropdownModule } from 'primeng/dropdown';
-import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
-import { SortMeta } from 'primeng/api';
-import { TableState } from 'primeng/api';
-import { FilterMetadata } from 'primeng/api';
+import { PrimeTemplate, SharedModule, FilterMatchMode, FilterOperator, SelectItem, PrimeNGConfig, TranslationKeys, FilterService, OverlayService } from 'avan-primeng/api';
+import { PaginatorModule } from 'avan-primeng/paginator';
+import { InputTextModule } from 'avan-primeng/inputtext';
+import { ButtonModule } from 'avan-primeng/button';
+import { SelectButtonModule } from 'avan-primeng/selectbutton';
+import { TriStateCheckboxModule } from 'avan-primeng/tristatecheckbox';
+import { CalendarModule } from 'avan-primeng/calendar';
+import { InputNumberModule } from 'avan-primeng/inputnumber';
+import { DropdownModule } from 'avan-primeng/dropdown';
+import { DomHandler, ConnectedOverlayScrollHandler } from 'avan-primeng/dom';
+import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'avan-primeng/utils';
+import { SortMeta } from 'avan-primeng/api';
+import { TableState } from 'avan-primeng/api';
+import { FilterMetadata } from 'avan-primeng/api';
 import { Injectable } from '@angular/core';
-import { BlockableUI } from 'primeng/api';
+import { BlockableUI } from 'avan-primeng/api';
 import { Subject, Subscription } from 'rxjs';
 import { ScrollingModule, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import {trigger,style,transition,animate,AnimationEvent} from '@angular/animations';
@@ -2333,7 +2333,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
             if (ObjectUtils.isNotEmpty(widths)) {
                 this.createStyleElement();
-                
+
                 let innerHTML = '';
                 widths.forEach((width,index) => {
                     let style = this.scrollable ? `flex: 1 1 ${width}px !important` : `width: ${width}px !important`;

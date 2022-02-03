@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'avan-primeng/api';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
     templateUrl: './treetableeditdemo.html'
 })
 export class TreeTableEditDemo {
-    
+
     files: TreeNode[];
 
     cols: any[];

@@ -1,8 +1,8 @@
 import {NgModule,Component,ElementRef,Input,Output,EventEmitter,ViewChild,ChangeDetectionStrategy,ViewEncapsulation} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {MenuItem} from 'primeng/api';
-import {ButtonModule} from 'primeng/button';
-import {MenuModule, Menu} from 'primeng/menu';
+import {MenuItem} from 'avan-primeng/api';
+import {ButtonModule} from 'avan-primeng/button';
+import {MenuModule, Menu} from 'avan-primeng/menu';
 
 @Component({
     selector: 'p-splitButton',

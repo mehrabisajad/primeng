@@ -7,11 +7,11 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
-import { ButtonModule } from 'primeng/button';
-import { TooltipModule } from 'primeng/tooltip';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { AutoCompleteModule } from 'primeng/autocomplete';
-import { InputSwitchModule } from 'primeng/inputswitch';
+import { ButtonModule } from 'avan-primeng/button';
+import { TooltipModule } from 'avan-primeng/tooltip';
+import { RadioButtonModule } from 'avan-primeng/radiobutton';
+import { AutoCompleteModule } from 'avan-primeng/autocomplete';
+import { InputSwitchModule } from 'avan-primeng/inputswitch';
 
 import { CarService } from './service/carservice';
 import { CountryService } from './service/countryservice';
@@ -32,7 +32,7 @@ import { AppConfigComponent } from './app.config.component';
 import { AppFooterComponent } from './app.footer.component';
 import { AppInputStyleSwitchModule } from './app.inputstyleswitch.component';
 import { AppDemoActionsModule } from './app.demoactions.component';
-import { BadgeModule } from 'primeng/badge';
+import { BadgeModule } from 'avan-primeng/badge';
 
 @NgModule({
     declarations: [

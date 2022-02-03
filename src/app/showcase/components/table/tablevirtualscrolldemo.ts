@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Car} from '../../components/domain/car';
 import {CarService} from '../../service/carservice';
-import {LazyLoadEvent} from 'primeng/api';
+import {LazyLoadEvent} from 'avan-primeng/api';
 
 @Component({
     templateUrl: './tablevirtualscrolldemo.html'

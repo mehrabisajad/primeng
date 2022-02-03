@@ -2,13 +2,13 @@ import { NgModule, Component, ElementRef, OnInit, AfterViewInit, AfterContentIni
     forwardRef, ViewChild, ChangeDetectorRef, TemplateRef, ContentChildren, QueryList, ContentChild, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { trigger,style,transition,animate,AnimationEvent} from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { ObjectUtils, ZIndexUtils } from 'primeng/utils';
-import { SharedModule, PrimeTemplate, Footer, Header, FilterService, PrimeNGConfig, TranslationKeys, OverlayService } from 'primeng/api';
+import { DomHandler, ConnectedOverlayScrollHandler } from 'avan-primeng/dom';
+import { ObjectUtils, ZIndexUtils } from 'avan-primeng/utils';
+import { SharedModule, PrimeTemplate, Footer, Header, FilterService, PrimeNGConfig, TranslationKeys, OverlayService } from 'avan-primeng/api';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { TooltipModule } from 'primeng/tooltip';
-import { RippleModule } from 'primeng/ripple';
+import { TooltipModule } from 'avan-primeng/tooltip';
+import { RippleModule } from 'avan-primeng/ripple';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,

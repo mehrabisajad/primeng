@@ -3,8 +3,8 @@ import {CommonModule} from '@angular/common';
 import {FormsModule}  from '@angular/forms';
 import {ToggleButtonDemo} from './togglebuttondemo';
 import {ToggleButtonDemoRoutingModule} from './togglebuttondemo-routing.module';
-import {ToggleButtonModule} from 'primeng/togglebutton';
-import {TabViewModule} from 'primeng/tabview';
+import {ToggleButtonModule} from 'avan-primeng/togglebutton';
+import {TabViewModule} from 'avan-primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
 import {AppDemoActionsModule} from '../../app.demoactions.component';
 

@@ -1,5 +1,5 @@
 import { Component, NgModule, Input } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'avan-primeng/button';
 
 @Component({
     selector: 'app-demoActions',
