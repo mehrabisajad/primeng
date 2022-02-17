@@ -12,8 +12,8 @@
     "bugs": {
       "url": "https://github.com/primefaces/primeng/issues"
     },
-    "module": "primeng.js",
-    "typings": "primeng.d.ts",
+    "module": "avan-primeng.js",
+    "typings": "avan-primeng.d.ts",
     "peerDependencies": {
       "@angular/core": "^13.0.0",
       "@angular/common": "^13.0.0",

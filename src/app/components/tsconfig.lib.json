@@ -27,8 +27,8 @@
         "enableI18nLegacyMessageIdFormat": false,
         "strictInjectionParameters": true,
         "strictInputAccessModifiers": true,
-        "flatModuleOutFile": "primeng.js",
-        "flatModuleId": "primeng"
+        "flatModuleOutFile": "avan-primeng.js",
+        "flatModuleId": "avan-primeng"
     },
     "files": [
         "./public_api.ts"

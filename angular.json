@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-      "primeng-library": {
+      "avan-primeng-library": {
         "root": "src",
         "projectType": "library",
         "architect": {
@@ -16,7 +16,7 @@
           }
         }
       },
-      "primeng": {
+      "avan-primeng": {
         "projectType": "application",
         "schematics": {
           "@schematics/angular:component": {
@@ -30,7 +30,7 @@
           "build": {
             "builder": "@angular-devkit/build-angular:browser",
             "options": {
-              "outputPath": "dist/primeng",
+              "outputPath": "dist/avan-primeng",
               "index": "src/index.html",
               "main": "src/main.ts",
               "polyfills": "src/polyfills.ts",
@@ -95,10 +95,10 @@
             "builder": "@angular-devkit/build-angular:dev-server",
             "configurations": {
               "production": {
-                "browserTarget": "primeng:build:production"
+                "browserTarget": "avan-primeng:build:production"
               },
               "development": {
-                "browserTarget": "primeng:build:development"
+                "browserTarget": "avan-primeng:build:development"
               }
             },
             "defaultConfiguration": "development"
@@ -106,7 +106,7 @@
           "extract-i18n": {
             "builder": "@angular-devkit/build-angular:extract-i18n",
             "options": {
-              "browserTarget": "primeng:build"
+              "browserTarget": "avan-primeng:build"
             }
           },
           "test": {
@@ -143,5 +143,5 @@
         }
       }
     },
-    "defaultProject": "primeng"
+    "defaultProject": "avan-primeng"
   }
