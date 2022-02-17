@@ -115,7 +115,7 @@ export interface LocaleSettings {
                         </span>
                     </div>
                 </ng-container>
-                <div class="p-timepicker" *ngIf="showTime||timeOnly">
+                <div class="p-timepicker" *ngIf="(showTime||timeOnly) && currentView === 'date'">
                     <div class="p-hour-picker">
                         <button class="p-link" type="button" (keydown)="onContainerButtonKeydown($event)" (keydown.enter)="incrementHour($event)" (keydown.space)="incrementHour($event)" (mousedown)="onTimePickerElementMouseDown($event, 0, 1)" (mouseup)="onTimePickerElementMouseUp($event)" (keyup.enter)="onTimePickerElementMouseUp($event)" (keyup.space)="onTimePickerElementMouseUp($event)" (mouseleave)="onTimePickerElementMouseLeave()" pRipple>
                             <span class="pi pi-chevron-up"></span>
@@ -912,11 +912,15 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     switchToMonthView(event) {
         this.currentView = 'month';
+        this.cd.detectChanges();
+        this.alignOverlay();
         event.preventDefault();
     }
 
     switchToYearView(event) {
         this.currentView = 'year';
+        this.cd.detectChanges();
+        this.alignOverlay();
         event.preventDefault();
     }
 
@@ -2308,8 +2312,8 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             propValue = propValue[0];
         }
 
-        let val = this.defaultDate && this.isValidDate(this.defaultDate) ? this.defaultDate : (propValue && this.isValidDate(propValue) ? propValue : new Date())
-
+        let val = this.defaultDate && this.isValidDate(this.defaultDate) && !this.value ? this.defaultDate : (propValue && this.isValidDate(propValue) ? propValue : new Date());
+        
         this.currentMonth = val.getMonth();
         this.currentYear = val.getFullYear();
         this.createMonths(this.currentMonth, this.currentYear);

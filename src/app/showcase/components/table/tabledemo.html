@@ -9,7 +9,7 @@
 <div class="content-section implementation">
     <div class="card">
         <p-table #dt [value]="customers" [(selection)]="selectedCustomers" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"
-            [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
+            [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"  responsiveLayout="scroll"
             [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
             [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']">
             <ng-template pTemplate="caption">
@@ -2212,8 +2212,6 @@ export class TableExportDemo implements OnInit &#123;
     &#125;
 &#125;
 </app-code>
-
-
             <p>See the <a [routerLink]="['/table/export']">live example.</a></p>
 
             <h5>Scrolling</h5>
@@ -3362,6 +3360,12 @@ export class TableDemo implements OnInit &#123;
                             <td>null</td>
                             <td>Configures how much buffer space to render back up to when it detects that more buffer is required.</td>
                         </tr>
+                        <tr>
+                            <td>exportHeader</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Custom export header of the column to be exported as CSV.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -3666,7 +3670,7 @@ export class TableDemo implements OnInit &#123;
             </a>
 <app-code lang="markup" ngNonBindable ngPreserveWhitespaces>
 &lt;p-table #dt [value]="customers" [(selection)]="selectedCustomers" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"
-    [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading"
+    [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" responsiveLayout="scroll"
     [paginator]="true" currentPageReportTemplate="Showing &#123;first&#125; to &#123;last&#125; of &#123;totalRecords&#125; entries"
     [filterDelay]="0" [globalFilterFields]="['name','country.name','representative.name','status']"&gt;
     &lt;ng-template pTemplate="caption"&gt;
