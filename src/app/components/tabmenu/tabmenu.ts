@@ -20,9 +20,9 @@ import {TooltipModule} from 'avan-primeng/tooltip';
                         <li *ngFor="let item of model; let i = index" role="tab" [ngStyle]="item.style" [class]="item.styleClass" [attr.aria-selected]="isActive(item)" [attr.aria-expanded]="isActive(item)"
                             [ngClass]="{'p-tabmenuitem':true,'p-disabled':item.disabled,'p-highlight':isActive(item),'p-hidden': item.visible === false}" pTooltip [tooltipOptions]="item.tooltipOptions">
                             <a *ngIf="!item.routerLink" [attr.href]="item.url" class="p-menuitem-link" role="presentation" (click)="itemClick($event,item)" (keydown.enter)="itemClick($event,item)" [attr.tabindex]="item.disabled ? null : '0'"
-                                [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id" pRipple>
+                                [target]="item.target" [attr.title]="item.title" [attr.id]="item.id" pRipple>
                                 <ng-container *ngIf="!itemTemplate">
-                                    <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon"></span>
+                                    <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="item.iconStyle"></span>
                                     <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlLabel">{{item.label}}</span>
                                     <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
                                 </ng-container>
@@ -30,10 +30,10 @@ import {TooltipModule} from 'avan-primeng/tooltip';
                             </a>
                             <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [queryParams]="item.queryParams" [routerLinkActive]="'p-menuitem-link-active'" [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}"
                                 role="presentation" class="p-menuitem-link" (click)="itemClick($event,item)" (keydown.enter)="itemClick($event,item)" [attr.tabindex]="item.disabled ? null : '0'"
-                                [attr.target]="item.target" [attr.title]="item.title" [attr.id]="item.id"
+                                [target]="item.target" [attr.title]="item.title" [attr.id]="item.id"
                                 [fragment]="item.fragment" [queryParamsHandling]="item.queryParamsHandling" [preserveFragment]="item.preserveFragment" [skipLocationChange]="item.skipLocationChange" [replaceUrl]="item.replaceUrl" [state]="item.state" pRipple>
                                 <ng-container *ngIf="!itemTemplate">
-                                    <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon"></span>
+                                    <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="item.iconStyle"></span>
                                     <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlRouteLabel">{{item.label}}</span>
                                     <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
                                 </ng-container>

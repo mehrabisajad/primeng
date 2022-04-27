@@ -46,7 +46,7 @@
             </ng-template>
         </p-multiSelect>
 
-        <h5>Virtual Scroll (10000 Items)</h5>
+        <h5>Virtual Scroll</h5>
         <p-multiSelect [options]="virtualCountries" [showToggleAll]="false" [(ngModel)]="selectedCountries2" optionLabel="name" [virtualScroll]="true" [filter]="true" [itemSize]="34" class="multiselect-custom-virtual-scroll">
             <ng-template let-country pTemplate="item">
                 <div class="country-item">
@@ -70,7 +70,7 @@ npm install @angular/cdk --save
 
             <h5>Import</h5>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
-import &#123;MultiSelectModule&#125; from 'avan-primeng/multiselect';
+import &#123;MultiSelectModule&#125; from 'primeng/multiselect';
 </app-code>
 
             <h5>Getting Started</h5>
@@ -287,6 +287,12 @@ export class MultiSelectDemo &#123;
                             <td>string</td>
                             <td>null</td>
                             <td>Defines a string that labels the filter input.</td>
+                        </tr>
+                        <tr>
+                            <td>label</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Label of the input for accessibility.</td>
                         </tr>
                         <tr>
                             <td>ariaLabelledBy</td>
@@ -783,7 +789,7 @@ export class MultiSelectDemo &#123;
     &lt;/ng-template&gt;
 &lt;/p-multiSelect&gt;
 
-&lt;h5&gt;Virtual Scroll (10000 Items)&lt;/h5&gt;
+&lt;h5&gt;Virtual Scroll&lt;/h5&gt;
 &lt;p-multiSelect [options]="virtualCountries" [showToggleAll]="false" [(ngModel)]="selectedCountries2" optionLabel="name" [virtualScroll]="true" [filter]="true" [itemSize]="34" class="multiselect-custom-virtual-scroll"&gt;
     &lt;ng-template let-country pTemplate="item"&gt;
         &lt;div class="country-item"&gt;

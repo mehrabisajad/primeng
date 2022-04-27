@@ -4,7 +4,7 @@ import {Message, PrimeNGConfig} from 'avan-primeng/api';
 import {DomHandler} from 'avan-primeng/dom';
 import {PrimeTemplate,SharedModule} from 'avan-primeng/api';
 import {MessageService} from 'avan-primeng/api';
-import {UniqueComponentId} from 'avan-primeng/utils';
+import {ObjectUtils, UniqueComponentId} from 'avan-primeng/utils';
 import {RippleModule} from 'avan-primeng/ripple';
 import {Subscription} from 'rxjs';
 import {trigger,state,style,transition,animate,query,animateChild,AnimationEvent} from '@angular/animations';
@@ -305,7 +305,7 @@ export class Toast implements OnInit,AfterContentInit,OnDestroy {
 
     onAnimationEnd(event: AnimationEvent) {
         if (event.toState === 'void') {
-            if (this.autoZIndex) {
+            if (this.autoZIndex && ObjectUtils.isEmpty(this.messages)) {
                 ZIndexUtils.clear(this.containerViewChild.nativeElement);
             }
         }

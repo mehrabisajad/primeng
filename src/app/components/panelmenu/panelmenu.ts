@@ -41,18 +41,18 @@ export class BasePanelMenuItem {
                 <li *ngIf="!child.separator" class="p-menuitem" [ngClass]="child.styleClass" [class.p-hidden]="child.visible === false" [ngStyle]="child.style" pTooltip [tooltipOptions]="child.tooltipOptions">
                     <a *ngIf="!child.routerLink" (keydown)="onItemKeyDown($event)" [attr.href]="child.url" class="p-menuitem-link" [attr.tabindex]="!item.expanded || !parentExpanded ? null : child.disabled ? null : '0'" [attr.id]="child.id"
                         [ngClass]="{'p-disabled':child.disabled}" role="treeitem" [attr.aria-expanded]="child.expanded"
-                        (click)="handleClick($event,child)" [attr.target]="child.target" [attr.title]="child.title">
-                        <span class="p-panelmenu-icon pi pi-fw" [ngClass]="{'pi-angle-right':!child.expanded,'pi-angle-down':child.expanded}" *ngIf="child.items"></span>
-                        <span class="p-menuitem-icon" [ngClass]="child.icon" *ngIf="child.icon"></span>
+                        (click)="handleClick($event,child)" [target]="child.target" [attr.title]="child.title">
+                        <span class="p-panelmenu-icon pi pi-fw" [ngClass]="{'pi-angle-right':!child.expanded,'pi-angle-down':child.expanded}" *ngIf="child.items" [ngStyle]="child.iconStyle"></span>
+                        <span class="p-menuitem-icon" [ngClass]="child.icon" *ngIf="child.icon" [ngStyle]="child.iconStyle"></span>
                         <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlLabel">{{child.label}}</span>
                         <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
                     </a>
                     <a *ngIf="child.routerLink" (keydown)="onItemKeyDown($event)"  [routerLink]="child.routerLink" [queryParams]="child.queryParams" [routerLinkActive]="'p-menuitem-link-active'" [routerLinkActiveOptions]="child.routerLinkActiveOptions||{exact:false}" class="p-menuitem-link"
                         [ngClass]="{'p-disabled':child.disabled}" [attr.tabindex]="!item.expanded || !parentExpanded ? null : child.disabled ? null : '0'" [attr.id]="child.id" role="treeitem" [attr.aria-expanded]="child.expanded"
-                        (click)="handleClick($event,child)" [attr.target]="child.target" [attr.title]="child.title"
+                        (click)="handleClick($event,child)" [target]="child.target" [attr.title]="child.title"
                         [fragment]="child.fragment" [queryParamsHandling]="child.queryParamsHandling" [preserveFragment]="child.preserveFragment" [skipLocationChange]="child.skipLocationChange" [replaceUrl]="child.replaceUrl" [state]="child.state">
-                        <span class="p-panelmenu-icon pi pi-fw" [ngClass]="{'pi-angle-right':!child.expanded,'pi-angle-down':child.expanded}" *ngIf="child.items"></span>
-                        <span class="p-menuitem-icon" [ngClass]="child.icon" *ngIf="child.icon"></span>
+                        <span class="p-panelmenu-icon pi pi-fw" [ngClass]="{'pi-angle-right':!child.expanded,'pi-angle-down':child.expanded}" *ngIf="child.items" [ngStyle]="child.iconStyle"></span>
+                        <span class="p-menuitem-icon" [ngClass]="child.icon" *ngIf="child.icon" [ngStyle]="child.iconStyle"></span>
                         <span class="p-menuitem-text" *ngIf="child.escape !== false; else htmlRouteLabel">{{child.label}}</span>
                         <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="child.label"></span></ng-template>
                     </a>
@@ -121,20 +121,20 @@ export class PanelMenuSub extends BasePanelMenuItem {
     template: `
         <div [class]="styleClass" [ngStyle]="style" [ngClass]="'p-panelmenu p-component'">
             <ng-container *ngFor="let item of model;let f=first;let l=last;">
-                <div class="p-panelmenu-panel" [ngClass]="{'p-hidden': item.visible === false}">
+                <div class="p-panelmenu-panel" *ngIf="visible(item)">
                     <div [ngClass]="{'p-component p-panelmenu-header':true, 'p-highlight':item.expanded,'p-disabled':item.disabled}" [class]="item.styleClass" [ngStyle]="item.style" pTooltip [tooltipOptions]="item.tooltipOptions">
                         <a *ngIf="!item.routerLink" [attr.href]="item.url" (click)="handleClick($event,item)" (keydown)="onItemKeyDown($event)" [attr.tabindex]="item.disabled ? null : '0'" [attr.id]="item.id"
-                           [attr.target]="item.target" [attr.title]="item.title" class="p-panelmenu-header-link" [attr.aria-expanded]="item.expanded" [attr.id]="item.id + '_header'" [attr.aria-controls]="item.id +'_content'">
+                           [target]="item.target" [attr.title]="item.title" class="p-panelmenu-header-link" [attr.aria-expanded]="item.expanded" [attr.id]="item.id + '_header'" [attr.aria-controls]="item.id +'_content'">
                             <span *ngIf="item.items" class="p-panelmenu-icon pi" [ngClass]="{'pi-chevron-right':!item.expanded,'pi-chevron-down':item.expanded}"></span>
-                            <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon"></span>
+                            <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="item.iconStyle"></span>
                             <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlLabel">{{item.label}}</span>
                             <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
                         </a>
                         <a *ngIf="item.routerLink" [routerLink]="item.routerLink" [queryParams]="item.queryParams" [routerLinkActive]="'p-menuitem-link-active'" [routerLinkActiveOptions]="item.routerLinkActiveOptions||{exact:false}"
-                           (click)="handleClick($event,item)" (keydown)="onItemKeyDown($event)" [attr.target]="item.target" [attr.title]="item.title" class="p-panelmenu-header-link" [attr.id]="item.id" [attr.tabindex]="item.disabled ? null : '0'"
+                           (click)="handleClick($event,item)" (keydown)="onItemKeyDown($event)" [target]="item.target" [attr.title]="item.title" class="p-panelmenu-header-link" [attr.id]="item.id" [attr.tabindex]="item.disabled ? null : '0'"
                            [fragment]="item.fragment" [queryParamsHandling]="item.queryParamsHandling" [preserveFragment]="item.preserveFragment" [skipLocationChange]="item.skipLocationChange" [replaceUrl]="item.replaceUrl" [state]="item.state">
                             <span *ngIf="item.items" class="p-panelmenu-icon pi" [ngClass]="{'pi-chevron-right':!item.expanded,'pi-chevron-down':item.expanded}"></span>
-                            <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon"></span>
+                            <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="item.iconStyle"></span>
                             <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlRouteLabel">{{item.label}}</span>
                             <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
                         </a>
@@ -227,6 +227,10 @@ export class PanelMenu extends BasePanelMenuItem {
             default:
             break;
         }
+    }
+
+    visible(item) {
+        return item.visible !== false;
     }
 
 }
