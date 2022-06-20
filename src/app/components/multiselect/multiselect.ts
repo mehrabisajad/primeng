@@ -97,6 +97,7 @@ export class MultiSelectItem {
                     </ng-container>
                     <ng-container *ngTemplateOutlet="selectedItemsTemplate; context: {$implicit: value}"></ng-container>
                 </div>
+                <i *ngIf="value != null && filled && !disabled && showClear" class="p-multiselect-clear-icon pi pi-times" (click)="clear($event)"></i>
             </div>
             <div [ngClass]="{'p-multiselect-trigger':true}">
                 <span class="p-multiselect-trigger-icon" [ngClass]="dropdownIcon"></span>
@@ -187,7 +188,8 @@ export class MultiSelectItem {
     host: {
         'class': 'p-element p-inputwrapper',
         '[class.p-inputwrapper-filled]': 'filled',
-        '[class.p-inputwrapper-focus]': 'focus || overlayVisible'
+        '[class.p-inputwrapper-focus]': 'focus || overlayVisible',
+        '[class.p-multiselect-clearable]': 'showClear && !disabled'
     },
     providers: [MULTISELECT_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -294,6 +296,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     @Input() autocomplete: string = 'on';
 
+    @Input() showClear: boolean = false;
+
     @ViewChild('container') containerViewChild: ElementRef;
 
     @ViewChild('filterInput') filterInputChild: ElementRef;
@@ -315,6 +319,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
 
     @Output() onClick: EventEmitter<any> = new EventEmitter();
+
+    @Output() onClear: EventEmitter<any> = new EventEmitter();
 
     @Output() onPanelShow: EventEmitter<any> = new EventEmitter();
 
@@ -761,6 +767,15 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
         event.stopPropagation();
     }
 
+    clear(event) {
+        this.value = null;
+        this.updateLabel();
+        this.updateFilledState();
+        this.onClear.emit();
+        this.onModelChange(this.value);
+        event.stopPropagation();
+    }
+
     onMouseclick(event: MouseEvent, input) {
         if (this.disabled || this.readonly || (<Node> event.target).isSameNode(this.accessibleViewChild.nativeElement)) {
             return;
@@ -1116,7 +1131,7 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     }
 
     onWindowResize() {
-        if (!DomHandler.isAndroid()) {
+        if (this.overlayVisible && !DomHandler.isTouchDevice()) {
             this.hide();
         }
     }

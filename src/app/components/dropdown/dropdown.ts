@@ -441,6 +441,13 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this._options = val;
         this.optionsToDisplay = this._options;
         this.updateSelectedOption(this.value);
+
+        this.selectedOption = this.findOption(this.value, this.optionsToDisplay);
+        if (!this.selectedOption && this.value !== null) {
+            this.value = null;
+            this.onModelChange(this.value);
+        }
+
         this.optionsChanged = true;
 
         if (this._filterValue && this._filterValue.length) {
@@ -510,7 +517,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
         if (!this.isOptionDisabled(option)) {
             this.selectItem(event.originalEvent, option);
-            this.accessibleViewChild.nativeElement.focus();
+            this.accessibleViewChild.nativeElement.focus({ preventScroll: true });
         }
 
         setTimeout(() => {
@@ -596,7 +603,11 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         this.selectedOption = this.findOption(val, this.optionsToDisplay);
 
         if (this.autoDisplayFirst && !this.placeholder && !this.selectedOption && this.optionsToDisplay && this.optionsToDisplay.length && !this.editable) {
-            this.selectedOption = this.optionsToDisplay[0];
+            if(this.group) {
+                this.selectedOption = this.optionsToDisplay[0].items[0];
+            } else {
+                this.selectedOption = this.optionsToDisplay[0];
+            }
             this.value = this.getOptionValue(this.selectedOption);
             this.onModelChange(this.value);
         }
@@ -623,7 +634,7 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
         }
 
         this.onClick.emit(event);
-        this.accessibleViewChild.nativeElement.focus();
+        this.accessibleViewChild.nativeElement.focus({ preventScroll: true });
 
         if (this.overlayVisible)
             this.hide();
@@ -676,7 +687,6 @@ export class Dropdown implements OnInit,AfterViewInit,AfterContentInit,AfterView
 
     show() {
         this.overlayVisible = true;
-        this.preventDocumentDefault = true;
         this.cd.markForCheck();
     }
 
