@@ -14,25 +14,45 @@
                 <label for="basic">Basic</label>
                 <p-calendar inputId="basic" [(ngModel)]="date1"></p-calendar>
             </div>
+            <div class="field col-12 md:col-4">
+                <label for="jbasic">Jalali Basic</label>
+                <p-calendar inputId="jbasic" [(ngModel)]="date1" [isJalali]="true"></p-calendar>
+            </div>
 
             <div class="field col-12 md:col-4">
                 <label for="dateformat">DateFormat</label>
                 <p-calendar [(ngModel)]="date2" dateFormat="mm-dd-yy" inputId="dateformat"></p-calendar>
+            </div>
+            <div class="field col-12 md:col-4">
+                <label for="jdateformat">Jalali DateFormat</label>
+                <p-calendar [(ngModel)]="date2" dateFormat="mm-dd-yy" [isJalali]="true" inputId="jdateformat"></p-calendar>
             </div>
 
             <div class="field col-12 md:col-4">
                 <label for="icon">Icon</label>
                 <p-calendar [(ngModel)]="date3" [showIcon]="true" inputId="icon"></p-calendar>
             </div>
+            <div class="field col-12 md:col-4">
+                <label for="jicon">Jalali Icon</label>
+                <p-calendar [(ngModel)]="date3" [showIcon]="true" [isJalali]="true" inputId="jicon"></p-calendar>
+            </div>
 
             <div class="field col-12 md:col-4">
                 <label for="min-max">MinMax</label>
                 <p-calendar [(ngModel)]="date4" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true" inputId="min-max"></p-calendar>
             </div>
+            <div class="field col-12 md:col-4">
+                <label for="jmin-max">Jalali MinMax</label>
+                <p-calendar [(ngModel)]="date4" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true" [isJalali]="true" inputId="jmin-max"></p-calendar>
+            </div>
 
             <div class="field col-12 md:col-4">
                 <label for="disabledays">Disabled Days</label>
                 <p-calendar [(ngModel)]="date5" [disabledDates]="invalidDates" [disabledDays]="[0,6]" [readonlyInput]="true" inputId="disabledays"></p-calendar>
+            </div>
+            <div class="field col-12 md:col-4">
+                <label for="jdisabledays">Jalali Disabled Days</label>
+                <p-calendar [(ngModel)]="date5" [disabledDates]="invalidDates" [disabledDays]="[0,6]" [readonlyInput]="true" [isJalali]="true" inputId="jdisabledays"></p-calendar>
             </div>
 
             <div class="field col-12 md:col-4">
@@ -44,35 +64,63 @@
                 <label for="range">Range</label>
                 <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" inputId="range"></p-calendar>
             </div>
+            <div class="field col-12 md:col-4">
+                <label for="jrange">Jalali Range</label>
+                <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" [isJalali]="true" inputId="jrange"></p-calendar>
+            </div>
 
             <div class="field col-12 md:col-4">
                 <label for="buttonbar">Button Bar</label>
                 <p-calendar [(ngModel)]="date6" showButtonBar="true" inputId="buttonbar"></p-calendar>
+            </div>
+            <div class="field col-12 md:col-4">
+                <label for="jbuttonbar">Jalali Button Bar</label>
+                <p-calendar [(ngModel)]="date6" showButtonBar="true" [isJalali]="true" inputId="jbuttonbar"></p-calendar>
             </div>
 
             <div class="field col-12 md:col-4">
                 <label for="time">Time / 24h</label>
                 <p-calendar [(ngModel)]="date7" [showTime]="true" [showSeconds]="true" inputId="time"></p-calendar>
             </div>
+            <div class="field col-12 md:col-4">
+                <label for="jtime">Jalali Time / 24h</label>
+                <p-calendar [(ngModel)]="date7" [showTime]="true" [showSeconds]="true" [isJalali]="true" inputId="jtime"></p-calendar>
+            </div>
 
             <div class="field col-12 md:col-4">
                 <label for="timeonly">Time / 12h</label>
                 <p-calendar [(ngModel)]="date8" [timeOnly]="true" hourFormat="12" inputId="timeonly"></p-calendar>
+            </div>
+            <div class="field col-12 md:col-4">
+                <label for="jtimeonly">Jalali Time / 12h</label>
+                <p-calendar [(ngModel)]="date8" [timeOnly]="true" hourFormat="12" [isJalali]="true" inputId="jtimeonly"></p-calendar>
             </div>
 
             <div class="field col-12 md:col-4">
                 <label for="monthpicker">Month Picker</label>
                 <p-calendar [(ngModel)]="date9" view="month" dateFormat="mm/yy" [readonlyInput]="true" inputId="monthpicker"></p-calendar>
             </div>
+            <div class="field col-12 md:col-4">
+                <label for="jmonthpicker">Jalali Month Picker</label>
+                <p-calendar [(ngModel)]="date9" view="month" dateFormat="mm/yy" [readonlyInput]="true" [isJalali]="true" inputId="jmonthpicker"></p-calendar>
+            </div>
 
             <div class="field col-12 md:col-4">
                 <label for="yearpicker">Year Picker</label>
                 <p-calendar [(ngModel)]="date10" view="year" dateFormat="yy" inputId="yearpicker"></p-calendar>
             </div>
+            <div class="field col-12 md:col-4">
+                <label for="jyearpicker">Jalali Year Picker</label>
+                <p-calendar [(ngModel)]="date10" view="year" dateFormat="yy" [isJalali]="true" inputId="jyearpicker"></p-calendar>
+            </div>
 
             <div class="field col-12 md:col-4">
                 <label for="multiplemonths">Multiple Months</label>
                 <p-calendar [(ngModel)]="date11" [numberOfMonths]="3" inputId="multiplemonths"></p-calendar>
+            </div>
+            <div class="field col-12 md:col-4">
+                <label for="jmultiplemonths">Jalali Multiple Months</label>
+                <p-calendar [(ngModel)]="date11" [numberOfMonths]="3" [isJalali]="true" inputId="jmultiplemonths"></p-calendar>
             </div>
 
             <div class="field col-12 md:col-4">
@@ -83,15 +131,29 @@
                     </ng-template>
                 </p-calendar>
             </div>
+            <div class="field col-12 md:col-4">
+                <label for="jtemplate">Jalali Date Template</label>
+                <p-calendar [(ngModel)]="date12" [isJalali]="true" inputId="jtemplate">
+                    <ng-template pTemplate="date" let-date>
+                        <span [ngStyle]="{textDecoration: (date.day < 21 && date.day > 10) ? 'line-through' : 'inherit'}">{{date.day}}</span>
+                    </ng-template>
+                </p-calendar>
+            </div>
 
             <div class="field col-12 md:col-4">
                 <label for="touchui">Touch UI</label>
                 <p-calendar [(ngModel)]="date13" [touchUI]="true" [readonlyInput]="true" inputId="touchui"></p-calendar>
             </div>
+            <div class="field col-12 md:col-4">
+                <label for="jtouchui">Jalali Touch UI</label>
+                <p-calendar [(ngModel)]="date13" [touchUI]="true" [readonlyInput]="true" [isJalali]="true" inputId="jtouchui"></p-calendar>
+            </div>
         </div>
 
         <h5>Inline</h5>
         <p-calendar [(ngModel)]="date14" [inline]="true" [showWeek]="true"></p-calendar>
+        <h5>Jalali Inline</h5>
+        <p-calendar [(ngModel)]="date14" [isJalali]="true" [inline]="true" [showWeek]="true"></p-calendar>
     </div>
 
 </div>
