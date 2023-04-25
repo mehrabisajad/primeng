@@ -1,8 +1,8 @@
 import { Component,ElementRef,OnInit,ViewChild,OnDestroy, ChangeDetectorRef } from "@angular/core";
-import { MenuItem, SelectItem, TreeNode } from "primeng/api";
+import { MenuItem, SelectItem, TreeNode } from "avan-primeng/api";
 import { NodeService } from "../../service/nodeservice";
 import { CustomerService } from "../../service/customerservice";
-import { Table } from "primeng/table";
+import { Table } from "avan-primeng/table";
 import { AppConfigService } from "../../service/appconfigservice";
 import { AppConfig } from "../../domain/appconfig";
 import { Customer, Representative } from "../../domain/customer";
@@ -16,7 +16,7 @@ interface City {
     templateUrl: "./landing.component.html"
 })
 export class LandingComponent implements OnInit, OnDestroy {
-	
+
     @ViewChild("containerElement") containerElement: ElementRef;
 
     @ViewChild("dt") table: Table;
@@ -192,9 +192,9 @@ export class LandingComponent implements OnInit, OnDestroy {
                 label: "Trebuches MS",
                 value: "Trebuchet MS,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Tahoma,sans-serif",
             },
-            { 
-                label: "Verdana", 
-                value: "Verdana,Geneva,sans-serif" 
+            {
+                label: "Verdana",
+                value: "Verdana,Geneva,sans-serif"
             }
         ];
 
@@ -271,9 +271,9 @@ export class LandingComponent implements OnInit, OnDestroy {
             const cloneLinkElement = linkElement.cloneNode(true);
             cloneLinkElement.setAttribute('href', linkElement.getAttribute('href').replace(currentTableTheme, theme));
             cloneLinkElement.setAttribute('id', id + '-clone');
-    
+
             linkElement.parentNode.insertBefore(cloneLinkElement, linkElement.nextSibling);
-    
+
             cloneLinkElement.addEventListener('load', () => {
                 linkElement.remove();
                 cloneLinkElement.setAttribute('id', id);
