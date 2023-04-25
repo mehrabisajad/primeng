@@ -3024,6 +3024,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     onChangeCalenderButtonClick(event) {
         this.isJalali = !this.isJalali;
+        this.createWeekDays();
         this.updateUI();
         this.updateInputfield();
         this.cd.detectChanges();
