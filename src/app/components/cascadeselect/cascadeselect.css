@@ -75,6 +75,11 @@
     top: 0;
 }
 
+html[dir='rtl'] .p-cascadeselect-item-active > .p-cascadeselect-sublist {
+    left: unset;
+    right: 100%;
+}
+
 .p-cascadeselect-clear-icon {
     position: absolute;
     top: 50%;
@@ -93,4 +98,9 @@
 
 .p-overlay-modal .p-cascadeselect-item-active > .p-cascadeselect-sublist {
     left: 0;
+}
+
+html[dir='rtl'] .p-overlay-modal .p-cascadeselect-item-active > .p-cascadeselect-sublist {
+    left: unset;
+    right: 0;
 }
