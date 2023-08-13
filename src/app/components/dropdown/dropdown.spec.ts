@@ -5,8 +5,8 @@ import { Dropdown, DropdownItem } from './dropdown';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
-import { TooltipModule } from 'primeng/tooltip';
-import { OverlayModule } from 'primeng/overlay';
+import { TooltipModule } from 'avan-primeng/tooltip';
+import { OverlayModule } from 'avan-primeng/overlay';
 
 @Component({
     template: `

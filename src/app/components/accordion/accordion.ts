@@ -19,7 +19,7 @@ import {
 } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { SharedModule, Header, PrimeTemplate, BlockableUI } from 'primeng/api';
+import { SharedModule, Header, PrimeTemplate, BlockableUI } from 'avan-primeng/api';
 import { Subscription } from 'rxjs';
 
 let idx: number = 0;

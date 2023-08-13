@@ -8,7 +8,7 @@
     <p>It has two valid values; <i>overlay</i> and <i>modal</i>. In overlay mode, a container element is opened like overlaypanel or dropdown's panel.
         In modal mode, the container element behaves like popup. This behaviour is similar to a dialog component.</p>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
-import &#123; PrimeNGConfig, OverlayOptions &#125; from 'primeng/api';
+import &#123; PrimeNGConfig, OverlayOptions &#125; from 'avan-primeng/api';
 
 @Component(&#123;
     selector: 'app-root',
@@ -30,7 +30,7 @@ export class AppComponent implements OnInit &#123;
     <h6>Responsive</h6>
     <p>It is the option used to determine in which mode it should appear according to the given <i>media</i> or <i>breakpoint</i>.</p>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
-import &#123; PrimeNGConfig, OverlayOptions, ResponsiveOverlayDirectionType &#125; from 'primeng/api';
+import &#123; PrimeNGConfig, OverlayOptions, ResponsiveOverlayDirectionType &#125; from 'avan-primeng/api';
 
 const responsiveOptions: ResponsiveOverlayOptions = &#123;
     // style?: any;                                     // Style of component in given breakpoint or media query
@@ -67,7 +67,7 @@ this.primengConfig.overlayOptions: OverlayOptions = &#123;
     <h6>AppendTo</h6>
     <p>Overlay can be mounted into its location, body or DOM element instance using this option.</p>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
-import &#123; PrimeNGConfig, OverlayOptions &#125; from 'primeng/api';
+import &#123; PrimeNGConfig, OverlayOptions &#125; from 'avan-primeng/api';
 
 this.primengConfig.overlayOptions: OverlayOptions = &#123;
     appendTo: 'body'
@@ -99,7 +99,7 @@ this.primengConfig.overlayOptions: OverlayOptions = &#123;
 
     <h6>Events</h6>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
-import &#123; PrimeNGConfig, OverlayOptions, OverlayOnBeforeShowEvent, OverlayOnShowEvent, OverlayOnBeforeHideEvent, OverlayOnHideEvent &#125; from 'primeng/api';
+import &#123; PrimeNGConfig, OverlayOptions, OverlayOnBeforeShowEvent, OverlayOnShowEvent, OverlayOnBeforeHideEvent, OverlayOnHideEvent &#125; from 'avan-primeng/api';
 import &#123; AnimationEvent &#125; from '@angular/animations';
 
 this.primengConfig.overlayOptions: OverlayOptions = &#123;
@@ -124,7 +124,7 @@ this.primengConfig.overlayOptions: OverlayOptions = &#123;
 
     <h6 class="mt-3">Import</h6>
 <app-code lang="typescript" ngNonBindable ngPreserveWhitespaces>
-import &#123; OverlayModule &#125; from 'primeng/overlay';
+import &#123; OverlayModule &#125; from 'avan-primeng/overlay';
 </app-code>
 
     <h6>Getting Started</h6>

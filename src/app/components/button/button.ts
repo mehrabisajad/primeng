@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, EventEmitter, Input, NgModule, OnDestroy, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { PrimeTemplate } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { RippleModule } from 'primeng/ripple';
-import { ObjectUtils } from 'primeng/utils';
+import { PrimeTemplate } from 'avan-primeng/api';
+import { DomHandler } from 'avan-primeng/dom';
+import { RippleModule } from 'avan-primeng/ripple';
+import { ObjectUtils } from 'avan-primeng/utils';
 
 type ButtonIconPosition = 'left' | 'right' | 'top' | 'bottom';
 

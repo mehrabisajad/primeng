@@ -21,10 +21,10 @@ import {
     Inject
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TooltipModule } from 'primeng/tooltip';
-import { RippleModule } from 'primeng/ripple';
-import { SharedModule, PrimeTemplate, BlockableUI } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
+import { TooltipModule } from 'avan-primeng/tooltip';
+import { RippleModule } from 'avan-primeng/ripple';
+import { SharedModule, PrimeTemplate, BlockableUI } from 'avan-primeng/api';
+import { DomHandler } from 'avan-primeng/dom';
 import { Subscription } from 'rxjs';
 
 let idx: number = 0;

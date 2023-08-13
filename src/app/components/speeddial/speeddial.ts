@@ -18,11 +18,11 @@ import {
     AfterViewInit
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule, PrimeTemplate, MenuItem } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { RippleModule } from 'primeng/ripple';
-import { TooltipModule } from 'primeng/tooltip';
-import { DomHandler } from 'primeng/dom';
+import { SharedModule, PrimeTemplate, MenuItem } from 'avan-primeng/api';
+import { ButtonModule } from 'avan-primeng/button';
+import { RippleModule } from 'avan-primeng/ripple';
+import { TooltipModule } from 'avan-primeng/tooltip';
+import { DomHandler } from 'avan-primeng/dom';
 import { RouterModule } from '@angular/router';
 
 @Component({

@@ -20,10 +20,10 @@ import {
     AfterViewInit
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule, PrimeTemplate, PrimeNGConfig } from 'primeng/api';
-import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
-import { DomHandler } from 'primeng/dom';
-import { RippleModule } from 'primeng/ripple';
+import { SharedModule, PrimeTemplate, PrimeNGConfig } from 'avan-primeng/api';
+import { UniqueComponentId, ZIndexUtils } from 'avan-primeng/utils';
+import { DomHandler } from 'avan-primeng/dom';
+import { RippleModule } from 'avan-primeng/ripple';
 import { animate, style, transition, trigger, AnimationEvent } from '@angular/animations';
 
 @Component({

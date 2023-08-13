@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, NgModule, OnInit, Output, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { DomHandler } from 'primeng/dom';
-import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'avan-primeng/button';
+import { DomHandler } from 'avan-primeng/dom';
+import { InputTextModule } from 'avan-primeng/inputtext';
 
 export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,

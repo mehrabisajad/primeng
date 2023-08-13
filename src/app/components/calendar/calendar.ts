@@ -21,11 +21,11 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { RippleModule } from 'primeng/ripple';
-import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'avan-primeng/api';
+import { ButtonModule } from 'avan-primeng/button';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'avan-primeng/dom';
+import { RippleModule } from 'avan-primeng/ripple';
+import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'avan-primeng/utils';
 import { Subscription } from 'rxjs';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {

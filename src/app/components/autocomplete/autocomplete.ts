@@ -21,15 +21,15 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
-import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button';
-import { RippleModule } from 'primeng/ripple';
-import { SharedModule, PrimeTemplate, TranslationKeys, PrimeNGConfig, OverlayService } from 'primeng/api';
-import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { InputTextModule } from 'avan-primeng/inputtext';
+import { ButtonModule } from 'avan-primeng/button';
+import { RippleModule } from 'avan-primeng/ripple';
+import { SharedModule, PrimeTemplate, TranslationKeys, PrimeNGConfig, OverlayService } from 'avan-primeng/api';
+import { DomHandler, ConnectedOverlayScrollHandler } from 'avan-primeng/dom';
+import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'avan-primeng/utils';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
-import { AutoFocusModule } from 'primeng/autofocus';
+import { Scroller, ScrollerModule, ScrollerOptions } from 'avan-primeng/scroller';
+import { AutoFocusModule } from 'avan-primeng/autofocus';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,

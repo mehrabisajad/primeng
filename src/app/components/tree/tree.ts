@@ -21,16 +21,16 @@ import {
 } from '@angular/core';
 import { Optional } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PrimeNGConfig, TranslationKeys, TreeNode } from 'primeng/api';
-import { SharedModule } from 'primeng/api';
-import { PrimeTemplate } from 'primeng/api';
-import { TreeDragDropService } from 'primeng/api';
+import { PrimeNGConfig, TranslationKeys, TreeNode } from 'avan-primeng/api';
+import { SharedModule } from 'avan-primeng/api';
+import { PrimeTemplate } from 'avan-primeng/api';
+import { TreeDragDropService } from 'avan-primeng/api';
 import { Subscription } from 'rxjs';
-import { BlockableUI } from 'primeng/api';
-import { ObjectUtils } from 'primeng/utils';
-import { DomHandler } from 'primeng/dom';
-import { RippleModule } from 'primeng/ripple';
-import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
+import { BlockableUI } from 'avan-primeng/api';
+import { ObjectUtils } from 'avan-primeng/utils';
+import { DomHandler } from 'avan-primeng/dom';
+import { RippleModule } from 'avan-primeng/ripple';
+import { Scroller, ScrollerModule, ScrollerOptions } from 'avan-primeng/scroller';
 
 @Component({
     selector: 'p-treeNode',

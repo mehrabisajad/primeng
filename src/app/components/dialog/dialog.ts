@@ -22,11 +22,11 @@ import {
 } from '@angular/core';
 import { trigger, style, transition, animate, AnimationEvent, animation, useAnimation } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { DomHandler } from 'primeng/dom';
-import { Header, Footer, SharedModule, PrimeTemplate, PrimeNGConfig } from 'primeng/api';
-import { FocusTrapModule } from 'primeng/focustrap';
-import { RippleModule } from 'primeng/ripple';
-import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { DomHandler } from 'avan-primeng/dom';
+import { Header, Footer, SharedModule, PrimeTemplate, PrimeNGConfig } from 'avan-primeng/api';
+import { FocusTrapModule } from 'avan-primeng/focustrap';
+import { RippleModule } from 'avan-primeng/ripple';
+import { UniqueComponentId, ZIndexUtils } from 'avan-primeng/utils';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 

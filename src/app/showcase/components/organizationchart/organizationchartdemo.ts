@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { TreeNode } from 'primeng/api';
-import { MessageService } from 'primeng/api';
+import { TreeNode } from 'avan-primeng/api';
+import { MessageService } from 'avan-primeng/api';
 
 @Component({
     templateUrl: './organizationchartdemo.html',

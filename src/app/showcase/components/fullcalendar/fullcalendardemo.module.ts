@@ -1,5 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { TabViewModule } from 'primeng/tabview';
+import { TabViewModule } from 'avan-primeng/tabview';
 import { AppCodeModule } from '../../app.code.component';
 import { AppDemoActionsModule } from '../../app.demoactions.component';
 import { FullCalendarDemo } from './fullcalendardemo';
