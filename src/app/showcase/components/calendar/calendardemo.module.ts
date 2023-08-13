@@ -3,8 +3,8 @@ import {CommonModule} from '@angular/common';
 import {FormsModule}    from '@angular/forms'
 import {CalendarDemo} from './calendardemo';
 import {CalendarDemoRoutingModule} from './calendardemo-routing.module';
-import {CalendarModule} from 'primeng/calendar';
-import {TabViewModule} from 'primeng/tabview';
+import {CalendarModule} from 'avan-primeng/calendar';
+import {TabViewModule} from 'avan-primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
 import {AppDemoActionsModule} from '../../app.demoactions.component';
 

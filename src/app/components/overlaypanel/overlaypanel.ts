@@ -1,11 +1,11 @@
 import {NgModule,Component,Input,Output,OnDestroy,EventEmitter,Renderer2,ElementRef,ChangeDetectorRef,NgZone,
         ContentChildren,TemplateRef,AfterContentInit,QueryList,ChangeDetectionStrategy, ViewEncapsulation, ViewRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
-import {SharedModule,PrimeTemplate, PrimeNGConfig, OverlayService} from 'primeng/api';
-import {RippleModule} from 'primeng/ripple';
+import {DomHandler, ConnectedOverlayScrollHandler} from 'avan-primeng/dom';
+import {SharedModule,PrimeTemplate, PrimeNGConfig, OverlayService} from 'avan-primeng/api';
+import {RippleModule} from 'avan-primeng/ripple';
 import {trigger,state,style,transition,animate,AnimationEvent} from '@angular/animations';
-import {ZIndexUtils} from 'primeng/utils';
+import {ZIndexUtils} from 'avan-primeng/utils';
 import { Subscription } from 'rxjs';
 
 @Component({

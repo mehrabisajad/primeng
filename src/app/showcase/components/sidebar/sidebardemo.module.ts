@@ -3,9 +3,9 @@ import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {SidebarDemo} from './sidebardemo';
 import {SidebarDemoRoutingModule} from './sidebardemo-routing.module';
-import {SidebarModule} from 'primeng/sidebar';
-import {ButtonModule} from 'primeng/button';
-import {TabViewModule} from 'primeng/tabview';
+import {SidebarModule} from 'avan-primeng/sidebar';
+import {ButtonModule} from 'avan-primeng/button';
+import {TabViewModule} from 'avan-primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
 import {AppDemoActionsModule} from '../../app.demoactions.component';
 

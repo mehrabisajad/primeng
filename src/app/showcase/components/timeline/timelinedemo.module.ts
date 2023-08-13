@@ -2,11 +2,11 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {TimelineDemo} from './timelinedemo';
 import {TimelineDemoRoutingModule} from './timelinedemo-routing.module';
-import {TimelineModule} from 'primeng/timeline';
-import {CardModule} from 'primeng/card';
-import {ButtonModule} from 'primeng/button';
-import {SplitButtonModule} from 'primeng/splitbutton';
-import {TabViewModule} from 'primeng/tabview';
+import {TimelineModule} from 'avan-primeng/timeline';
+import {CardModule} from 'avan-primeng/card';
+import {ButtonModule} from 'avan-primeng/button';
+import {SplitButtonModule} from 'avan-primeng/splitbutton';
+import {TabViewModule} from 'avan-primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
 import {AppDemoActionsModule} from '../../app.demoactions.component';
 

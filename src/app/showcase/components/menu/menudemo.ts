@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {MenuItem, MessageService} from 'primeng/api';
+import {MenuItem, MessageService} from 'avan-primeng/api';
 
 @Component({
     templateUrl: './menudemo.html',

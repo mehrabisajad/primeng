@@ -11,12 +11,12 @@ import {TreeContextMenuDemo} from './treecontextmenudemo';
 import {TreeDragDropDemo} from './treedragdropdemo';
 import {TreeHorizontalDemo} from './treehorizontaldemo';
 import {TreeDemoRoutingModule} from './treedemo-routing.module';
-import {TreeModule} from 'primeng/tree';
-import {ToastModule} from 'primeng/toast';
-import {ButtonModule} from 'primeng/button';
-import {DialogModule} from 'primeng/dialog';
-import {ContextMenuModule} from 'primeng/contextmenu';
-import {TabViewModule} from 'primeng/tabview';
+import {TreeModule} from 'avan-primeng/tree';
+import {ToastModule} from 'avan-primeng/toast';
+import {ButtonModule} from 'avan-primeng/button';
+import {DialogModule} from 'avan-primeng/dialog';
+import {ContextMenuModule} from 'avan-primeng/contextmenu';
+import {TabViewModule} from 'avan-primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
 import {AppDemoActionsModule} from '../../app.demoactions.component';
 

@@ -1,6 +1,6 @@
 import { CommonModule} from '@angular/common';
 import { NgModule, Directive, ElementRef, Input, Renderer2, OnDestroy, AfterViewInit } from '@angular/core';
-import { DomHandler } from 'primeng/dom';
+import { DomHandler } from 'avan-primeng/dom';
 
 @Directive({
     selector: '[pStyleClass]',

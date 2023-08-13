@@ -1,11 +1,11 @@
 import { NgModule, Component, ElementRef, AfterContentInit, AfterViewChecked, Input, Output, ContentChildren, QueryList, TemplateRef, EventEmitter, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ButtonModule} from 'primeng/button';
-import {SharedModule,PrimeTemplate,FilterService} from 'primeng/api';
-import {DomHandler} from 'primeng/dom';
-import {RippleModule} from 'primeng/ripple';
+import {ButtonModule} from 'avan-primeng/button';
+import {SharedModule,PrimeTemplate,FilterService} from 'avan-primeng/api';
+import {DomHandler} from 'avan-primeng/dom';
+import {RippleModule} from 'avan-primeng/ripple';
 import {CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
-import {ObjectUtils, UniqueComponentId} from 'primeng/utils';
+import {ObjectUtils, UniqueComponentId} from 'avan-primeng/utils';
 
 @Component({
     selector: 'p-pickList',

@@ -1,7 +1,7 @@
 import {NgModule,Component,ElementRef,AfterViewInit,Input,Output,EventEmitter,ContentChild,forwardRef,ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, AfterContentInit, TemplateRef} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {SharedModule,Header, PrimeTemplate} from 'primeng/api'
-import {DomHandler} from 'primeng/dom';
+import {SharedModule,Header, PrimeTemplate} from 'avan-primeng/api'
+import {DomHandler} from 'avan-primeng/dom';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 import Quill from "quill";
 

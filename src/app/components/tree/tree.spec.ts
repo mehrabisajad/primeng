@@ -2,10 +2,10 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Tree, UITreeNode } from './tree';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ContextMenu, ContextMenuSub } from 'primeng/contextmenu';
+import { ContextMenu, ContextMenuSub } from 'avan-primeng/contextmenu';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
-import { ContextMenuService, TreeDragDropService } from 'primeng/api';
+import { ContextMenuService, TreeDragDropService } from 'avan-primeng/api';
 import { first } from 'rxjs/operators';
 
 @Component({

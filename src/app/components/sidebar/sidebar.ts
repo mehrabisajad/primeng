@@ -1,10 +1,10 @@
 import { NgModule, Component, AfterViewInit, OnDestroy, Input, Output, EventEmitter, ElementRef, Renderer2, ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, AfterContentInit, TemplateRef, ChangeDetectorRef } from '@angular/core';
 import { trigger, style, transition, animate, animation, useAnimation } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { RippleModule } from 'primeng/ripple';
-import { DomHandler } from 'primeng/dom';
-import { PrimeNGConfig, PrimeTemplate } from 'primeng/api';
-import { ZIndexUtils } from 'primeng/utils';
+import { RippleModule } from 'avan-primeng/ripple';
+import { DomHandler } from 'avan-primeng/dom';
+import { PrimeNGConfig, PrimeTemplate } from 'avan-primeng/api';
+import { ZIndexUtils } from 'avan-primeng/utils';
 
 const showAnimation = animation([
     style({ transform: '{{transform}}', opacity: 0 }),

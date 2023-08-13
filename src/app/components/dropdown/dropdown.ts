@@ -3,13 +3,13 @@ import {NgModule,Component,ElementRef,OnInit,AfterViewInit,AfterContentInit,Afte
         QueryList,ViewChild,TemplateRef,forwardRef,ChangeDetectorRef,NgZone,ViewRef,ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {trigger,style,transition,animate,AnimationEvent} from '@angular/animations';
 import {CommonModule} from '@angular/common';
-import {OverlayService, PrimeNGConfig, SelectItem, TranslationKeys} from 'primeng/api';
-import {SharedModule,PrimeTemplate, FilterService} from 'primeng/api';
-import {DomHandler, ConnectedOverlayScrollHandler} from 'primeng/dom';
-import {ObjectUtils,UniqueComponentId,ZIndexUtils} from 'primeng/utils';
+import {OverlayService, PrimeNGConfig, SelectItem, TranslationKeys} from 'avan-primeng/api';
+import {SharedModule,PrimeTemplate, FilterService} from 'avan-primeng/api';
+import {DomHandler, ConnectedOverlayScrollHandler} from 'avan-primeng/dom';
+import {ObjectUtils,UniqueComponentId,ZIndexUtils} from 'avan-primeng/utils';
 import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
-import {TooltipModule} from 'primeng/tooltip';
-import {RippleModule} from 'primeng/ripple';
+import {TooltipModule} from 'avan-primeng/tooltip';
+import {RippleModule} from 'avan-primeng/ripple';
 
 export const DROPDOWN_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,

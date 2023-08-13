@@ -1,5 +1,5 @@
 import {Component,OnInit} from '@angular/core';
-import {TreeNode} from 'primeng/api';
+import {TreeNode} from 'avan-primeng/api';
 
 @Component({
     templateUrl: './treetemplatingdemo.html',

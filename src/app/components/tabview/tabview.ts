@@ -1,11 +1,11 @@
 import {NgModule,Component,ElementRef,OnDestroy,Input,Output,EventEmitter,AfterContentInit,
         ContentChildren,QueryList,TemplateRef,EmbeddedViewRef,ViewContainerRef,ChangeDetectorRef,ChangeDetectionStrategy, ViewEncapsulation, ViewChild, AfterViewChecked, forwardRef, Inject} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {TooltipModule} from 'primeng/tooltip';
-import {RippleModule} from 'primeng/ripple';
-import {SharedModule,PrimeTemplate} from 'primeng/api';
-import {BlockableUI} from 'primeng/api';
-import {DomHandler} from 'primeng/dom';
+import {TooltipModule} from 'avan-primeng/tooltip';
+import {RippleModule} from 'avan-primeng/ripple';
+import {SharedModule,PrimeTemplate} from 'avan-primeng/api';
+import {BlockableUI} from 'avan-primeng/api';
+import {DomHandler} from 'avan-primeng/dom';
 
 let idx: number = 0;
 

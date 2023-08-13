@@ -3,11 +3,11 @@ import {CommonModule} from '@angular/common';
 import {FormsModule}    from '@angular/forms'
 import {ColorPickerDemo} from './colorpickerdemo';
 import {ColorPickerDemoRoutingModule} from './colorpickerdemo-routing.module';
-import {ColorPickerModule} from 'primeng/colorpicker';
-import {TabViewModule} from 'primeng/tabview';
+import {ColorPickerModule} from 'avan-primeng/colorpicker';
+import {TabViewModule} from 'avan-primeng/tabview';
 import {AppCodeModule} from '../../app.code.component';
 import {AppDemoActionsModule} from '../../app.demoactions.component';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'avan-primeng/button';
 
 @NgModule({
 	imports: [

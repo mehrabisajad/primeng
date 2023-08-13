@@ -1,7 +1,7 @@
 import { NgModule, Directive, AfterViewInit, ElementRef, NgZone, OnDestroy, Optional } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DomHandler } from 'primeng/dom';
-import { PrimeNGConfig } from 'primeng/api';
+import { DomHandler } from 'avan-primeng/dom';
+import { PrimeNGConfig } from 'avan-primeng/api';
 
 @Directive({
     selector: '[pRipple]',

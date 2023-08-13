@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import { ProductService } from '../../service/productservice';
 import { Product } from '../../domain/product';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'avan-primeng/api';
 
 @Component({
     templateUrl: './overlaypaneldemo.html',
