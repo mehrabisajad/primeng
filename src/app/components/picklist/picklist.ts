@@ -928,12 +928,9 @@ export class PickList implements AfterViewChecked, AfterContentInit {
                 }
 
                 .p-picklist[${this.id}] .p-picklist-buttons .p-button {
-                    margin-right: var(--inline-spacing);
+                    margin-right: calc(var(--inline-spacing) / 2);
+                    margin-left: calc(var(--inline-spacing) / 2);
                     margin-bottom: 0;
-                }
-
-                .p-picklist[${this.id}] .p-picklist-buttons .p-button:last-child {
-                    margin-right: 0;
                 }
 
                 .p-picklist[${this.id}] .pi-angle-right:before {
@@ -950,6 +947,10 @@ export class PickList implements AfterViewChecked, AfterContentInit {
 
                 .p-picklist[${this.id}] .pi-angle-double-left:before {
                     content: "\\e92f"
+                }
+
+                .p-picklist[${this.id}] .p-picklist-list-wrapper {
+                    width: unset;
                 }
             }
             `;
