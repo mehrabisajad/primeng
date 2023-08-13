@@ -562,7 +562,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
         const width = DomHandler.getWidth(content);
 
         this.backwardIsDisabled = scrollLeft === 0;
-        this.forwardIsDisabled = scrollLeft === scrollWidth - width;
+        this.forwardIsDisabled = scrollLeft === scrollWidth - width || scrollLeft === (scrollWidth - width) * -1;
     }
 
     onScroll(event: Event) {
@@ -578,17 +578,26 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
     navBackward() {
         const content = this.content.nativeElement;
         const width = DomHandler.getWidth(content) - this.getVisibleButtonWidths();
-        const pos = content.scrollLeft - width;
-        content.scrollLeft = pos <= 0 ? 0 : pos;
+        if (DomHandler.isLTR(content)) {
+            const pos = content.scrollLeft - width;
+            content.scrollLeft = pos <= 0 ? 0 : pos;
+        } else {
+            const pos = content.scrollLeft + width;
+            content.scrollLeft = pos >= 0 ? 0 : pos;
+        }
     }
 
     navForward() {
         const content = this.content.nativeElement;
         const width = DomHandler.getWidth(content) - this.getVisibleButtonWidths();
-        const pos = content.scrollLeft + width;
         const lastPos = content.scrollWidth - width;
-
-        content.scrollLeft = pos >= lastPos ? lastPos : pos;
+        if (DomHandler.isLTR(content)) {
+            const pos = content.scrollLeft + width;
+            content.scrollLeft = pos >= lastPos ? lastPos : pos;
+        } else {
+            const pos = content.scrollLeft - width;
+            content.scrollLeft = pos <= (lastPos * -1) ? (lastPos * -1) : pos;
+        }
     }
 }
 

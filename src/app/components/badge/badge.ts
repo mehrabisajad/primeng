@@ -33,8 +33,8 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
     @Input() public get size(): BadgeSize | undefined {
         return this._size;
     }
-    set size(val: BadgeSize) {
-        this._size = val;
+    set size(val: BadgeSize | undefined) {
+        this._size = val ?? 'large';
 
         if (this.initialized) {
             this.setSizeClasses();
@@ -90,7 +90,7 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
      * Value to display inside the badge.
      *
      */
-    @Input() get value(): string | null | undefined {
+    @Input() get value(): string {
         return this._value;
     }
 

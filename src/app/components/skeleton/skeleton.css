@@ -15,6 +15,11 @@
     z-index: 1;
 }
 
+html[dir='rtl'] .p-skeleton::after {
+    animation: p-skeleton-animation-rtl 1.2s infinite;
+    transform: translateX(100%);
+}
+
 .p-skeleton.p-skeleton-circle {
     border-radius: 50%;
 }
@@ -29,5 +34,13 @@
     }
     to {
         transform: translateX(100%);
+    }
+}
+@keyframes p-skeleton-animation-rtl {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(-100%);
     }
 }
