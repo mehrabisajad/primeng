@@ -8,6 +8,11 @@
     left: 0;
 }
 
+html[dir='rtl'] .p-slidemenu.p-slidemenu-overlay {
+    left: unset;
+    right: 0;
+}
+
 .p-slidemenu ul {
     list-style: none;
     margin: 0;
@@ -48,6 +53,11 @@
 
 .p-slidemenu .p-menuitem-link .p-submenu-icon {
     margin-left: auto;
+}
+
+html[dir='rtl'] .p-slidemenu .p-menuitem-link .p-submenu-icon {
+    margin-left: unset;
+    margin-right: auto;
 }
 
 .p-slidemenu .p-slidemenu-wrapper {

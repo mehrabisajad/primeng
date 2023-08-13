@@ -11,6 +11,11 @@
     padding-right: 1.5em;
 }
 
+html[dir='rtl'] .ui-spinner-input {
+    padding-right: unset;
+    padding-left: 1.5em;
+}
+
 .ui-spinner-button {
     cursor: default;
     display: block;
@@ -25,6 +30,11 @@
     width: 1.5em;
 }
 
+html[dir='rtl'] .ui-spinner-button {
+    right: unset;
+    left: 0;
+}
+
 .ui-spinner .ui-spinner-button-icon {
     position: absolute;
     top: 50%;
@@ -32,6 +42,13 @@
     margin-top: -.5em;
     margin-left: -.5em;
     width: 1em;
+}
+
+html[dir='rtl'] .ui-spinner .ui-spinner-button-icon {
+    left: unset;
+    right: 50%;
+    margin-left: unset;
+    margin-right: -.5em;
 }
 
 .ui-spinner-up {
@@ -58,4 +75,9 @@
 
 .ui-fluid .ui-spinner .ui-spinner-button .ui-spinner-button-icon {
     left: .7em;
+}
+
+html[dir='rtl'] .ui-fluid .ui-spinner .ui-spinner-button .ui-spinner-button-icon {
+    left: unset;
+    right: .7em;
 }

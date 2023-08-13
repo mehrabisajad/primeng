@@ -22,6 +22,11 @@
     transition: opacity .3s;
 }
 
+html[dir='rtl'] .p-image-preview-indicator {
+    left: unset;
+    right: 0;
+}
+
 .p-image-preview-icon {
     font-size: 1.5rem;
 }
@@ -41,6 +46,11 @@
     right: 0;
     display: flex;
     z-index: 1;
+}
+
+html [dir='rtl'] .p-image-toolbar {
+    left: 0;
+    right: unset;
 }
 
 .p-image-action.p-link {

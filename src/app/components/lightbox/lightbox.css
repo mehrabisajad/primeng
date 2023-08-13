@@ -6,6 +6,12 @@
     transform: translateX(-50%) translateY(-50%);
 }
 
+html[dir='rtl'] .ui-lightbox {
+    left: unset;
+    right: 50%;
+    transform: translateX(50%) translateY(-50%);
+}
+
 .ui-lightbox-content-wrapper {
     position: relative;
 }
@@ -45,10 +51,18 @@
     float:left;
 }
 
+html[dir='rtl'] .ui-lightbox-caption-text {
+    float:right;
+}
+
 .ui-lightbox-close {
     float:right;
     margin: 0;
     padding: .125em;
+}
+
+html[dir='rtl'] .ui-lightbox-close {
+    float:left;
 }
 
 .ui-lightbox-close.ui-state-hover {

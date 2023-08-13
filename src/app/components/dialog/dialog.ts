@@ -285,7 +285,26 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
     originalStyle: any;
 
-    transformOptions: any = 'scale(0.7)';
+    get transformOptions(): any {
+        const isLtr = DomHandler.isLTR(this.el.nativeElement);
+
+        switch (this.position) {
+            case 'topleft':
+            case 'bottomleft':
+            case 'left':
+                return isLtr ? 'translate3d(-100%, 0px, 0px)' : 'translate3d(100%, 0px, 0px)';
+            case 'topright':
+            case 'bottomright':
+            case 'right':
+                return isLtr ? 'translate3d(100%, 0px, 0px)' : 'translate3d(-100%, 0px, 0px)';
+            case 'bottom':
+                return 'translate3d(0px, 100%, 0px)';
+            case 'top':
+                return 'translate3d(0px, -100%, 0px)';
+            default:
+                return 'scale(0.7)';
+        }
+    }
 
     styleElement: any;
 
@@ -346,28 +365,6 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
     set position(value: string) {
         this._position = value;
-
-        switch (value) {
-            case 'topleft':
-            case 'bottomleft':
-            case 'left':
-                this.transformOptions = 'translate3d(-100%, 0px, 0px)';
-                break;
-            case 'topright':
-            case 'bottomright':
-            case 'right':
-                this.transformOptions = 'translate3d(100%, 0px, 0px)';
-                break;
-            case 'bottom':
-                this.transformOptions = 'translate3d(0px, 100%, 0px)';
-                break;
-            case 'top':
-                this.transformOptions = 'translate3d(0px, -100%, 0px)';
-                break;
-            default:
-                this.transformOptions = 'scale(0.7)';
-                break;
-        }
     }
 
     focus() {
