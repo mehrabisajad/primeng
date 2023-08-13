@@ -10,6 +10,7 @@
 
 .p-picklist-list-wrapper {
     flex: 1 1 50%;
+    width: calc(50% - 6.5355rem);
 }
 
 .p-picklist-list {
