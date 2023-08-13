@@ -4,3 +4,4 @@ import ZIndexUtils from './zindexutils';
 
 
 export {ZIndexUtils,UniqueComponentId,ObjectUtils};
+export * from './jalaliutils';
