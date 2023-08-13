@@ -1070,19 +1070,24 @@ export class PickList implements AfterViewChecked, AfterContentInit {
                     .p-picklist[${this.id}] {
                         flex-direction: column;
                     }
-    
+
                     .p-picklist[${this.id}] .p-picklist-buttons {
                         padding: var(--content-padding);
                         flex-direction: row;
                     }
-    
+
                     .p-picklist[${this.id}] .p-picklist-buttons .p-button {
-                        margin-right: var(--inline-spacing);
+                        margin-right: calc(var(--inline-spacing) / 2);
+                        margin-left: calc(var(--inline-spacing) / 2);
                         margin-bottom: 0;
                     }
-    
+
                     .p-picklist[${this.id}] .p-picklist-buttons .p-button:last-child {
                         margin-right: 0;
+                    }
+
+                    .p-picklist[${this.id}] .p-picklist-list-wrapper {
+                        width: unset;
                     }
                 }`;
 
