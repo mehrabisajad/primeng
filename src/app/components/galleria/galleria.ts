@@ -27,16 +27,16 @@ import {
     forwardRef
 } from '@angular/core';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { SharedModule, PrimeTemplate, PrimeNGConfig } from 'primeng/api';
-import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
-import { DomHandler } from 'primeng/dom';
-import { RippleModule } from 'primeng/ripple';
+import { SharedModule, PrimeTemplate, PrimeNGConfig } from 'avan-primeng/api';
+import { UniqueComponentId, ZIndexUtils } from 'avan-primeng/utils';
+import { DomHandler } from 'avan-primeng/dom';
+import { RippleModule } from 'avan-primeng/ripple';
 import { animate, style, transition, trigger, AnimationEvent } from '@angular/animations';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
-import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
-import { TimesIcon } from 'primeng/icons/times';
-import { WindowMaximizeIcon } from 'primeng/icons/windowmaximize';
-import { WindowMinimizeIcon } from 'primeng/icons/windowminimize';
+import { ChevronRightIcon } from 'avan-primeng/icons/chevronright';
+import { ChevronLeftIcon } from 'avan-primeng/icons/chevronleft';
+import { TimesIcon } from 'avan-primeng/icons/times';
+import { WindowMaximizeIcon } from 'avan-primeng/icons/windowmaximize';
+import { WindowMinimizeIcon } from 'avan-primeng/icons/windowminimize';
 
 @Component({
     selector: 'p-galleria',

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { BlockableUI, Footer, Header, PrimeTemplate, SharedModule } from 'primeng/api';
+import { BlockableUI, Footer, Header, PrimeTemplate, SharedModule } from 'avan-primeng/api';
 
 @Component({
     selector: 'p-card',

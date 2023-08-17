@@ -19,8 +19,8 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { PrimeTemplate } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
+import { PrimeTemplate } from 'avan-primeng/api';
+import { DomHandler } from 'avan-primeng/dom';
 
 @Component({
     selector: 'p-scrollPanel',

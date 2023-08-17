@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, Input, NgModule, ViewChild } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { TooltipModule } from 'primeng/tooltip';
+import { ButtonModule } from 'avan-primeng/button';
+import { TooltipModule } from 'avan-primeng/tooltip';
 import { Code, ExtFile, RouteFile } from 'src/app/showcase/domain/code';
 import { useStackBlitz, useCodeSandbox } from '../codeeditor';
 

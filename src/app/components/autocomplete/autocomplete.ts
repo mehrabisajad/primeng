@@ -24,19 +24,19 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { AutoFocusModule } from 'primeng/autofocus';
-import { ButtonModule } from 'primeng/button';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { InputTextModule } from 'primeng/inputtext';
-import { Overlay, OverlayModule } from 'primeng/overlay';
-import { RippleModule } from 'primeng/ripple';
-import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
-import { TimesCircleIcon } from 'primeng/icons/timescircle';
-import { SpinnerIcon } from 'primeng/icons/spinner';
-import { TimesIcon } from 'primeng/icons/times';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'avan-primeng/api';
+import { AutoFocusModule } from 'avan-primeng/autofocus';
+import { ButtonModule } from 'avan-primeng/button';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'avan-primeng/dom';
+import { InputTextModule } from 'avan-primeng/inputtext';
+import { Overlay, OverlayModule } from 'avan-primeng/overlay';
+import { RippleModule } from 'avan-primeng/ripple';
+import { Scroller, ScrollerModule, ScrollerOptions } from 'avan-primeng/scroller';
+import { ObjectUtils, UniqueComponentId } from 'avan-primeng/utils';
+import { TimesCircleIcon } from 'avan-primeng/icons/timescircle';
+import { SpinnerIcon } from 'avan-primeng/icons/spinner';
+import { TimesIcon } from 'avan-primeng/icons/times';
+import { ChevronDownIcon } from 'avan-primeng/icons/chevrondown';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,

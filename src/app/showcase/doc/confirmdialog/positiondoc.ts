@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/api';
+import { ConfirmationService, MessageService, ConfirmEventType } from 'avan-primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
@@ -104,7 +104,7 @@ export class PositionDoc {
 
         typescript: `
 import { Component } from '@angular/core';
-import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/api';
+import { ConfirmationService, MessageService, ConfirmEventType } from 'avan-primeng/api';
         
 @Component({
     selector: 'confirm-dialog-position-demo',

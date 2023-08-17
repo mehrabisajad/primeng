@@ -1,11 +1,11 @@
 import { NgModule, Component, Input, Output, EventEmitter, ElementRef, ContentChild, ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, TemplateRef, AfterContentInit, ViewContainerRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule, Footer, PrimeTemplate } from 'primeng/api';
-import { BlockableUI } from 'primeng/api';
-import { RippleModule } from 'primeng/ripple';
+import { SharedModule, Footer, PrimeTemplate } from 'avan-primeng/api';
+import { BlockableUI } from 'avan-primeng/api';
+import { RippleModule } from 'avan-primeng/ripple';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { MinusIcon } from 'primeng/icons/minus';
-import { PlusIcon } from 'primeng/icons/plus';
+import { MinusIcon } from 'avan-primeng/icons/minus';
+import { PlusIcon } from 'avan-primeng/icons/plus';
 import { PanelToggleEvent } from './panel.model';
 
 let idx: number = 0;

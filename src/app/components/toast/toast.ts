@@ -21,20 +21,20 @@ import {
     Inject
 } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { Message, PrimeNGConfig } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { MessageService } from 'primeng/api';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
-import { RippleModule } from 'primeng/ripple';
+import { Message, PrimeNGConfig } from 'avan-primeng/api';
+import { DomHandler } from 'avan-primeng/dom';
+import { PrimeTemplate, SharedModule } from 'avan-primeng/api';
+import { MessageService } from 'avan-primeng/api';
+import { ObjectUtils, UniqueComponentId } from 'avan-primeng/utils';
+import { RippleModule } from 'avan-primeng/ripple';
 import { Subscription } from 'rxjs';
 import { trigger, state, style, transition, animate, query, animateChild, AnimationEvent } from '@angular/animations';
-import { ZIndexUtils } from 'primeng/utils';
-import { CheckIcon } from 'primeng/icons/check';
-import { InfoCircleIcon } from 'primeng/icons/infocircle';
-import { TimesCircleIcon } from 'primeng/icons/timescircle';
-import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
-import { TimesIcon } from 'primeng/icons/times';
+import { ZIndexUtils } from 'avan-primeng/utils';
+import { CheckIcon } from 'avan-primeng/icons/check';
+import { InfoCircleIcon } from 'avan-primeng/icons/infocircle';
+import { TimesCircleIcon } from 'avan-primeng/icons/timescircle';
+import { ExclamationTriangleIcon } from 'avan-primeng/icons/exclamationtriangle';
+import { TimesIcon } from 'avan-primeng/icons/times';
 
 @Component({
     selector: 'p-toastItem',

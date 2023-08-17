@@ -1,16 +1,16 @@
 import { NgModule, Component, Input, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, TemplateRef, AfterContentInit, ContentChildren, QueryList, Output, EventEmitter, ChangeDetectorRef, ViewChild, Inject } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { SharedModule, PrimeTemplate, PrimeNGConfig } from 'primeng/api';
+import { SharedModule, PrimeTemplate, PrimeNGConfig } from 'avan-primeng/api';
 import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { SafeUrl } from '@angular/platform-browser';
-import { DomHandler } from 'primeng/dom';
-import { ZIndexUtils } from 'primeng/utils';
-import { RefreshIcon } from 'primeng/icons/refresh';
-import { EyeIcon } from 'primeng/icons/eye';
-import { UndoIcon } from 'primeng/icons/undo';
-import { SearchMinusIcon } from 'primeng/icons/searchminus';
-import { SearchPlusIcon } from 'primeng/icons/searchplus';
-import { TimesIcon } from 'primeng/icons/times';
+import { DomHandler } from 'avan-primeng/dom';
+import { ZIndexUtils } from 'avan-primeng/utils';
+import { RefreshIcon } from 'avan-primeng/icons/refresh';
+import { EyeIcon } from 'avan-primeng/icons/eye';
+import { UndoIcon } from 'avan-primeng/icons/undo';
+import { SearchMinusIcon } from 'avan-primeng/icons/searchminus';
+import { SearchPlusIcon } from 'avan-primeng/icons/searchplus';
+import { TimesIcon } from 'avan-primeng/icons/times';
 
 @Component({
     selector: 'p-image',

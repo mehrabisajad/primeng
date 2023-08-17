@@ -29,7 +29,7 @@
         "resolveJsonModule": true,
         "esModuleInterop": true,
         "paths": {
-            "primeng/*": ["src/app/components/*/public_api"]
+            "avan-primeng/*": ["src/app/components/*/public_api"]
         }
     },
     "angularCompilerOptions": {

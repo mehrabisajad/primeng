@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { SelectItemGroup } from 'primeng/api';
+import { SelectItemGroup } from 'avan-primeng/api';
 import { Code } from '../../domain/code';
 import { CountryService } from '../../service/countryservice';
 
@@ -123,7 +123,7 @@ export class TemplateDoc {
 
         typescript: `
 import { Component } from '@angular/core';
-import { SelectItemGroup } from 'primeng/api';
+import { SelectItemGroup } from 'avan-primeng/api';
 import { CountryService } from 'src/service/countryservice';
 
 @Component({

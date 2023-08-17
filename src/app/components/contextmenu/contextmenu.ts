@@ -22,14 +22,14 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ContextMenuService, MenuItem, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { RippleModule } from 'primeng/ripple';
-import { TooltipModule } from 'primeng/tooltip';
-import { ZIndexUtils } from 'primeng/utils';
+import { ContextMenuService, MenuItem, PrimeNGConfig, PrimeTemplate, SharedModule } from 'avan-primeng/api';
+import { DomHandler } from 'avan-primeng/dom';
+import { RippleModule } from 'avan-primeng/ripple';
+import { TooltipModule } from 'avan-primeng/tooltip';
+import { ZIndexUtils } from 'avan-primeng/utils';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { AngleRightIcon } from 'primeng/icons/angleright';
+import { AngleRightIcon } from 'avan-primeng/icons/angleright';
 
 @Component({
     selector: 'p-contextMenuSub',

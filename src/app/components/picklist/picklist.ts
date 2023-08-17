@@ -19,22 +19,22 @@ import {
     PLATFORM_ID
 } from '@angular/core';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { ButtonModule } from 'primeng/button';
-import { SharedModule, PrimeTemplate, FilterService } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { RippleModule } from 'primeng/ripple';
+import { ButtonModule } from 'avan-primeng/button';
+import { SharedModule, PrimeTemplate, FilterService } from 'avan-primeng/api';
+import { DomHandler } from 'avan-primeng/dom';
+import { RippleModule } from 'avan-primeng/ripple';
 import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
-import { AngleDoubleDownIcon } from 'primeng/icons/angledoubledown';
-import { AngleDoubleLeftIcon } from 'primeng/icons/angledoubleleft';
-import { AngleDoubleRightIcon } from 'primeng/icons/angledoubleright';
-import { AngleDoubleUpIcon } from 'primeng/icons/angledoubleup';
-import { AngleDownIcon } from 'primeng/icons/angledown';
-import { AngleLeftIcon } from 'primeng/icons/angleleft';
-import { AngleRightIcon } from 'primeng/icons/angleright';
-import { AngleUpIcon } from 'primeng/icons/angleup';
-import { SearchIcon } from 'primeng/icons/search';
-import { HomeIcon } from 'primeng/icons/home';
+import { ObjectUtils, UniqueComponentId } from 'avan-primeng/utils';
+import { AngleDoubleDownIcon } from 'avan-primeng/icons/angledoubledown';
+import { AngleDoubleLeftIcon } from 'avan-primeng/icons/angledoubleleft';
+import { AngleDoubleRightIcon } from 'avan-primeng/icons/angledoubleright';
+import { AngleDoubleUpIcon } from 'avan-primeng/icons/angledoubleup';
+import { AngleDownIcon } from 'avan-primeng/icons/angledown';
+import { AngleLeftIcon } from 'avan-primeng/icons/angleleft';
+import { AngleRightIcon } from 'avan-primeng/icons/angleright';
+import { AngleUpIcon } from 'avan-primeng/icons/angleup';
+import { SearchIcon } from 'avan-primeng/icons/search';
+import { HomeIcon } from 'avan-primeng/icons/home';
 
 export interface PickListFilterOptions {
     filter?: (value?: any) => void;

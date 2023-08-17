@@ -1,5 +1,5 @@
 {
-    "name": "primeng",
+    "name": "avan-primeng",
     "version": "15.4.2-SNAPSHOT",
     "repository": {
         "type": "git",
@@ -15,8 +15,8 @@
     "exports": {
         "./resources/": "./resources/"
     },
-    "module": "primeng.js",
-    "typings": "primeng.d.ts",
+    "module": "avan-primeng.js",
+    "typings": "avan-primeng.d.ts",
     "peerDependencies": {
         "@angular/core": "^15.2.1",
         "@angular/common": "^15.2.1",

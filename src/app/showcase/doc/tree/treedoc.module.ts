@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { ContextMenuModule } from 'primeng/contextmenu';
-import { InputSwitchModule } from 'primeng/inputswitch';
-import { ToastModule } from 'primeng/toast';
-import { TreeModule } from 'primeng/tree';
+import { ButtonModule } from 'avan-primeng/button';
+import { ContextMenuModule } from 'avan-primeng/contextmenu';
+import { InputSwitchModule } from 'avan-primeng/inputswitch';
+import { ToastModule } from 'avan-primeng/toast';
+import { TreeModule } from 'avan-primeng/tree';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
 import { AccessibilityDoc } from './accessibilitydoc';

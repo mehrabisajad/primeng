@@ -1,7 +1,7 @@
 import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, ContentChildren, QueryList, ElementRef, ChangeDetectorRef, TemplateRef, ViewChild, Output, EventEmitter, Renderer2, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { DomHandler } from 'primeng/dom';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { DomHandler } from 'avan-primeng/dom';
+import { PrimeTemplate, SharedModule } from 'avan-primeng/api';
 import { SplitterResizeStartEvent, SplitterResizeEndEvent } from './splitter.interface';
 
 @Component({

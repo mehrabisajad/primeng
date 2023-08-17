@@ -2,15 +2,15 @@ import { AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TreeNode } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { SearchIcon } from 'primeng/icons/search';
-import { TimesIcon } from 'primeng/icons/times';
-import { Overlay, OverlayModule } from 'primeng/overlay';
-import { RippleModule } from 'primeng/ripple';
-import { Tree, TreeModule } from 'primeng/tree';
-import { ObjectUtils } from 'primeng/utils';
+import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TreeNode } from 'avan-primeng/api';
+import { DomHandler } from 'avan-primeng/dom';
+import { ChevronDownIcon } from 'avan-primeng/icons/chevrondown';
+import { SearchIcon } from 'avan-primeng/icons/search';
+import { TimesIcon } from 'avan-primeng/icons/times';
+import { Overlay, OverlayModule } from 'avan-primeng/overlay';
+import { RippleModule } from 'avan-primeng/ripple';
+import { Tree, TreeModule } from 'avan-primeng/tree';
+import { ObjectUtils } from 'avan-primeng/utils';
 
 export const TREESELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,

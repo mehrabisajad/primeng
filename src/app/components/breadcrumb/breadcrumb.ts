@@ -1,10 +1,10 @@
 import { NgModule, Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, ContentChildren, QueryList, TemplateRef, AfterContentInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
+import { MenuItem, PrimeTemplate, SharedModule } from 'avan-primeng/api';
 import { RouterModule } from '@angular/router';
-import { TooltipModule } from 'primeng/tooltip';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
-import { HomeIcon } from 'primeng/icons/home';
+import { TooltipModule } from 'avan-primeng/tooltip';
+import { ChevronRightIcon } from 'avan-primeng/icons/chevronright';
+import { HomeIcon } from 'avan-primeng/icons/home';
 
 @Component({
     selector: 'p-breadcrumb',

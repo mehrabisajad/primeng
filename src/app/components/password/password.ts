@@ -29,14 +29,14 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { InputTextModule } from 'primeng/inputtext';
-import { ZIndexUtils } from 'primeng/utils';
+import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'avan-primeng/api';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'avan-primeng/dom';
+import { InputTextModule } from 'avan-primeng/inputtext';
+import { ZIndexUtils } from 'avan-primeng/utils';
 import { Subscription } from 'rxjs';
-import { TimesIcon } from 'primeng/icons/times';
-import { EyeSlashIcon } from 'primeng/icons/eyeslash';
-import { EyeIcon } from 'primeng/icons/eye';
+import { TimesIcon } from 'avan-primeng/icons/times';
+import { EyeSlashIcon } from 'avan-primeng/icons/eyeslash';
+import { EyeIcon } from 'avan-primeng/icons/eye';
 
 @Directive({
     selector: '[pPassword]',

@@ -1,7 +1,7 @@
 import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, TemplateRef, ContentChildren, QueryList } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PrimeTemplate } from 'primeng/api';
-import { SharedModule } from 'primeng/api';
+import { PrimeTemplate } from 'avan-primeng/api';
+import { SharedModule } from 'avan-primeng/api';
 
 @Component({
     selector: 'p-tag',

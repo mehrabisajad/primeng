@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AutoCompleteModule } from 'primeng/autocomplete';
-import { StyleClassModule } from 'primeng/styleclass';
+import { AutoCompleteModule } from 'avan-primeng/autocomplete';
+import { StyleClassModule } from 'avan-primeng/styleclass';
 import { AppMenuComponent } from './app.menu.component';
 import { AppMenuItemComponent } from './app.menuitem.component';
 
