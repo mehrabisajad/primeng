@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'avan-primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
@@ -53,7 +53,7 @@ export class BasicDoc {
 </div>`,
         typescript: `
 import { Component, Input } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'avan-primeng/api';
 
 @Component({
     selector: 'defer-basic-demo',

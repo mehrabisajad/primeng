@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { VirtualScroller } from 'primeng/virtualscroller';
+import { VirtualScroller } from 'avan-primeng/virtualscroller';
 import { Code } from '../../domain/code';
 
 interface Item {
@@ -69,7 +69,7 @@ export class ProgrammaticScrollDoc implements OnInit {
 
         typescript: `
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { VirtualScroller } from 'primeng/virtualscroller';
+import { VirtualScroller } from 'avan-primeng/virtualscroller';
 
 interface Item {
     label: string;

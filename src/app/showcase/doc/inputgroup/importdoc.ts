@@ -14,8 +14,8 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `import { InputTextModule } from 'primeng/inputtext';
-import { CheckboxModule } from 'primeng/checkbox';
-import { RadioButtonModule } from 'primeng/radiobutton';`
+        typescript: `import { InputTextModule } from 'avan-primeng/inputtext';
+import { CheckboxModule } from 'avan-primeng/checkbox';
+import { RadioButtonModule } from 'avan-primeng/radiobutton';`
     };
 }

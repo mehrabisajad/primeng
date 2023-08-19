@@ -27,25 +27,25 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { BlockableUI, FilterMetadata, FilterService, PrimeTemplate, SharedModule, SortMeta, TreeNode } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { PaginatorModule } from 'primeng/paginator';
-import { RippleModule } from 'primeng/ripple';
-import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { ScrollerOptions, TreeTableNode } from 'primeng/api';
-import { ObjectUtils } from 'primeng/utils';
+import { BlockableUI, FilterMetadata, FilterService, PrimeTemplate, SharedModule, SortMeta, TreeNode } from 'avan-primeng/api';
+import { DomHandler } from 'avan-primeng/dom';
+import { PaginatorModule } from 'avan-primeng/paginator';
+import { RippleModule } from 'avan-primeng/ripple';
+import { Scroller, ScrollerModule } from 'avan-primeng/scroller';
+import { ScrollerOptions, TreeTableNode } from 'avan-primeng/api';
+import { ObjectUtils } from 'avan-primeng/utils';
 import { Subject, Subscription } from 'rxjs';
-import { SortAmountDownIcon } from 'primeng/icons/sortamountdown';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
-import { ArrowDownIcon } from 'primeng/icons/arrowdown';
-import { ArrowUpIcon } from 'primeng/icons/arrowup';
-import { CheckIcon } from 'primeng/icons/check';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { MinusIcon } from 'primeng/icons/minus';
-import { SortAltIcon } from 'primeng/icons/sortalt';
-import { SortAmountUpAltIcon } from 'primeng/icons/sortamountupalt';
-import { SpinnerIcon } from 'primeng/icons/spinner';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { SortAmountDownIcon } from 'avan-primeng/icons/sortamountdown';
+import { ChevronRightIcon } from 'avan-primeng/icons/chevronright';
+import { ArrowDownIcon } from 'avan-primeng/icons/arrowdown';
+import { ArrowUpIcon } from 'avan-primeng/icons/arrowup';
+import { CheckIcon } from 'avan-primeng/icons/check';
+import { ChevronDownIcon } from 'avan-primeng/icons/chevrondown';
+import { MinusIcon } from 'avan-primeng/icons/minus';
+import { SortAltIcon } from 'avan-primeng/icons/sortalt';
+import { SortAmountUpAltIcon } from 'avan-primeng/icons/sortamountupalt';
+import { SpinnerIcon } from 'avan-primeng/icons/spinner';
+import { Nullable, VoidListener } from 'avan-primeng/ts-helpers';
 import {
     TreeTableColResizeEvent,
     TreeTableContextMenuSelectEvent,

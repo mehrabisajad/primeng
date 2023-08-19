@@ -24,20 +24,20 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { FilterService, Footer, Header, OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { Overlay, OverlayModule } from 'primeng/overlay';
-import { RippleModule } from 'primeng/ripple';
-import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { ScrollerOptions } from 'primeng/api';
-import { TooltipModule } from 'primeng/tooltip';
-import { ObjectUtils } from 'primeng/utils';
-import { CheckIcon } from 'primeng/icons/check';
-import { SearchIcon } from 'primeng/icons/search';
-import { TimesCircleIcon } from 'primeng/icons/timescircle';
-import { TimesIcon } from 'primeng/icons/times';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { Nullable } from 'primeng/ts-helpers';
+import { FilterService, Footer, Header, OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'avan-primeng/api';
+import { DomHandler } from 'avan-primeng/dom';
+import { Overlay, OverlayModule } from 'avan-primeng/overlay';
+import { RippleModule } from 'avan-primeng/ripple';
+import { Scroller, ScrollerModule } from 'avan-primeng/scroller';
+import { ScrollerOptions } from 'avan-primeng/api';
+import { TooltipModule } from 'avan-primeng/tooltip';
+import { ObjectUtils } from 'avan-primeng/utils';
+import { CheckIcon } from 'avan-primeng/icons/check';
+import { SearchIcon } from 'avan-primeng/icons/search';
+import { TimesCircleIcon } from 'avan-primeng/icons/timescircle';
+import { TimesIcon } from 'avan-primeng/icons/times';
+import { ChevronDownIcon } from 'avan-primeng/icons/chevrondown';
+import { Nullable } from 'avan-primeng/ts-helpers';
 import { MultiSelectRemoveEvent, MultiSelectFilterOptions, MultiSelectFilterEvent, MultiSelectBlurEvent, MultiSelectChangeEvent, MultiSelectFocusEvent, MultiSelectLazyLoadEvent } from './multiselect.interface';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {

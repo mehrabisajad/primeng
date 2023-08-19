@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem } from 'avan-primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
@@ -164,7 +164,7 @@ export class BasicDoc implements OnInit {
 
         typescript: `
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem } from 'avan-primeng/api';
 
 @Component({
     selector: 'context-menu-basic-demo',

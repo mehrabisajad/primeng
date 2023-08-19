@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'avan-primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
@@ -99,7 +99,7 @@ export class ConditionalStyleDoc implements OnInit {
 
         typescript: `
 import { Component, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'avan-primeng/api';
 import { NodeService } from '../../service/nodeservice';
 
 interface Column {

@@ -8,9 +8,9 @@ import { BasicDoc } from './basicdoc';
 import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
 import { VerticalDoc } from './verticaldoc';
-import { MegaMenuModule } from 'primeng/megamenu';
-import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button';
+import { MegaMenuModule } from 'avan-primeng/megamenu';
+import { InputTextModule } from 'avan-primeng/inputtext';
+import { ButtonModule } from 'avan-primeng/button';
 import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({

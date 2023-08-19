@@ -1,11 +1,11 @@
 import { AnimationEvent, animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Inject, Input, NgModule, OnDestroy, QueryList, Renderer2, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { Confirmation, ConfirmationService, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { ZIndexUtils } from 'primeng/utils';
+import { Confirmation, ConfirmationService, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'avan-primeng/api';
+import { ButtonModule } from 'avan-primeng/button';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'avan-primeng/dom';
+import { Nullable, VoidListener } from 'avan-primeng/ts-helpers';
+import { ZIndexUtils } from 'avan-primeng/utils';
 import { Subscription } from 'rxjs';
 /**
  * ConfirmPopup displays a confirmation overlay displayed relatively to its target.

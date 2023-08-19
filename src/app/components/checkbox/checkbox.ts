@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ObjectUtils } from 'primeng/utils';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { CheckIcon } from 'primeng/icons/check';
-import { Nullable } from 'primeng/ts-helpers';
+import { ObjectUtils } from 'avan-primeng/utils';
+import { PrimeTemplate, SharedModule } from 'avan-primeng/api';
+import { CheckIcon } from 'avan-primeng/icons/check';
+import { Nullable } from 'avan-primeng/ts-helpers';
 import { CheckboxChangeEvent } from './checkbox.interface';
 
 export const CHECKBOX_VALUE_ACCESSOR: any = {

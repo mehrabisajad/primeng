@@ -3,15 +3,15 @@ import { By } from '@angular/platform-browser';
 import { Messages } from './messages';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { Button } from 'primeng/button';
+import { Button } from 'avan-primeng/button';
 import { FormsModule } from '@angular/forms';
-import { MessageService } from 'primeng/api';
-import { Message } from 'primeng/api';
-import { CheckIcon } from 'primeng/icons/check';
-import { TimesCircleIcon } from 'primeng/icons/timescircle';
-import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
-import { InfoCircleIcon } from 'primeng/icons/infocircle';
-import { TimesIcon } from 'primeng/icons/times';
+import { MessageService } from 'avan-primeng/api';
+import { Message } from 'avan-primeng/api';
+import { CheckIcon } from 'avan-primeng/icons/check';
+import { TimesCircleIcon } from 'avan-primeng/icons/timescircle';
+import { ExclamationTriangleIcon } from 'avan-primeng/icons/exclamationtriangle';
+import { InfoCircleIcon } from 'avan-primeng/icons/infocircle';
+import { TimesIcon } from 'avan-primeng/icons/times';
 
 @Component({
     template: `

@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
-import { RippleModule } from 'primeng/ripple';
-import { TooltipModule } from 'primeng/tooltip';
-import { Nullable } from 'primeng/ts-helpers';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
-import { DomHandler } from 'primeng/dom';
+import { MenuItem, PrimeTemplate, SharedModule } from 'avan-primeng/api';
+import { RippleModule } from 'avan-primeng/ripple';
+import { TooltipModule } from 'avan-primeng/tooltip';
+import { Nullable } from 'avan-primeng/ts-helpers';
+import { ObjectUtils, UniqueComponentId } from 'avan-primeng/utils';
+import { DomHandler } from 'avan-primeng/dom';
 /**
  * Dock is a navigation component consisting of menuitems.
  * @group Components

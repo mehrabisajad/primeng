@@ -2,17 +2,17 @@ import { AnimationEvent, animate, style, transition, trigger } from '@angular/an
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, HostListener, Inject, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
-import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { EyeIcon } from 'primeng/icons/eye';
-import { RefreshIcon } from 'primeng/icons/refresh';
-import { SearchMinusIcon } from 'primeng/icons/searchminus';
-import { SearchPlusIcon } from 'primeng/icons/searchplus';
-import { TimesIcon } from 'primeng/icons/times';
-import { UndoIcon } from 'primeng/icons/undo';
-import { ZIndexUtils } from 'primeng/utils';
-import { Nullable } from 'primeng/ts-helpers';
-import { FocusTrapModule } from 'primeng/focustrap';
+import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'avan-primeng/api';
+import { DomHandler } from 'avan-primeng/dom';
+import { EyeIcon } from 'avan-primeng/icons/eye';
+import { RefreshIcon } from 'avan-primeng/icons/refresh';
+import { SearchMinusIcon } from 'avan-primeng/icons/searchminus';
+import { SearchPlusIcon } from 'avan-primeng/icons/searchplus';
+import { TimesIcon } from 'avan-primeng/icons/times';
+import { UndoIcon } from 'avan-primeng/icons/undo';
+import { ZIndexUtils } from 'avan-primeng/utils';
+import { Nullable } from 'avan-primeng/ts-helpers';
+import { FocusTrapModule } from 'avan-primeng/focustrap';
 
 /**
  * Displays an image with preview and tranformation options. For multiple image, see Galleria.

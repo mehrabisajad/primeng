@@ -19,18 +19,18 @@ import {
     PLATFORM_ID
 } from '@angular/core';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { ButtonModule } from 'primeng/button';
-import { SharedModule, PrimeTemplate, FilterService } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
-import { RippleModule } from 'primeng/ripple';
+import { ButtonModule } from 'avan-primeng/button';
+import { SharedModule, PrimeTemplate, FilterService } from 'avan-primeng/api';
+import { DomHandler } from 'avan-primeng/dom';
+import { ObjectUtils, UniqueComponentId } from 'avan-primeng/utils';
+import { RippleModule } from 'avan-primeng/ripple';
 import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
-import { AngleDoubleDownIcon } from 'primeng/icons/angledoubledown';
-import { AngleDoubleUpIcon } from 'primeng/icons/angledoubleup';
-import { AngleUpIcon } from 'primeng/icons/angleup';
-import { AngleDownIcon } from 'primeng/icons/angledown';
-import { SearchIcon } from 'primeng/icons/search';
-import { Nullable } from 'primeng/ts-helpers';
+import { AngleDoubleDownIcon } from 'avan-primeng/icons/angledoubledown';
+import { AngleDoubleUpIcon } from 'avan-primeng/icons/angledoubleup';
+import { AngleUpIcon } from 'avan-primeng/icons/angleup';
+import { AngleDownIcon } from 'avan-primeng/icons/angledown';
+import { SearchIcon } from 'avan-primeng/icons/search';
+import { Nullable } from 'avan-primeng/ts-helpers';
 import { OrderListFilterEvent, OrderListFilterOptions, OrderListSelectionChangeEvent } from './orderlist.interface';
 /**
  * OrderList is used to managed the order of a collection.

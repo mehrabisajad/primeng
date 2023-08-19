@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'avan-primeng/api';
 import { Code } from '../../domain/code';
 import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 
@@ -142,7 +142,7 @@ export class PaginatorTemplateDoc implements OnInit {
 
         typescript: `
 import { Component, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'avan-primeng/api';
 
 interface Column {
     field: string;

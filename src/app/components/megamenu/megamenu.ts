@@ -23,14 +23,14 @@ import {
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MegaMenuItem, MenuItem, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { AngleDownIcon } from 'primeng/icons/angledown';
-import { AngleRightIcon } from 'primeng/icons/angleright';
-import { RippleModule } from 'primeng/ripple';
-import { TooltipModule } from 'primeng/tooltip';
-import { VoidListener } from 'primeng/ts-helpers';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
+import { MegaMenuItem, MenuItem, PrimeNGConfig, PrimeTemplate, SharedModule } from 'avan-primeng/api';
+import { DomHandler } from 'avan-primeng/dom';
+import { AngleDownIcon } from 'avan-primeng/icons/angledown';
+import { AngleRightIcon } from 'avan-primeng/icons/angleright';
+import { RippleModule } from 'avan-primeng/ripple';
+import { TooltipModule } from 'avan-primeng/tooltip';
+import { VoidListener } from 'avan-primeng/ts-helpers';
+import { ObjectUtils, UniqueComponentId } from 'avan-primeng/utils';
 
 @Component({
     selector: 'p-megaMenuSub',

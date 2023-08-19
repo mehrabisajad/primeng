@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseIcon } from 'primeng/baseicon';
-import { UniqueComponentId } from 'primeng/utils';
+import { BaseIcon } from 'avan-primeng/baseicon';
+import { UniqueComponentId } from 'avan-primeng/utils';
 
 @Component({
     selector: 'ExclamationTriangleIcon',

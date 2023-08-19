@@ -28,12 +28,12 @@
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, Inject, Input, NgModule, OnInit, Output, PLATFORM_ID, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { AutoFocusModule } from 'primeng/autofocus';
-import { DomHandler } from 'primeng/dom';
-import { InputTextModule } from 'primeng/inputtext';
-import { TimesIcon } from 'primeng/icons/times';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { Nullable } from 'primeng/ts-helpers';
+import { AutoFocusModule } from 'avan-primeng/autofocus';
+import { DomHandler } from 'avan-primeng/dom';
+import { InputTextModule } from 'avan-primeng/inputtext';
+import { TimesIcon } from 'avan-primeng/icons/times';
+import { PrimeTemplate, SharedModule } from 'avan-primeng/api';
+import { Nullable } from 'avan-primeng/ts-helpers';
 import { Caret } from './inputmask.interface';
 
 export const INPUTMASK_VALUE_ACCESSOR: any = {

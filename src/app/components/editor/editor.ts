@@ -17,11 +17,11 @@ import {
     AfterViewChecked
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule, Header, PrimeTemplate } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
+import { SharedModule, Header, PrimeTemplate } from 'avan-primeng/api';
+import { DomHandler } from 'avan-primeng/dom';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { EditorInitEvent, EditorTextChangeEvent, EditorSelectionChangeEvent } from './editor.interface';
-import { Nullable } from 'primeng/ts-helpers';
+import { Nullable } from 'avan-primeng/ts-helpers';
 //@ts-ignore
 import Quill from 'quill';
 

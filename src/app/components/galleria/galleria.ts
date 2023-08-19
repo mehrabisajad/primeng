@@ -26,18 +26,18 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
-import { TimesIcon } from 'primeng/icons/times';
-import { WindowMaximizeIcon } from 'primeng/icons/windowmaximize';
-import { WindowMinimizeIcon } from 'primeng/icons/windowminimize';
-import { RippleModule } from 'primeng/ripple';
-import { VoidListener } from 'primeng/ts-helpers';
-import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'avan-primeng/api';
+import { DomHandler } from 'avan-primeng/dom';
+import { ChevronLeftIcon } from 'avan-primeng/icons/chevronleft';
+import { ChevronRightIcon } from 'avan-primeng/icons/chevronright';
+import { TimesIcon } from 'avan-primeng/icons/times';
+import { WindowMaximizeIcon } from 'avan-primeng/icons/windowmaximize';
+import { WindowMinimizeIcon } from 'avan-primeng/icons/windowminimize';
+import { RippleModule } from 'avan-primeng/ripple';
+import { VoidListener } from 'avan-primeng/ts-helpers';
+import { UniqueComponentId, ZIndexUtils } from 'avan-primeng/utils';
 import { GalleriaResponsiveOptions } from './galleria.interface';
-import { FocusTrapModule } from 'primeng/focustrap';
+import { FocusTrapModule } from 'avan-primeng/focustrap';
 /**
  * Galleria is an advanced content gallery component.
  * @group Components

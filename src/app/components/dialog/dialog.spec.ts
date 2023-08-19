@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Footer } from 'primeng/api';
+import { Footer } from 'avan-primeng/api';
 import { ButtonModule } from '../button/button';
 import { FocusTrapModule } from '../focustrap/focustrap';
 import { Dialog } from './dialog';
-import { TimesIcon } from 'primeng/icons/times';
-import { WindowMaximizeIcon } from 'primeng/icons/windowmaximize';
-import { WindowMinimizeIcon } from 'primeng/icons/windowminimize';
+import { TimesIcon } from 'avan-primeng/icons/times';
+import { WindowMaximizeIcon } from 'avan-primeng/icons/windowmaximize';
+import { WindowMinimizeIcon } from 'avan-primeng/icons/windowminimize';
 
 @Component({
     template: `

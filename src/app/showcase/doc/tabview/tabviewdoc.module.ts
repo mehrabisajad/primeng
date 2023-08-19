@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ButtonModule } from 'primeng/button';
-import { TabViewModule } from 'primeng/tabview';
+import { ButtonModule } from 'avan-primeng/button';
+import { TabViewModule } from 'avan-primeng/tabview';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
 import { BasicDoc } from './basicdoc';

@@ -1,9 +1,9 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Directive, ElementRef, HostListener, Inject, Input, NgModule, NgZone, OnDestroy, PLATFORM_ID, Renderer2, SimpleChanges, TemplateRef } from '@angular/core';
-import { PrimeNGConfig, TooltipOptions } from 'primeng/api';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { Nullable } from 'primeng/ts-helpers';
-import { ZIndexUtils } from 'primeng/utils';
+import { PrimeNGConfig, TooltipOptions } from 'avan-primeng/api';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'avan-primeng/dom';
+import { Nullable } from 'avan-primeng/ts-helpers';
+import { ZIndexUtils } from 'avan-primeng/utils';
 
 /**
  * Tooltip directive provides advisory information for a component.

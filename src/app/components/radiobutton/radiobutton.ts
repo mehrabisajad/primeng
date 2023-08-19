@@ -1,7 +1,7 @@
 import { NgModule, Component, Input, Output, ElementRef, EventEmitter, forwardRef, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy, Injectable, Injector, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, NgControl } from '@angular/forms';
-import { Nullable } from 'primeng/ts-helpers';
+import { Nullable } from 'avan-primeng/ts-helpers';
 import { RadioButtonClickEvent } from './radiobutton.interface';
 
 export const RADIO_VALUE_ACCESSOR: any = {

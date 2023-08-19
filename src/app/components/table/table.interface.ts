@@ -1,4 +1,4 @@
-import { FilterMetadata, LazyLoadMeta, TableState } from 'primeng/api';
+import { FilterMetadata, LazyLoadMeta, TableState } from 'avan-primeng/api';
 import { Table } from './table';
 import { TemplateRef } from '@angular/core';
 /**

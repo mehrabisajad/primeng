@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, Input, NgModule, Output, TemplateRef, ViewEncapsulation, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { RippleModule } from 'primeng/ripple';
-import { ObjectUtils } from 'primeng/utils';
+import { PrimeTemplate, SharedModule } from 'avan-primeng/api';
+import { RippleModule } from 'avan-primeng/ripple';
+import { ObjectUtils } from 'avan-primeng/utils';
 import { SelectButtonChangeEvent, SelectButtonOptionClickEvent } from './selectbutton.interface';
 
 export const SELECTBUTTON_VALUE_ACCESSOR: any = {

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { OverlayModule } from 'primeng/overlay';
+import { ButtonModule } from 'avan-primeng/button';
+import { OverlayModule } from 'avan-primeng/overlay';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
 import { OverlayBasicDemo } from './basicdoc';

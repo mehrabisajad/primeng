@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { ToastModule } from 'primeng/toast';
+import { ProgressBarModule } from 'avan-primeng/progressbar';
+import { ToastModule } from 'avan-primeng/toast';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
 import { AccessibilityDoc } from './accessibilitydoc';

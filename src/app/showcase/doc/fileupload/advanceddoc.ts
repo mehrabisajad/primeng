@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'avan-primeng/api';
 import { Code } from '../../domain/code';
 
 interface UploadEvent {
@@ -67,7 +67,7 @@ export class AdvancedDoc {
 </div>`,
         typescript: `
 import { Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'avan-primeng/api';
 
 interface UploadEvent {
     originalEvent: Event;

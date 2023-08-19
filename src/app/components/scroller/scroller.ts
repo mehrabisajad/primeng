@@ -23,12 +23,12 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { SpinnerIcon } from 'primeng/icons/spinner';
+import { PrimeTemplate, SharedModule } from 'avan-primeng/api';
+import { DomHandler } from 'avan-primeng/dom';
+import { SpinnerIcon } from 'avan-primeng/icons/spinner';
 import { ScrollerLazyLoadEvent, ScrollerScrollEvent, ScrollerScrollIndexChangeEvent, ScrollerToType } from './scroller.interface';
-import { ScrollerOptions } from 'primeng/api';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { ScrollerOptions } from 'avan-primeng/api';
+import { Nullable, VoidListener } from 'avan-primeng/ts-helpers';
 /**
  * Scroller is a performance-approach to handle huge data efficiently.
  * @group Components

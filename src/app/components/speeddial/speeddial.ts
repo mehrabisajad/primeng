@@ -22,13 +22,13 @@ import {
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { DomHandler } from 'primeng/dom';
-import { PlusIcon } from 'primeng/icons/plus';
-import { RippleModule } from 'primeng/ripple';
-import { TooltipModule } from 'primeng/tooltip';
-import { UniqueComponentId } from 'primeng/utils';
+import { MenuItem, PrimeTemplate, SharedModule } from 'avan-primeng/api';
+import { ButtonModule } from 'avan-primeng/button';
+import { DomHandler } from 'avan-primeng/dom';
+import { PlusIcon } from 'avan-primeng/icons/plus';
+import { RippleModule } from 'avan-primeng/ripple';
+import { TooltipModule } from 'avan-primeng/tooltip';
+import { UniqueComponentId } from 'avan-primeng/utils';
 /**
  * When pressed, a floating action button can display multiple primary actions that can be performed on a page.
  * @group Components

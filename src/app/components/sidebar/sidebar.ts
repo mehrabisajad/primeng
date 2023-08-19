@@ -19,12 +19,12 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { TimesIcon } from 'primeng/icons/times';
-import { RippleModule } from 'primeng/ripple';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { ZIndexUtils } from 'primeng/utils';
+import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'avan-primeng/api';
+import { DomHandler } from 'avan-primeng/dom';
+import { TimesIcon } from 'avan-primeng/icons/times';
+import { RippleModule } from 'avan-primeng/ripple';
+import { Nullable, VoidListener } from 'avan-primeng/ts-helpers';
+import { ZIndexUtils } from 'avan-primeng/utils';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 

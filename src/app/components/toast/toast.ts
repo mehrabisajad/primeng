@@ -22,14 +22,14 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { Message, MessageService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
-import { CheckIcon } from 'primeng/icons/check';
-import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
-import { InfoCircleIcon } from 'primeng/icons/infocircle';
-import { TimesIcon } from 'primeng/icons/times';
-import { TimesCircleIcon } from 'primeng/icons/timescircle';
-import { RippleModule } from 'primeng/ripple';
-import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { Message, MessageService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'avan-primeng/api';
+import { CheckIcon } from 'avan-primeng/icons/check';
+import { ExclamationTriangleIcon } from 'avan-primeng/icons/exclamationtriangle';
+import { InfoCircleIcon } from 'avan-primeng/icons/infocircle';
+import { TimesIcon } from 'avan-primeng/icons/times';
+import { TimesCircleIcon } from 'avan-primeng/icons/timescircle';
+import { RippleModule } from 'avan-primeng/ripple';
+import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'avan-primeng/utils';
 import { Subscription } from 'rxjs';
 import { ToastCloseEvent, ToastItemCloseEvent } from './toast.interface';
 

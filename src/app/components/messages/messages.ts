@@ -1,13 +1,13 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Input, NgModule, OnDestroy, Optional, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { Message, MessageService, PrimeTemplate } from 'primeng/api';
-import { CheckIcon } from 'primeng/icons/check';
-import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
-import { InfoCircleIcon } from 'primeng/icons/infocircle';
-import { TimesIcon } from 'primeng/icons/times';
-import { TimesCircleIcon } from 'primeng/icons/timescircle';
-import { RippleModule } from 'primeng/ripple';
+import { Message, MessageService, PrimeTemplate } from 'avan-primeng/api';
+import { CheckIcon } from 'avan-primeng/icons/check';
+import { ExclamationTriangleIcon } from 'avan-primeng/icons/exclamationtriangle';
+import { InfoCircleIcon } from 'avan-primeng/icons/infocircle';
+import { TimesIcon } from 'avan-primeng/icons/times';
+import { TimesCircleIcon } from 'avan-primeng/icons/timescircle';
+import { RippleModule } from 'avan-primeng/ripple';
 import { Subscription, timer } from 'rxjs';
 /**
  * Messages is used to display alerts inline.

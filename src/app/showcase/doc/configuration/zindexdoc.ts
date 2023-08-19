@@ -24,7 +24,7 @@ export class ZIndexDoc {
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
     code: Code = {
-        typescript: `import { PrimeNGConfig } from 'primeng/api';
+        typescript: `import { PrimeNGConfig } from 'avan-primeng/api';
 
 @Component({
     selector: 'app-root',

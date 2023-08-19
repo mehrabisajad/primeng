@@ -5,7 +5,7 @@ import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
 import { ImportDoc } from './importdoc';
 import { BasicDoc } from './basicdoc';
-import { AnimateModule } from 'primeng/animate';
+import { AnimateModule } from 'avan-primeng/animate';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, AnimateModule],

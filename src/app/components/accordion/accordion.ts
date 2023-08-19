@@ -19,13 +19,13 @@ import {
     ViewEncapsulation,
     forwardRef
 } from '@angular/core';
-import { BlockableUI, Header, PrimeTemplate, SharedModule } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
+import { BlockableUI, Header, PrimeTemplate, SharedModule } from 'avan-primeng/api';
+import { DomHandler } from 'avan-primeng/dom';
+import { ChevronDownIcon } from 'avan-primeng/icons/chevrondown';
+import { ChevronRightIcon } from 'avan-primeng/icons/chevronright';
 import { Subscription } from 'rxjs';
 import { AccordionTabCloseEvent, AccordionTabOpenEvent } from './accordion.interface';
-import { UniqueComponentId } from 'primeng/utils';
+import { UniqueComponentId } from 'avan-primeng/utils';
 
 /**
  * AccordionTab is a helper component for Accordion.

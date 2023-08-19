@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild } from '@angular/core';
-import { LazyLoadEvent } from 'primeng/api';
+import { LazyLoadEvent } from 'avan-primeng/api';
 import { Car } from '../../domain/car';
 import { Code } from '../../domain/code';
 import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
@@ -145,7 +145,7 @@ export class VirtualScrollLazyDoc implements OnInit {
 </div>`,
         typescript: `
 import { Component, OnInit } from '@angular/core';
-import { LazyLoadEvent } from 'primeng/api';
+import { LazyLoadEvent } from 'avan-primeng/api';
 import { Car } from '../../domain/car';
 import { CarService } from '../../service/carservice';
 

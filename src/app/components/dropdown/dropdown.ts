@@ -24,20 +24,20 @@ import {
     ViewRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { FilterService, OverlayOptions, PrimeNGConfig, PrimeTemplate, SelectItem, SharedModule, TranslationKeys } from 'primeng/api';
-import { AutoFocusModule } from 'primeng/autofocus';
-import { DomHandler } from 'primeng/dom';
-import { Overlay, OverlayModule } from 'primeng/overlay';
-import { RippleModule } from 'primeng/ripple';
-import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { ScrollerOptions } from 'primeng/api';
-import { TooltipModule } from 'primeng/tooltip';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
-import { TimesIcon } from 'primeng/icons/times';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { SearchIcon } from 'primeng/icons/search';
+import { FilterService, OverlayOptions, PrimeNGConfig, PrimeTemplate, SelectItem, SharedModule, TranslationKeys } from 'avan-primeng/api';
+import { AutoFocusModule } from 'avan-primeng/autofocus';
+import { DomHandler } from 'avan-primeng/dom';
+import { Overlay, OverlayModule } from 'avan-primeng/overlay';
+import { RippleModule } from 'avan-primeng/ripple';
+import { Scroller, ScrollerModule } from 'avan-primeng/scroller';
+import { ScrollerOptions } from 'avan-primeng/api';
+import { TooltipModule } from 'avan-primeng/tooltip';
+import { ObjectUtils, UniqueComponentId } from 'avan-primeng/utils';
+import { TimesIcon } from 'avan-primeng/icons/times';
+import { ChevronDownIcon } from 'avan-primeng/icons/chevrondown';
+import { SearchIcon } from 'avan-primeng/icons/search';
 import { DropdownChangeEvent, DropdownFilterEvent, DropdownFilterOptions, DropdownLazyLoadEvent } from './dropdown.interface';
-import { Nullable } from 'primeng/ts-helpers';
+import { Nullable } from 'avan-primeng/ts-helpers';
 
 export const DROPDOWN_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,

@@ -23,13 +23,13 @@ import {
 } from '@angular/core';
 import { trigger, style, transition, animate, AnimationEvent } from '@angular/animations';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { DomHandler, ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { MenuItem, OverlayService, PrimeNGConfig } from 'primeng/api';
-import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { DomHandler, ConnectedOverlayScrollHandler } from 'avan-primeng/dom';
+import { MenuItem, OverlayService, PrimeNGConfig } from 'avan-primeng/api';
+import { UniqueComponentId, ZIndexUtils } from 'avan-primeng/utils';
 import { RouterModule } from '@angular/router';
-import { RippleModule } from 'primeng/ripple';
-import { TooltipModule } from 'primeng/tooltip';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { RippleModule } from 'avan-primeng/ripple';
+import { TooltipModule } from 'avan-primeng/tooltip';
+import { Nullable, VoidListener } from 'avan-primeng/ts-helpers';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Pipe({

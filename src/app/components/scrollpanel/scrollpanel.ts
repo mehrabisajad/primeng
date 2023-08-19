@@ -19,9 +19,9 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { PrimeTemplate } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { Nullable } from 'primeng/ts-helpers';
+import { PrimeTemplate } from 'avan-primeng/api';
+import { DomHandler } from 'avan-primeng/dom';
+import { Nullable } from 'avan-primeng/ts-helpers';
 /**
  * ScrollPanel is a cross browser, lightweight and themable alternative to native browser scrollbar.
  * @group Components

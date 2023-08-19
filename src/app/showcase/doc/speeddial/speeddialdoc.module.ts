@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MessagesModule } from 'primeng/messages';
-import { SpeedDialModule } from 'primeng/speeddial';
-import { ToastModule } from 'primeng/toast';
-import { TooltipModule } from 'primeng/tooltip';
+import { MessagesModule } from 'avan-primeng/messages';
+import { SpeedDialModule } from 'avan-primeng/speeddial';
+import { ToastModule } from 'avan-primeng/toast';
+import { TooltipModule } from 'avan-primeng/tooltip';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/code/app.code.component';
 import { AccessibilityDoc } from './accessibilitydoc';

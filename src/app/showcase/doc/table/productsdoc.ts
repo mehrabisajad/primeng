@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'avan-primeng/api';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
@@ -502,7 +502,7 @@ export class ProductsDoc implements OnInit {
 <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>`,
         typescript: `
 import { Component, OnInit } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'avan-primeng/api';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
