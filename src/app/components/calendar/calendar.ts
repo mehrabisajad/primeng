@@ -26,7 +26,7 @@ import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, Translation
 import { ButtonModule } from 'avan-primeng/button';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'avan-primeng/dom';
 import { RippleModule } from 'avan-primeng/ripple';
-import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'avan-primeng/utils';
+import { ObjectUtils, UniqueComponentId, ZIndexUtils, JDate } from 'avan-primeng/utils';
 import { Subscription } from 'rxjs';
 import { ChevronLeftIcon } from 'avan-primeng/icons/chevronleft';
 import { ChevronRightIcon } from 'avan-primeng/icons/chevronright';
@@ -112,6 +112,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                 (@overlayAnimation.done)="onOverlayAnimationDone($event)"
                 (click)="onOverlayClick($event)"
                 *ngIf="inline || overlayVisible"
+                [dir]="dir"
             >
                 <ng-content select="p-header"></ng-content>
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
@@ -202,7 +203,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                         </span>
                     </div>
                 </ng-container>
-                <div class="p-timepicker" *ngIf="(showTime || timeOnly) && currentView === 'date'">
+                <div class="p-timepicker" *ngIf="(showTime || timeOnly) && currentView === 'date'" dir="ltr">
                     <div class="p-hour-picker">
                         <button
                             class="p-link"
@@ -328,6 +329,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                 </div>
                 <div class="p-datepicker-buttonbar" *ngIf="showButtonBar">
                     <button type="button" [label]="getTranslation('today')" (keydown)="onContainerButtonKeydown($event)" (click)="onTodayButtonClick($event)" pButton pRipple [ngClass]="[todayButtonStyleClass]"></button>
+                    <button type="button" *ngIf="showCalendarChangerButton" [label]="isJalali ? getTranslation('gregorianCalenderName') : getTranslation('jalaliCalenderName')" (keydown)="onContainerButtonKeydown($event)" (click)="onChangeCalenderButtonClick($event)" pButton pRipple [ngClass]="[calendarChangerButtonStyleClass]"></button>
                     <button type="button" [label]="getTranslation('clear')" (keydown)="onContainerButtonKeydown($event)" (click)="onClearButtonClick($event)" pButton pRipple [ngClass]="[clearButtonStyleClass]"></button>
                 </div>
                 <ng-content select="p-footer"></ng-content>
@@ -370,6 +372,13 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
     styleUrls: ['./calendar.css']
 })
 export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
+
+    @Input() isJalali: boolean;
+
+    @Input() dir: string;
+
+    @Input() manualDir = false;
+
     /**
      * Inline style of the component.
      * @group Props
@@ -558,6 +567,11 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
      */
     @Input() showButtonBar: boolean | undefined;
     /**
+     * Whether to display today and calendar changer buttons at the footer
+     * @group Props
+     */
+    @Input() showCalendarChangerButton: boolean | undefined;
+    /**
      * Style class of the today button.
      * @group Props
      */
@@ -567,6 +581,11 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
      * @group Props
      */
     @Input() clearButtonStyleClass: string = 'p-button-text';
+    /**
+     * Style class of the calendar changer button.
+     * @group Props
+     */
+    @Input() calendarChangerButtonStyleClass: string = 'p-button-text';
     /**
      * Whether to automatically manage layering.
      * @group Props
@@ -785,8 +804,14 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
         if (this.initialized) {
             const date = defaultDate || new Date();
-            this.currentMonth = date.getMonth();
-            this.currentYear = date.getFullYear();
+            if (this.isJalali) {
+                const jDate = new JDate(date);
+                this.currentMonth = jDate.getMonth();
+                this.currentYear = jDate.getYear();
+            } else {
+                this.currentMonth = date.getMonth();
+                this.currentYear = date.getFullYear();
+            }
             this.initTime(date);
             this.createMonths(this.currentMonth, this.currentYear);
         }
@@ -838,6 +863,14 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
      * @group Emits
      */
     @Output() onClearClick: EventEmitter<any> = new EventEmitter<any>();
+
+    /**
+     * Callback to invoke when calendar changer button is clicked.
+     * @param {Event} event - browser event.
+     * @group Emits
+     */
+    @Output() onChangeCalendarClick: EventEmitter<any> = new EventEmitter();
+
     /**
      * Callback to invoke when a month is changed using the navigators.
      * @param {CalendarMonthChangeEvent} event - custom month change event.
@@ -1024,8 +1057,14 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         this.attributeSelector = UniqueComponentId();
         const date = this.defaultDate || new Date();
         this.createResponsiveStyle();
-        this.currentMonth = date.getMonth();
-        this.currentYear = date.getFullYear();
+        if (this.isJalali) {
+            const jDate = new JDate(date);
+            this.currentMonth = jDate.getMonth();
+            this.currentYear = jDate.getYear();
+        } else {
+            this.currentMonth = date.getMonth();
+            this.currentYear = date.getFullYear();
+        }
         this.currentView = this.view;
 
         if (this.view === 'date') {
@@ -1135,7 +1174,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     monthPickerValues() {
         let monthPickerValues = [];
         for (let i = 0; i <= 11; i++) {
-            monthPickerValues.push(this.config.getTranslation('monthNamesShort')[i]);
+            monthPickerValues.push((this.isJalali ? this.config.getTranslation('jalaliMonthNamesShort') : this.config.getTranslation('monthNamesShort'))[i]);
         }
 
         return monthPickerValues;
@@ -1481,7 +1520,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     selectDate(dateMeta: any) {
-        let date = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
+        let date = this.isJalali
+            ? new JDate(dateMeta.year, dateMeta.month, dateMeta.day).toDate()
+            : new Date(dateMeta.year, dateMeta.month, dateMeta.day);
 
         if (this.showTime) {
             if (this.hourFormat == '12') {
@@ -1553,6 +1594,13 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     getFirstDayOfMonthIndex(month: number, year: number) {
+        if (this.isJalali) {
+            const day = new JDate(year, month, 1).toDate();
+
+            let dayIndex = day.getDay() + this.getSundayIndex();
+            return dayIndex >= 7 ? dayIndex - 7 : dayIndex;
+        }
+
         let day = new Date();
         day.setDate(1);
         day.setMonth(month);
@@ -1563,6 +1611,10 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     getDaysCountInMonth(month: number, year: number) {
+        if (this.isJalali) {
+            const date = new JDate(year, month, 32).toDate();
+            return 32 - new JDate(this.daylightSavingAdjust(date)).getDay();
+        }
         return 32 - this.daylightSavingAdjust(new Date(year, month, 32)).getDate();
     }
 
@@ -1635,7 +1687,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     isMonthSelected(month: number) {
         if (this.isComparable() && !this.isMultipleSelection()) {
             const [start, end] = this.isRangeSelection() ? this.value : [this.value, this.value];
-            const selected = new Date(this.currentYear, month, 1);
+            const selected = this.isJalali ? new JDate(this.currentYear, month, 1).toDate() : new Date(this.currentYear, month, 1);
             return selected >= start && selected <= (end ?? start);
         }
         return false;
@@ -1653,6 +1705,10 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     isYearSelected(year: number) {
         if (this.isComparable()) {
             let value = this.isRangeSelection() ? this.value[0] : this.value;
+            if (this.isJalali) {
+                const jValue = new JDate(value);
+                return !this.isMultipleSelection() ? (jValue.getYear() === year) : false;
+            }
 
             return !this.isMultipleSelection() ? value.getFullYear() === year : false;
         }
@@ -1661,14 +1717,22 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     isDateEquals(value: any, dateMeta: any) {
-        if (value && ObjectUtils.isDate(value)) return value.getDate() === dateMeta.day && value.getMonth() === dateMeta.month && value.getFullYear() === dateMeta.year;
+        if (value && ObjectUtils.isDate(value)) {
+            if (this.isJalali) {
+                const jValue = new JDate(value);
+                return jValue.getDay() === dateMeta.day && jValue.getMonth() === dateMeta.month && jValue.getYear() === dateMeta.year;
+            }
+            return value.getDate() === dateMeta.day && value.getMonth() === dateMeta.month && value.getFullYear() === dateMeta.year;
+        }
         else return false;
     }
 
     isDateBetween(start: Date, end: Date, dateMeta: any) {
         let between: boolean = false;
         if (start && end) {
-            let date: Date = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
+            const date = (this.isJalali)
+                ? new JDate(dateMeta.year, dateMeta.month, dateMeta.day).toDate()
+                : new Date(dateMeta.year, dateMeta.month, dateMeta.day);
             return start.getTime() <= date.getTime() && end.getTime() >= date.getTime();
         }
 
@@ -1688,6 +1752,10 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     isToday(today: Date, day: number, month: number, year: number): boolean {
+        if (this.isJalali) {
+            const jToday = new JDate(today);
+            return jToday.getDay() === day && jToday.getMonth() === month && jToday.getYear() === year;
+        }
         return today.getDate() === day && today.getMonth() === month && today.getFullYear() === year;
     }
 
@@ -1702,13 +1770,17 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         }
 
         if (this.minDate) {
-            if (this.minDate.getFullYear() > year) {
+            let jMinDate: JDate;
+            if (this.isJalali) {
+                jMinDate = new JDate(this.minDate);
+            }
+            if ((this.isJalali ? jMinDate.getYear() : this.minDate.getFullYear()) > year) {
                 validMin = false;
-            } else if (this.minDate.getFullYear() === year) {
-                if (this.minDate.getMonth() > month) {
+            } else if ((this.isJalali ? jMinDate.getYear() : this.minDate.getFullYear()) === year) {
+                if ((this.isJalali ? jMinDate.getMonth() : this.minDate.getMonth()) > month) {
                     validMin = false;
-                } else if (this.minDate.getMonth() === month) {
-                    if (this.minDate.getDate() > day) {
+                } else if ((this.isJalali ? jMinDate.getMonth() : this.minDate.getMonth()) === month) {
+                    if ((this.isJalali ? jMinDate.getDay() : this.minDate.getDate()) > day) {
                         validMin = false;
                     }
                 }
@@ -1716,13 +1788,17 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         }
 
         if (this.maxDate) {
-            if (this.maxDate.getFullYear() < year) {
+            let jMaxDate: JDate;
+            if (this.isJalali) {
+                jMaxDate = new JDate(this.maxDate);
+            }
+            if ((this.isJalali ? jMaxDate.getYear() : this.maxDate.getFullYear()) < year) {
                 validMax = false;
-            } else if (this.maxDate.getFullYear() === year) {
-                if (this.maxDate.getMonth() < month) {
+            } else if ((this.isJalali ? jMaxDate.getYear() : this.maxDate.getFullYear()) === year) {
+                if ((this.isJalali ? jMaxDate.getMonth() : this.maxDate.getMonth()) < month) {
                     validMax = false;
-                } else if (this.maxDate.getMonth() === month) {
-                    if (this.maxDate.getDate() < day) {
+                } else if ((this.isJalali ? jMaxDate.getMonth() : this.maxDate.getMonth()) === month) {
+                    if ((this.isJalali ? jMaxDate.getDay() : this.maxDate.getDate()) < day) {
                         validMax = false;
                     }
                 }
@@ -1743,8 +1819,15 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     isDateDisabled(day: number, month: number, year: number): boolean {
         if (this.disabledDates) {
             for (let disabledDate of this.disabledDates) {
-                if (disabledDate.getFullYear() === year && disabledDate.getMonth() === month && disabledDate.getDate() === day) {
-                    return true;
+                if (this.isJalali){
+                    const jDisabledDate = new JDate(disabledDate);
+                    if (jDisabledDate.getYear() === year && jDisabledDate.getMonth() === month && jDisabledDate.getDay() === day) {
+                        return true;
+                    }
+                } else {
+                    if (disabledDate.getFullYear() === year && disabledDate.getMonth() === month && disabledDate.getDate() === day) {
+                        return true;
+                    }
                 }
             }
         }
@@ -1754,7 +1837,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     isDayDisabled(day: number, month: number, year: number): boolean {
         if (this.disabledDays) {
-            let weekday = new Date(year, month, day);
+            let weekday = this.isJalali ? new JDate(year, month, day).toDate() : new Date(year, month, day);
             let weekdayNumber = weekday.getDay();
             return this.disabledDays.indexOf(weekdayNumber) !== -1;
         }
@@ -1808,7 +1891,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     getMonthName(index: number) {
-        return this.config.getTranslation('monthNames')[index];
+        return (this.isJalali ? this.config.getTranslation('jalaliMonthNames') : this.config.getTranslation('monthNames'))[index];
     }
 
     getYear(month: any) {
@@ -2584,10 +2667,21 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     isValidSelection(value: any): boolean {
         let isValid = true;
         if (this.isSingleSelection()) {
-            if (!this.isSelectable(value.getDate(), value.getMonth(), value.getFullYear(), false)) {
+            if (this.isJalali) {
+                const jValue = new JDate(value);
+                if (!this.isSelectable(jValue.getDay(), jValue.getMonth(), jValue.getYear(), false)) {
+                    isValid = false;
+                }
+            } else if (!this.isSelectable(value.getDate(), value.getMonth(), value.getFullYear(), false)) {
                 isValid = false;
             }
-        } else if (value.every((v: any) => this.isSelectable(v.getDate(), v.getMonth(), v.getFullYear(), false))) {
+        } else if (value.every((v: any) => {
+            if (this.isJalali) {
+                const jV = new JDate(v);
+                return this.isSelectable(jV.getDay(), jV.getMonth(), jV.getYear(), false);
+            }
+            return this.isSelectable(v.getDate(), v.getMonth(), v.getFullYear(), false);
+        })) {
             if (this.isRangeSelection()) {
                 isValid = value.length > 1 && value[1] > value[0] ? true : false;
             }
@@ -2668,8 +2762,14 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
         let val = this.defaultDate && this.isValidDate(this.defaultDate) && !this.value ? this.defaultDate : propValue && this.isValidDate(propValue) ? propValue : new Date();
 
-        this.currentMonth = val.getMonth();
-        this.currentYear = val.getFullYear();
+        if ( this.isJalali) {
+            const jVal = new JDate(val);
+            this.currentMonth = jVal.getMonth();
+            this.currentYear = jVal.getYear();
+        } else {
+            this.currentMonth = val.getMonth();
+            this.currentYear = val.getFullYear();
+        }
         this.createMonths(this.currentMonth, this.currentYear);
 
         if (this.showTime || this.timeOnly) {
@@ -2887,7 +2987,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     getFirstDateOfWeek() {
-        return this._firstDayOfWeek || this.getTranslation(TranslationKeys.FIRST_DAY_OF_WEEK);
+        return this._firstDayOfWeek || (this.isJalali ? this.getTranslation(TranslationKeys.JALALI_FIRST_DAY_OF_WEEK) : this.getTranslation(TranslationKeys.FIRST_DAY_OF_WEEK));
     }
 
     // Ported from jquery-ui datepicker formatDate
@@ -2920,6 +3020,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         let literal = false;
 
         if (date) {
+            let jDate : JDate;
+            if (this.isJalali) jDate = new JDate(date);
             for (iFormat = 0; iFormat < format.length; iFormat++) {
                 if (literal) {
                     if (format.charAt(iFormat) === "'" && !lookAhead("'")) {
@@ -2930,22 +3032,25 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 } else {
                     switch (format.charAt(iFormat)) {
                         case 'd':
-                            output += formatNumber('d', date.getDate(), 2);
+                            output += formatNumber('d', this.isJalali ? jDate.getDay() : date.getDate(), 2);
                             break;
                         case 'D':
-                            output += formatName('D', date.getDay(), this.getTranslation(TranslationKeys.DAY_NAMES_SHORT), this.getTranslation(TranslationKeys.DAY_NAMES));
+                            output += formatName('D', this.isJalali ? jDate.getDay() : date.getDay(), this.getTranslation(TranslationKeys.DAY_NAMES_SHORT), this.getTranslation(TranslationKeys.DAY_NAMES));
                             break;
                         case 'o':
-                            output += formatNumber('o', Math.round((new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime() - new Date(date.getFullYear(), 0, 0).getTime()) / 86400000), 3);
+                            output += formatNumber('o', Math.round((this.isJalali
+                                ? (jDate.toDate().getTime() - new JDate(jDate.getYear(), 0, 0).toDate().getTime())
+                                : (new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime() - new Date(date.getFullYear(), 0, 0).getTime())
+                                ) / 86400000), 3);
                             break;
                         case 'm':
-                            output += formatNumber('m', date.getMonth() + 1, 2);
+                            output += formatNumber('m', (this.isJalali ? jDate.getMonth() : date.getMonth()) + 1, 2);
                             break;
                         case 'M':
-                            output += formatName('M', date.getMonth(), this.getTranslation(TranslationKeys.MONTH_NAMES_SHORT), this.getTranslation(TranslationKeys.MONTH_NAMES));
+                            output += formatName('M', this.isJalali ? jDate.getMonth() : date.getMonth(), this.getTranslation(this.isJalali ? TranslationKeys.JALALI_MONTH_NAMES_SHORT : TranslationKeys.MONTH_NAMES_SHORT), this.getTranslation(this.isJalali ? TranslationKeys.JALALI_MONTH_NAMES : TranslationKeys.MONTH_NAMES));
                             break;
                         case 'y':
-                            output += lookAhead('y') ? date.getFullYear() : (date.getFullYear() % 100 < 10 ? '0' : '') + (date.getFullYear() % 100);
+                            output += lookAhead('y') ? (this.isJalali ? jDate.getYear() : date.getFullYear()) : ((this.isJalali ? jDate.getYear() : date.getFullYear()) % 100 < 10 ? '0' : '') + ((this.isJalali ? jDate.getYear() : date.getFullYear()) % 100);
                             break;
                         case '@':
                             output += date.getTime();
@@ -3045,7 +3150,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             dim,
             extra,
             iValue = 0,
-            shortYearCutoff = typeof this.shortYearCutoff !== 'string' ? this.shortYearCutoff : (new Date().getFullYear() % 100) + parseInt(this.shortYearCutoff, 10),
+            shortYearCutoff = typeof this.shortYearCutoff !== 'string' ? this.shortYearCutoff : (this.isJalali ? new JDate(new Date()).getYear() : new Date().getFullYear()) % 100 + parseInt(this.shortYearCutoff, 10),
             year = -1,
             month = -1,
             day = -1,
@@ -3131,22 +3236,36 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                         month = getNumber('m');
                         break;
                     case 'M':
-                        month = getName('M', this.getTranslation(TranslationKeys.MONTH_NAMES_SHORT), this.getTranslation(TranslationKeys.MONTH_NAMES));
+                        month = getName('M', this.getTranslation(this.isJalali ? TranslationKeys.JALALI_MONTH_NAMES_SHORT : TranslationKeys.MONTH_NAMES_SHORT), this.getTranslation(this.isJalali ? TranslationKeys.JALALI_MONTH_NAMES : TranslationKeys.MONTH_NAMES));
                         break;
                     case 'y':
                         year = getNumber('y');
                         break;
                     case '@':
                         date = new Date(getNumber('@'));
-                        year = date.getFullYear();
-                        month = date.getMonth() + 1;
-                        day = date.getDate();
+                        if (this.isJalali) {
+                            const jDate = new JDate(date);
+                            year = jDate.getYear();
+                            month = jDate.getMonth() + 1;
+                            day = jDate.getDay();
+                        } else {
+                            year = date.getFullYear();
+                            month = date.getMonth() + 1;
+                            day = date.getDate();
+                        }
                         break;
                     case '!':
                         date = new Date((getNumber('!') - <number>this.ticksTo1970) / 10000);
-                        year = date.getFullYear();
-                        month = date.getMonth() + 1;
-                        day = date.getDate();
+                        if (this.isJalali) {
+                            const jDate = new JDate(date);
+                            year = jDate.getYear();
+                            month = jDate.getMonth() + 1;
+                            day = jDate.getDay();
+                        } else {
+                            year = date.getFullYear();
+                            month = date.getMonth() + 1;
+                            day = date.getDate();
+                        }
                         break;
                     case "'":
                         if (lookAhead("'")) {
@@ -3169,9 +3288,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         }
 
         if (year === -1) {
-            year = new Date().getFullYear();
+            year = this.isJalali ? new JDate(new Date()).getYear() : new Date().getFullYear();
         } else if (year < 100) {
-            year += new Date().getFullYear() - (new Date().getFullYear() % 100) + (year <= shortYearCutoff ? 0 : -100);
+            year += (this.isJalali ? new JDate(new Date()).getYear() : new Date().getFullYear()) - ((this.isJalali ? new JDate(new Date()).getYear() : new Date().getFullYear()) % 100) + (year <= shortYearCutoff ? 0 : -100);
         }
 
         if (doy > -1) {
@@ -3192,8 +3311,14 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             day = day === -1 ? 1 : day;
         }
 
-        date = this.daylightSavingAdjust(new Date(year, month - 1, day));
-
+        date = this.daylightSavingAdjust(this.isJalali ? new JDate(year, month - 1, day).toDate() : new Date(year, month - 1, day));
+        let jDate: JDate;
+        if (this.isJalali) {
+            jDate = new JDate(date);
+            if (jDate.getYear() !== year || jDate.getMonth() + 1 !== month || jDate.getDay() !== day) {
+                throw "Invalid date"; // E.g. 31/02/00
+            }
+        } else
         if (date.getFullYear() !== year || date.getMonth() + 1 !== month || date.getDate() !== day) {
             throw 'Invalid date'; // E.g. 31/02/00
         }
@@ -3217,10 +3342,23 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     onTodayButtonClick(event: any) {
         let date: Date = new Date();
-        let dateMeta = { day: date.getDate(), month: date.getMonth(), year: date.getFullYear(), otherMonth: date.getMonth() !== this.currentMonth || date.getFullYear() !== this.currentYear, today: true, selectable: true };
+        let jDate: JDate;
+        if (this.isJalali) jDate = new JDate(date);
+
+        let dateMeta = { day: this.isJalali ? jDate.getDay() : date.getDate(), month: this.isJalali ? jDate.getMonth() : date.getMonth(), year: this.isJalali ? jDate.getYear() : date.getFullYear(), otherMonth: (this.isJalali ? jDate.getMonth() : date.getMonth()) !== this.currentMonth || (this.isJalali ? jDate.getYear() : date.getFullYear()) !== this.currentYear, today: true, selectable: true };
 
         this.onDateSelect(event, dateMeta);
         this.onTodayClick.emit(event);
+    }
+
+    onChangeCalenderButtonClick(event: any) {
+        this.isJalali = !this.isJalali;
+        this.createWeekDays();
+        this.updateUI();
+        this.updateInputfield();
+        this.cd.detectChanges();
+        this.alignOverlay();
+        this.onChangeCalendarClick.emit(event);
     }
 
     onClearButtonClick(event: any) {
