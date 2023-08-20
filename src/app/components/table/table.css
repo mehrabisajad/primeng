@@ -115,6 +115,11 @@
     border: 1px solid transparent;
 }
 
+html[dir='rtl'] .p-datatable .p-column-resizer {
+    right: unset;
+    left: 0;
+}
+
 .p-datatable .p-column-resizer-helper {
     width: 1px;
     position: absolute;
@@ -197,6 +202,11 @@
     left: 0;
 }
 
+html[dir='rtl'] .p-column-filter-overlay {
+    left: unset;
+    right: 0;
+}
+
 .p-column-filter-row-items {
     margin: 0;
     padding: 0;
@@ -243,4 +253,9 @@
     position: sticky;
     top: 0;
     left: 0;
+}
+
+html[dir='rtl'] .p-datatable .p-scroller .p-scroller-loading {
+    left: unset;
+    right: 0;
 }

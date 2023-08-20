@@ -47,7 +47,7 @@
 }
 
 .p-buttonset .p-button:not(:last-child) {
-    border-right: 0 none;
+    border-right-width: 0;
 }
 
 .p-buttonset .p-button:not(:first-of-type):not(:last-of-type) {

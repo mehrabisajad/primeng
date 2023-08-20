@@ -22,6 +22,11 @@
     left: 0;
 }
 
+html[dir='rtl'] .p-colorpicker-overlay-panel {
+    left: unset;
+    right: 0;
+}
+
 .p-colorpicker-preview {
     cursor: pointer;
 }
@@ -36,6 +41,11 @@
     top: 8px;
     left: 8px;
     position: absolute;
+}
+
+html[dir='rtl'] .p-colorpicker-panel .p-colorpicker-color-selector {
+    left: unset;
+    right: 8px;
 }
 
 .p-colorpicker-panel .p-colorpicker-color {
@@ -57,6 +67,11 @@
      opacity: .85;
 }
 
+html[dir='rtl'] .p-colorpicker-panel .p-colorpicker-color-handle {
+    left: unset;
+    right: 150px;
+}
+
 .p-colorpicker-panel .p-colorpicker-hue {
     width: 17px;
     height: 150px;
@@ -64,6 +79,11 @@
     left: 167px;
     position: absolute;
     opacity: .85;
+}
+
+html[dir='rtl'] .p-colorpicker-panel .p-colorpicker-hue {
+    left: unset;
+    right: 167px;
 }
 
 .p-colorpicker-panel .p-colorpicker-hue-handle {
@@ -78,4 +98,9 @@
      border-style: solid;
      opacity: .85;
      cursor: pointer;
+}
+
+html[dir='rtl'] .p-colorpicker-panel .p-colorpicker-hue-handle {
+    left: unset;
+    right: 0px;
 }
