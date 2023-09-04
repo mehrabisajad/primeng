@@ -7507,6 +7507,14 @@
                             "description": "Defines if data is loaded and interacted with in lazy manner."
                         },
                         {
+                            "name": "lazyLoadOnInit",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether to call lazy loading on initialization."
+                        },
+                        {
                             "name": "emptyMessage",
                             "optional": false,
                             "readonly": false,
@@ -10829,6 +10837,14 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "Items are displayed with a slideshow in autoPlay mode."
+                        },
+                        {
+                            "name": "shouldStopAutoplayByClick",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "When enabled, autorun should stop by click."
                         },
                         {
                             "name": "transitionInterval",
@@ -20672,7 +20688,7 @@
                                 "name": "data",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "any[]",
+                                "type": "any",
                                 "description": "Row data."
                             },
                             {
@@ -20706,7 +20722,7 @@
                                 "name": "data",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "any[]",
+                                "type": "any",
                                 "description": "Row data."
                             },
                             {
@@ -22291,6 +22307,14 @@
                             "type": "number",
                             "default": "0",
                             "description": "Base zIndex value to use in layering."
+                        },
+                        {
+                            "name": "life",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "3000",
+                            "description": "The default time to display messages for in milliseconds."
                         },
                         {
                             "name": "style",
