@@ -1,18 +1,17 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { AppDocSectionTextComponent } from 'src/app/showcase/layout/doc/docsectiontext/app.docsectiontext.component';
+import { Component, OnInit } from '@angular/core';
 import { Code } from '../../../domain/code';
 import { PhotoService } from '../../../service/photoservice';
 
 @Component({
     selector: 'positioned-doc',
-    template: ` <section>
-        <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
+    template: `
+        <app-docsectiontext>
             <p>
                 Indicators can be placed at four different sides using the <i>indicatorsPosition</i> property. In addition, enabling <i>showIndicatorsOnItem</i> moves the indicators inside the image section. <i>indicatorsPosition</i> set to
                 <i>bottom</i> by default, accepted values are <i>top</i>, <i>left</i>, <i>right</i>, and <i>bottom</i>.
             </p>
         </app-docsectiontext>
-        <div class="card flex flex-column md:align-items-center">
+        <div class="card">
             <div class="flex flex-wrap gap-3 mb-5">
                 <p-radioButton *ngFor="let option of positionOptions" [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="label"></p-radioButton>
             </div>
@@ -34,18 +33,13 @@ import { PhotoService } from '../../../service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-indicator-positioned-demo"></app-code>
-    </section>`
+    `
 })
 export class PositionedDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
-    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
     images: any[] | undefined;
 
-    position: string = 'top';
+    position: string = 'bottom';
 
     showIndicatorsOnItem: boolean = false;
 
@@ -107,7 +101,7 @@ export class PositionedDoc implements OnInit {
     </ng-template>
 </p-galleria>`,
         html: `
- <div class="card md:flex md:justify-content-center">
+ <div class="card">
     <div class="flex flex-wrap gap-3 mb-5">
         <p-radioButton *ngFor="let option of positionOptions;" [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="label"></p-radioButton>
     </div>
@@ -131,7 +125,7 @@ import { PhotoService } from '../../service/photoservice';
 export class GalleriaIndicatorPositionedDemo implements OnInit {
     images: any[] | undefined;
 
-    position: string = 'top';
+    position: string = 'bottom';
 
     showIndicatorsOnItem: boolean = false;
 

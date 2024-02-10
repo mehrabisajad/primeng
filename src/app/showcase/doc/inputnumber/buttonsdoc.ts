@@ -1,12 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'buttons-doc',
-    template: ` <section>
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>
-                Spinner buttons is enabled using the <i>showButtons</i> options and layout is defined with the <i>buttonLayout</i>. Default value is "stacked" whereas "horizontal" and "stacked" are alternatives. Note that even there are no buttons,
+                Spinner buttons are enabled using the <i>showButtons</i> options and layout is defined with the <i>buttonLayout</i>. Default value is "stacked" whereas "horizontal" and "stacked" are alternatives. Note that even there are no buttons,
                 up and down arrow keys can be used to spin the values with keyboard.
             </p>
         </app-docsectiontext>
@@ -38,12 +38,9 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="input-number-buttons-demo"></app-code>
-    </section>`
+   `
 })
 export class ButtonsDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     value1: number = 20;
 

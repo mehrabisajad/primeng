@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
@@ -10,21 +10,21 @@ interface Column {
 
 @Component({
     selector: 'dynamic-columns-doc',
-    template: ` <section>
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` 
+        <app-docsectiontext>
             <p>Columns can be created programmatically.</p>
         </app-docsectiontext>
         <div class="card">
             <p-treeTable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="header" let-columns>
-                    <tr [ttRow]="rowNode">
+                    <tr>
                         <th *ngFor="let col of columns">
                             {{ col.header }}
                         </th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-                    <tr>
+                    <tr [ttRow]="rowNode">
                         <td *ngFor="let col of columns; let i = index">
                             <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                             {{ rowData[col.field] }}
@@ -34,12 +34,10 @@ interface Column {
             </p-treeTable>
         </div>
         <app-code [code]="code" selector="tree-table-dynamic-columns-demo"></app-code>
-    </section>`
+   `
 })
 export class DynamicColumnsDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
+    
 
     files!: TreeNode[];
 
@@ -60,14 +58,14 @@ export class DynamicColumnsDoc implements OnInit {
         basic: `
 <p-treeTable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template pTemplate="header" let-columns>
-        <tr [ttRow]="rowNode">
+        <tr>
             <th *ngFor="let col of columns">
                 {{ col.header }}
             </th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-        <tr>
+        <tr [ttRow]="rowNode">
             <td *ngFor="let col of columns; let i = index">
                 <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                 {{ rowData[col.field] }}
@@ -79,14 +77,14 @@ export class DynamicColumnsDoc implements OnInit {
 <div class="card">
     <p-treeTable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="header" let-columns>
-            <tr [ttRow]="rowNode">
+            <tr>
                 <th *ngFor="let col of columns">
                     {{ col.header }}
                 </th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-            <tr>
+            <tr [ttRow]="rowNode">
                 <td *ngFor="let col of columns; let i = index">
                     <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                     {{ rowData[col.field] }}

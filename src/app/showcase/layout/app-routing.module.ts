@@ -87,7 +87,6 @@ const routes: Routes = [
             { path: 'selectbutton', loadChildren: () => import('../pages/selectbutton/selectbuttondemo.module').then((m) => m.SelectButtonDemoModule) },
             { path: 'sidebar', loadChildren: () => import('../pages/sidebar/sidebardemo.module').then((m) => m.SidebarDemoModule) },
             { path: 'skeleton', loadChildren: () => import('../pages/skeleton/skeletondemo.module').then((m) => m.SkeletonDemoModule) },
-            { path: 'slidemenu', loadChildren: () => import('../pages/slidemenu/slidemenudemo.module').then((m) => m.SlideMenuDemoModule) },
             { path: 'slider', loadChildren: () => import('../pages/slider/sliderdemo.module').then((m) => m.SliderDemoModule) },
             { path: 'speeddial', loadChildren: () => import('../pages/speeddial/speeddialdemo.module').then((m) => m.SpeedDialDemoModule) },
             { path: 'splitbutton', loadChildren: () => import('../pages/splitbutton/splitbuttondemo.module').then((m) => m.SplitButtonDemoModule) },
@@ -116,7 +115,7 @@ const routes: Routes = [
             { path: 'uikit', loadChildren: () => import('../pages/uikit/uikit.module').then((m) => m.UIKitModule) },
             { path: 'autofocus', loadChildren: () => import('../pages/autofocus/autofocusdemo.module').then((m) => m.AutoFocusDemoModule) },
             { path: 'overlay', loadChildren: () => import('../pages/overlay/overlaydemo.module').then((m) => m.OverlayDemoModule) },
-            { path: 'animate', loadChildren: () => import('../pages/animate/animatedemo.module').then((m) => m.AnimateDemoModule) },
+            { path: 'animateonscroll', loadChildren: () => import('../pages/animate/animateonscrolldemo.module').then((m) => m.AnimateOnScrollDemoModule) },
             { path: 'templates', loadChildren: () => import('../pages/templates/templates.module').then((m) => m.TemplatesModule) }
         ]
     },

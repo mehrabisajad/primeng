@@ -121,7 +121,7 @@ import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEv
                 [ngClass]="{ 'p-button p-component p-fileupload-choose': true, 'p-button-icon-only': !basicButtonLabel, 'p-fileupload-choose-selected': hasFiles(), 'p-focus': focus, 'p-disabled': disabled }"
                 [ngStyle]="style"
                 [class]="styleClass"
-                (mouseup)="onBasicUploaderClick()"
+                (click)="onBasicUploaderClick()"
                 (keydown)="onBasicKeydown($event)"
                 tabindex="0"
                 pRipple
@@ -521,6 +521,10 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
         }
     }
 
+    getTranslation(option: string) {
+        return this.config.getTranslation(option);
+    }
+
     choose() {
         this.advancedFileInput?.nativeElement.click();
     }
@@ -739,15 +743,22 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     }
 
     isFileLimitExceeded() {
-        if (this.fileLimit && this.fileLimit <= this.files.length + this.uploadedFileCount && this.focus) {
+        const isAutoMode = this.auto;
+        const totalFileCount = isAutoMode ? this.files.length : this.files.length + this.uploadedFileCount;
+
+        if (this.fileLimit && this.fileLimit <= totalFileCount && this.focus) {
             this.focus = false;
         }
 
-        return this.fileLimit && this.fileLimit < this.files.length + this.uploadedFileCount;
+        return this.fileLimit && this.fileLimit < totalFileCount;
     }
 
     isChooseDisabled() {
-        return this.fileLimit && this.fileLimit <= this.files.length + this.uploadedFileCount;
+        if (this.auto) {
+            return this.fileLimit && this.fileLimit <= this.files.length;
+        } else {
+            return this.fileLimit && this.fileLimit <= this.files.length + this.uploadedFileCount;
+        }
     }
 
     checkFileLimit() {
@@ -830,10 +841,10 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
     formatSize(bytes: number) {
         const k = 1024;
         const dm = 3;
-        const sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+        const sizes = this.getTranslation(TranslationKeys.FILE_SIZE_TYPES);
 
         if (bytes === 0) {
-            return '0 B';
+            return `0 ${sizes[0]}`;
         }
 
         const i = Math.floor(Math.log(bytes) / Math.log(k));

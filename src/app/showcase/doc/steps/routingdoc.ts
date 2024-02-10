@@ -1,13 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
-import { TicketService } from '../../service/ticketservice';
-import { Code } from '../../domain/code';
 import { Subscription } from 'rxjs';
+import { Code } from '../../domain/code';
+import { TicketService } from '../../service/ticketservice';
 
 @Component({
     selector: 'routing-doc',
-    template: ` <section>
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Example below uses nested routes with Steps.</p>
         </app-docsectiontext>
         <div class="card">
@@ -16,13 +16,10 @@ import { Subscription } from 'rxjs';
         </div>
         <router-outlet></router-outlet>
         <app-code [code]="code" selector="steps-routing-demo" [routeFiles]="routeFiles"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class RoutingDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
 
     items: MenuItem[];
 

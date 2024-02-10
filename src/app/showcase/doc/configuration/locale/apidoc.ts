@@ -1,11 +1,10 @@
-import { Component, Input, ViewChild } from '@angular/core';
-import { AppDocSectionTextComponent } from 'src/app/showcase/layout/doc/docsectiontext/app.docsectiontext.component';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'api-doc',
     template: `
-        <section>
-            <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
+        
+            <app-docsectiontext>
                 <p>Configuration is managed by the Locale API imported from <i>primeng/config</i>.</p>
 
                 <h3>Locale Options</h3>
@@ -130,6 +129,10 @@ import { AppDocSectionTextComponent } from 'src/app/showcase/layout/doc/docsecti
                         <tr>
                             <td>pending</td>
                             <td>Pending</td>
+                        </tr>
+                        <tr>
+                            <td>fileSizeTypes</td>
+                            <td>['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']</td>
                         </tr>
                         <tr>
                             <td>dayNames</td>
@@ -470,13 +473,9 @@ import { AppDocSectionTextComponent } from 'src/app/showcase/layout/doc/docsecti
                     </tbody>
                 </table>
             </div>
-        </section>
+       
     `
 })
 export class ApiDoc {
-    @Input() id: string;
 
-    @Input() title: string;
-
-    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 }

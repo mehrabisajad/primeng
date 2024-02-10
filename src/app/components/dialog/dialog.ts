@@ -19,6 +19,7 @@ import {
     PLATFORM_ID,
     QueryList,
     Renderer2,
+    SimpleChanges,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
@@ -73,7 +74,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 (@animation.start)="onAnimationStart($event)"
                 (@animation.done)="onAnimationEnd($event)"
                 role="dialog"
-                [attr.aria-labelledby]="getAriaLabelledBy()"
+                [attr.aria-labelledby]="ariaLabelledBy"
                 [attr.aria-modal]="true"
             >
                 <div *ngIf="resizable" class="p-resizable-handle" style="z-index: 90;" (mousedown)="initResize($event)"></div>
@@ -442,6 +443,8 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
     dragging: boolean | undefined;
 
+    ariaLabelledBy: string | undefined;
+
     documentDragListener: VoidListener;
 
     documentDragEndListener: VoidListener;
@@ -579,7 +582,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
         }
 
         if (this.modal) {
-            DomHandler.addClass(this.document.body, 'p-overflow-hidden');
+            DomHandler.blockBodyScroll();
         }
     }
 
@@ -590,7 +593,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
             }
 
             if (this.modal) {
-                DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
+                DomHandler.unblockBodyScroll();
             }
 
             if (!(this.cd as ViewRef).destroyed) {
@@ -603,8 +606,11 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
         this.maximized = !this.maximized;
 
         if (!this.modal && !this.blockScroll) {
-            if (this.maximized) DomHandler.addClass(this.document.body, 'p-overflow-hidden');
-            else DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
+            if (this.maximized) {
+                DomHandler.blockBodyScroll();
+            } else {
+                DomHandler.unblockBodyScroll();
+            }
         }
 
         this.onMaximize.emit({ maximized: this.maximized });
@@ -722,7 +728,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
                 this.lastPageX = event.pageX;
                 this.container.style.left = `${leftPos}px`;
                 this.lastPageY = event.pageY;
-                this.container.style.top = `${leftPos}px`;
+                this.container.style.top = `${topPos}px`;
             }
         }
     }
@@ -957,6 +963,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
         if (this.maximized) {
             DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
+            this.document.body.style.removeProperty('--scrollbar-width');
             this.maximized = false;
         }
 

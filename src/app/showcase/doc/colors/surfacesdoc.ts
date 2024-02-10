@@ -1,18 +1,18 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AppConfig } from '../../domain/appconfig';
 import { AppConfigService } from '../../service/appconfigservice';
 
 @Component({
     selector: 'surfaces-doc',
-    template: ` <section>
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Surface palette is used when designing the layers such as headers, content, footers, overlays and dividers. Surface palette varies between 0 - 900 and named surfaces are also available.</p>
         </app-docsectiontext>
         <div class="card">
             <div class="color-stack">
                 <div *ngFor="let shade of shades">
-                    <div class="color-box" [ngStyle]="{ backgroundColor: 'var(--surface-' + shade, color: shade < 500 ? 'var(--surface-900)' : 'var(--surface-0)' }">surface-{{ shade }}</div>
+                    <div class="color-box" [ngStyle]="{ backgroundColor: 'var(--surface-' + shade + ')', color: shade < 600 ? 'var(--surface-900)' : 'var(--surface-0)' }">surface-{{ shade }}</div>
                 </div>
             </div>
         </div>
@@ -52,7 +52,7 @@ import { AppConfigService } from '../../service/appconfigservice';
                 </tbody>
             </table>
         </div>
-    </section>`,
+    `,
     styles: [
         `
             .color-stack {
@@ -76,9 +76,6 @@ import { AppConfigService } from '../../service/appconfigservice';
     ]
 })
 export class SurfacesDoc implements OnInit, OnDestroy {
-    @Input() id: string;
-
-    @Input() title: string;
 
     colors: string[] = ['blue', 'green', 'yellow', 'cyan', 'pink', 'indigo', 'red', 'teal', 'orange', 'bluegray', 'purple', 'gray', 'primary'];
 

@@ -8,6 +8,8 @@ import { Translation } from './translation';
 export class PrimeNGConfig {
     ripple: boolean = false;
 
+    inputStyle: 'outlined' | 'filled' = 'outlined';
+
     overlayOptions: OverlayOptions = {};
 
     filterMatchModeOptions = {
@@ -48,6 +50,7 @@ export class PrimeNGConfig {
         upload: 'Upload',
         cancel: 'Cancel',
         pending: 'Pending',
+        fileSizeTypes: ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
         dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
         dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
         dayNamesMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
-import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AppCodeModule } from '../../layout/doc/app.code.component';
 import { ButtonModule } from 'primeng/button';
 import { BasicDoc } from './basicdoc';
 import { TemplateDoc } from './templatedoc';
@@ -38,6 +38,7 @@ import { ConditionalStyleDoc } from './conditionalstyledoc';
 import { ContextMenuDoc } from './contextmenudoc';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { StyleDoc } from './styledoc';
+import { ResizeScrollableDoc } from './columnresizescrollabledoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { PaginatorLocaleDoc } from './paginatorlocaledoc';
 
@@ -72,7 +73,8 @@ import { PaginatorLocaleDoc } from './paginatorlocaledoc';
         ContextMenuDoc,
         StyleDoc,
         AccessibilityDoc,
-        PaginatorLocaleDoc
+        PaginatorLocaleDoc,
+        ResizeScrollableDoc
     ]
 })
 export class TreeTableDocModule {}
