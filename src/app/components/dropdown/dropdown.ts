@@ -401,7 +401,12 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      * Default text to display when no option is selected.
      * @group Props
      */
-    @Input() placeholder: string | undefined;
+    @Input() get placeholder(): string | undefined {
+        return this._placeholder();
+    }
+    set placeholder(value : string | undefined) {
+        this._placeholder.set(value);
+    }
     /**
      * Placeholder text to show when filter input is empty.
      * @group Props
@@ -768,6 +773,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
     _disabled: boolean | undefined;
+
+    _placeholder = signal<string | undefined>(undefined);
 
     itemsWrapper: Nullable<HTMLDivElement>;
 
