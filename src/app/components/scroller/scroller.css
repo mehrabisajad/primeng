@@ -23,6 +23,11 @@
         will-change: transform;
     }
 
+    html[dir='rtl'] .p-scroller-content {
+        left: unset;
+        right: 0;
+    }
+
     .p-scroller-spacer {
         position: absolute;
         top: 0;
@@ -33,12 +38,22 @@
         pointer-events: none;
     }
 
+    html[dir='rtl'] .p-scroller-spacer {
+        left: unset;
+        right: 0;
+    }
+
     .p-scroller-loader {
         position: sticky;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
+    }
+
+    html[dir='rtl'] .p-scroller-loader {
+        left: unset;
+        right: 0;
     }
 
     .p-scroller-loader.p-component-overlay {

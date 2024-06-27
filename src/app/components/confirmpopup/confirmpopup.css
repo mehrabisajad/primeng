@@ -6,6 +6,11 @@
         left: 0;
     }
 
+    html[dir='rtl'] .p-confirm-popup {
+        left: unset;
+        right: 0;
+    }
+
     .p-confirm-popup-flipped {
         margin-top: 0;
         margin-bottom: 10px;
@@ -22,14 +27,30 @@
         pointer-events: none;
     }
 
+    html[dir='rtl'] .p-confirm-popup:after,
+    html[dir='rtl'] .p-confirm-popup:before {
+        left: unset;
+        right: calc(var(--overlayArrowRight, 0) + 1.25rem);
+    }
+
     .p-confirm-popup:after {
         border-width: 8px;
         margin-left: -8px;
     }
 
+    html[dir='rtl'] .p-confirm-popup:after {
+        margin-left: unset;
+        margin-right: -8px;
+    }
+
     .p-confirm-popup:before {
         border-width: 10px;
         margin-left: -10px;
+    }
+
+    html[dir='rtl'] .p-confirm-popup:before {
+        margin-left: unset;
+        margin-right: -10px;
     }
 
     .p-confirm-popup-flipped:after,

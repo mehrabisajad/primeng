@@ -32,10 +32,20 @@
         border-bottom-left-radius: 0;
     }
 
+    html[dir='rtl'] .p-galleria-item-prev {
+        left: unset;
+        right: 0;
+    }
+
     .p-galleria-item-next {
         right: 0;
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
+    }
+
+    html[dir='rtl'] .p-galleria-item-next {
+        left: 0;
+        right: unset;
     }
 
     .p-galleria-item {
@@ -71,6 +81,11 @@
         bottom: 0;
         left: 0;
         width: 100%;
+    }
+
+    html[dir='rtl'] .p-galleria-caption {
+        left: unset;
+        right: 0;
     }
 
     /* Thumbnails */
@@ -215,11 +230,21 @@
         align-items: flex-start;
     }
 
+    html[dir='rtl'] .p-galleria-indicator-onitem.p-galleria-indicators-top .p-galleria-indicators {
+        left: unset;
+        right: 0;
+    }
+
     .p-galleria-indicator-onitem.p-galleria-indicators-right .p-galleria-indicators {
         right: 0;
         top: 0;
         height: 100%;
         align-items: flex-end;
+    }
+
+    html[dir='rtl'] .p-galleria-indicator-onitem.p-galleria-indicators-right .p-galleria-indicators {
+        left: 0;
+        right: unset;
     }
 
     .p-galleria-indicator-onitem.p-galleria-indicators-bottom .p-galleria-indicators {
@@ -229,11 +254,21 @@
         align-items: flex-end;
     }
 
+    html[dir='rtl'] .p-galleria-indicator-onitem.p-galleria-indicators-bottom .p-galleria-indicators {
+        left: unset;
+        right: 0;
+    }
+
     .p-galleria-indicator-onitem.p-galleria-indicators-left .p-galleria-indicators {
         left: 0;
         top: 0;
         height: 100%;
         align-items: flex-start;
+    }
+
+    html[dir='rtl'] .p-galleria-indicator-onitem.p-galleria-indicators-left .p-galleria-indicators {
+        left: unset;
+        right: 0;
     }
 
     /* FullScreen */
@@ -250,6 +285,11 @@
         transition-property: background-color;
     }
 
+    html[dir='rtl'] .p-galleria-mask {
+        left: unset;
+        right: 0;
+    }
+
     .p-galleria-close {
         position: absolute;
         top: 0;
@@ -258,6 +298,11 @@
         justify-content: center;
         align-items: center;
         overflow: hidden;
+    }
+
+    html[dir='rtl'] .p-galleria-close {
+        left: 0;
+        right: unset;
     }
 
     .p-galleria-mask .p-galleria-item-nav {

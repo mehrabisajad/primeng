@@ -19,6 +19,11 @@
         margin: 0;
     }
 
+    html[dir='rtl'] .p-overlay-badge .p-badge {
+        right: unset;
+        left: 0;
+    }
+
     .p-badge-dot {
         width: 0.5rem;
         min-width: 0.5rem;

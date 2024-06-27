@@ -23,9 +23,20 @@
         padding: 0;
     }
 
+    html[dir='rtl'] .p-inputnumber-buttons-stacked .p-button.p-inputnumber-button-up {
+        border-top-right-radius: 0;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
     .p-inputnumber-buttons-stacked .p-inputnumber-input {
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
+    }
+
+    html[dir='rtl'] .p-inputnumber-buttons-stacked .p-inputnumber-input {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
     }
 
     .p-inputnumber-buttons-stacked .p-button.p-inputnumber-button-down {
@@ -33,6 +44,12 @@
         border-top-right-radius: 0;
         border-bottom-left-radius: 0;
         padding: 0;
+    }
+
+    html[dir='rtl'] .p-inputnumber-buttons-stacked .p-button.p-inputnumber-button-down {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
     }
 
     .p-inputnumber-buttons-stacked .p-inputnumber-button-group {
@@ -50,6 +67,11 @@
         border-bottom-left-radius: 0;
     }
 
+    html[dir='rtl'] .p-inputnumber-buttons-horizontal .p-button.p-inputnumber-button-up {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
     .p-inputnumber-buttons-horizontal .p-inputnumber-input {
         order: 2;
         border-radius: 0;
@@ -59,6 +81,11 @@
         order: 1;
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
+    }
+
+    html[dir='rtl'] .p-inputnumber-buttons-horizontal .p-button.p-inputnumber-button-down {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
     }
 
     .p-inputnumber-buttons-vertical {
@@ -72,6 +99,11 @@
         width: 100%;
     }
 
+    html[dir='rtl'] .p-inputnumber-buttons-vertical .p-button.p-inputnumber-button-up {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
     .p-inputnumber-buttons-vertical .p-inputnumber-input {
         order: 2;
         border-radius: 0;
@@ -83,6 +115,11 @@
         border-top-left-radius: 0;
         border-top-right-radius: 0;
         width: 100%;
+    }
+
+    html[dir='rtl'] .p-inputnumber-buttons-vertical .p-button.p-inputnumber-button-down {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
     }
 
     .p-inputnumber-input {

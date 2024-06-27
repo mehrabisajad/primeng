@@ -6,6 +6,11 @@
         left: 0;
     }
 
+    html[dir='rtl'] .p-overlaypanel {
+        left: unset;
+        right: 0;
+    }
+
     .p-overlaypanel-flipped {
         margin-top: 0;
         margin-bottom: 10px;
@@ -30,9 +35,20 @@
         pointer-events: none;
     }
 
+    html[dir='rtl'] .p-overlaypanel:after,
+    html[dir='rtl'] .p-overlaypanel:before {
+        left: unset;
+        right: calc(var(--overlayArrowRight, 0) + 1.25rem);
+    }
+
     .p-overlaypanel:after {
         border-width: 8px;
         margin-left: -8px;
+    }
+
+    html[dir='rtl'] .p-overlaypanel:after {
+        margin-left: unset;
+        margin-right: -8px;
     }
 
     .p-overlaypanel:before {
@@ -40,11 +56,24 @@
         margin-left: -10px;
     }
 
+    html[dir='rtl'] .p-overlaypanel:before {
+        margin-left: unset;
+        margin-right: -10px;
+    }
+
     .p-overlaypanel-shifted:after,
     .p-overlaypanel-shifted:before {
         left: auto;
         right: 1.25em;
         margin-left: auto;
+    }
+
+    html[dir='rtl'] .p-overlaypanel-shifted:after,
+    html[dir='rtl'] .p-overlaypanel-shifted:before {
+        right: auto;
+        left: 1.25em;
+        margin-left: unset;
+        margin-right: auto;
     }
 
     .p-overlaypanel-flipped:after,

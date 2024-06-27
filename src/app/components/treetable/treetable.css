@@ -90,6 +90,11 @@
         border-right: 0 none;
     }
 
+    html[dir='rtl'] .p-treetable-frozen-view > .p-treetable-scrollable-body > table > .p-treetable-tbody > tr > td:last-child {
+        border-right: unset;
+        border-left: 0 none;
+    }
+
     .p-treetable-unfrozen-view {
         position: absolute;
         top: 0;
@@ -148,6 +153,11 @@
         border: 1px solid transparent;
     }
 
+    html[dir='rtl'] .p-treetable .p-column-resizer {
+        right: unset;
+        left: 0;
+    }
+
     .p-treetable .p-column-resizer-helper {
         width: 1px;
         position: absolute;
@@ -201,5 +211,10 @@
         position: sticky;
         top: 0;
         left: 0;
+    }
+
+    html[dir='rtl'] .p-treetable .p-scroller-loading {
+        left: unset;
+        right: 0;
     }
 }

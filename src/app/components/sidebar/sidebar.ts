@@ -183,21 +183,6 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
     }
     set position(value: string) {
         this._position = value;
-
-        switch (value) {
-            case 'left':
-                this.transformOptions = 'translate3d(-100%, 0px, 0px)';
-                break;
-            case 'right':
-                this.transformOptions = 'translate3d(100%, 0px, 0px)';
-                break;
-            case 'bottom':
-                this.transformOptions = 'translate3d(0px, 100%, 0px)';
-                break;
-            case 'top':
-                this.transformOptions = 'translate3d(0px, -100%, 0px)';
-                break;
-        }
     }
     /**
      * Adds a close icon to the header to hide the dialog.
@@ -208,8 +193,6 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
     }
     set fullScreen(value: boolean) {
         this._fullScreen = value;
-
-        if (value) this.transformOptions = 'none';
     }
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
@@ -240,7 +223,26 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
     container: Nullable<HTMLDivElement>;
 
-    transformOptions: any = 'translate3d(-100%, 0px, 0px)';
+    get transformOptions(): any {
+        if (this.fullScreen) {
+            return 'none';
+        }
+
+        const isLtr = DomHandler.isLTR(this.el.nativeElement);
+
+        switch (this.position) {
+            case 'left':
+                return isLtr ? 'translate3d(-100%, 0px, 0px)' : 'translate3d(100%, 0px, 0px)';
+            case 'right':
+                return isLtr ? 'translate3d(100%, 0px, 0px)' : 'translate3d(-100%, 0px, 0px)';
+            case 'bottom':
+                return 'translate3d(0px, 100%, 0px)';
+            case 'top':
+                return 'translate3d(0px, -100%, 0px)';
+            default:
+                return isLtr ? 'translate3d(-100%, 0px, 0px)' : 'translate3d(100%, 0px, 0px)';
+        }
+    };
 
     mask: Nullable<HTMLDivElement>;
 

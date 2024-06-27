@@ -118,6 +118,25 @@ export class DomHandler {
         }
     }
 
+    private static getDir(element: any): string {
+        if (element.getAttribute('dir')) {
+            return element.getAttribute('dir');
+        }
+        if (element.parentElement) {
+            return this.getDir(element.parentElement);
+        }
+
+        return 'ltr';
+    }
+
+    public static isRTL(element: any): boolean {
+        return this.getDir(element) === 'rtl';
+    }
+
+    public static isLTR(element: any): boolean {
+        return this.getDir(element) === 'ltr';
+    }
+
     public static relativePosition(element: any, target: any, gutter: boolean = true): void {
         const getClosestRelativeElement = (el) => {
             if (!el) return;
@@ -133,7 +152,7 @@ export class DomHandler {
         const viewport = this.getViewport();
         const relativeElement = getClosestRelativeElement(element);
         const relativeElementOffset = relativeElement?.getBoundingClientRect() || { top: -1 * windowScrollTop, left: -1 * windowScrollLeft };
-        let top: number, left: number;
+        let top: number, left: number, right: number;
 
         if (targetOffset.top + targetHeight + elementDimensions.height > viewport.height) {
             top = targetOffset.top - relativeElementOffset.top - elementDimensions.height;
@@ -146,21 +165,34 @@ export class DomHandler {
             element.style.transformOrigin = 'top';
         }
 
-        const horizontalOverflow = targetOffset.left + elementDimensions.width - viewport.width;
-        const targetLeftOffsetInSpaceOfRelativeElement = targetOffset.left - relativeElementOffset.left;
-        if (elementDimensions.width > viewport.width) {
-            // element wider then viewport and cannot fit on screen (align at left side of viewport)
-            left = (targetOffset.left - relativeElementOffset.left) * -1;
-        } else if (horizontalOverflow > 0) {
-            // element wider then viewport but can be fit on screen (align at right side of viewport)
-            left = targetLeftOffsetInSpaceOfRelativeElement - horizontalOverflow;
+        if (this.isLTR(element)) {
+            const horizontalOverflow = targetOffset.left + elementDimensions.width - viewport.width;
+            const targetLeftOffsetInSpaceOfRelativeElement = targetOffset.left - relativeElementOffset.left;
+            if (elementDimensions.width > viewport.width) {
+                // element wider then viewport and cannot fit on screen (align at left side of viewport)
+                left = (targetOffset.left - relativeElementOffset.left) * -1;
+            } else if (horizontalOverflow > 0) {
+                // element wider then viewport but can be fit on screen (align at right side of viewport)
+                left = targetLeftOffsetInSpaceOfRelativeElement - horizontalOverflow;
+            } else {
+                // element fits on screen (align with target)
+                left = targetOffset.left - relativeElementOffset.left;
+            }
+            element.style.left = left + 'px';
         } else {
-            // element fits on screen (align with target)
-            left = targetOffset.left - relativeElementOffset.left;
+            if (elementDimensions.width > viewport.width) {
+                // element wider then viewport and cannot fit on screen (align at right side of viewport)
+                right = (viewport.width - targetOffset.right) * -1;
+            } else if ((viewport.width - targetOffset.right + elementDimensions.width) > viewport.width) {
+                // element wider then viewport but can be fit on screen (align at right side of viewport)
+                right = (elementDimensions.width - targetOffset.right) * -1;
+            } else {
+                // element fits on screen (align with target)
+                right = 0;
+            }
+            element.style.right = right + 'px';
         }
-
         element.style.top = top + 'px';
-        element.style.left = left + 'px';
         gutter && (element.style.marginTop = origin === 'bottom' ? 'calc(var(--p-anchor-gutter) * -1)' : 'calc(var(--p-anchor-gutter))');
     }
 
@@ -174,7 +206,8 @@ export class DomHandler {
         const windowScrollTop = this.getWindowScrollTop();
         const windowScrollLeft = this.getWindowScrollLeft();
         const viewport = this.getViewport();
-        let top: number, left: number;
+        let windowScrollWidth = viewport.width - viewport.clientWidth;
+        let top: number, left: number, right: number;
 
         if (targetOffset.top + targetOuterHeight + elementOuterHeight > viewport.height) {
             top = targetOffset.top + windowScrollTop - elementOuterHeight;
@@ -188,11 +221,25 @@ export class DomHandler {
             element.style.transformOrigin = 'top';
         }
 
-        if (targetOffset.left + elementOuterWidth > viewport.width) left = Math.max(0, targetOffset.left + windowScrollLeft + targetOuterWidth - elementOuterWidth);
-        else left = targetOffset.left + windowScrollLeft;
-
+        if (this.isLTR(element)) {
+            if (targetOffset.left + elementOuterWidth > viewport.width) {
+                let primeValue = targetOffset.left + windowScrollLeft + targetOuterWidth - elementOuterWidth;
+                left = Math.max(0, viewport.width - elementOuterWidth + windowScrollLeft, primeValue);
+            }
+            else {
+                left = targetOffset.left + windowScrollLeft;
+            }
+            element.style.left = left + 'px';
+        } else {
+            if (viewport.width - targetOffset.right + elementOuterWidth > viewport.width) {
+                right = Math.max(0, viewport.width - elementOuterWidth + windowScrollLeft - windowScrollWidth, viewport.width - targetOffset.right + windowScrollLeft + targetOuterWidth - elementOuterWidth);
+            }
+            else {
+                right = viewport.width - targetOffset.right + windowScrollLeft - windowScrollWidth;
+            }
+            element.style.right = right + 'px';
+        }
         element.style.top = top + 'px';
-        element.style.left = left + 'px';
         gutter && (element.style.marginTop = origin === 'bottom' ? 'calc(var(--p-anchor-gutter) * -1)' : 'calc(var(--p-anchor-gutter))');
     }
 
@@ -422,9 +469,11 @@ export class DomHandler {
             e = d.documentElement,
             g = d.getElementsByTagName('body')[0],
             w = win.innerWidth || e.clientWidth || g.clientWidth,
-            h = win.innerHeight || e.clientHeight || g.clientHeight;
+            cw = e.clientWidth || g.clientWidth,
+            h = win.innerHeight || e.clientHeight || g.clientHeight,
+            ch = e.clientHeight || g.clientHeight;
 
-        return { width: w, height: h };
+        return { width: w, height: h, clientWidth: cw, clientHeight: ch};
     }
 
     public static getOffset(el) {

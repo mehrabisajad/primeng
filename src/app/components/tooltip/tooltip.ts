@@ -481,6 +481,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     align() {
         let position = this.getOption('tooltipPosition');
+        const isLtr = DomHandler.isLTR(this.el.nativeElement);
 
         switch (position) {
             case 'top':
@@ -512,9 +513,9 @@ export class Tooltip implements AfterViewInit, OnDestroy {
                 break;
 
             case 'left':
-                this.alignLeft();
+                isLtr ? this.alignLeft() : this.alignRight();
                 if (this.isOutOfBounds()) {
-                    this.alignRight();
+                    isLtr ? this.alignRight() : this.alignLeft();
 
                     if (this.isOutOfBounds()) {
                         this.alignTop();
@@ -527,9 +528,9 @@ export class Tooltip implements AfterViewInit, OnDestroy {
                 break;
 
             case 'right':
-                this.alignRight();
+                isLtr ? this.alignRight() : this.alignLeft();
                 if (this.isOutOfBounds()) {
-                    this.alignLeft();
+                    isLtr ? this.alignLeft() : this.alignRight();
 
                     if (this.isOutOfBounds()) {
                         this.alignTop();

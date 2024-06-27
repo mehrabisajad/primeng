@@ -24,6 +24,11 @@
         left: 0;
     }
 
+    html[dir='rtl'] .p-fileupload-content .p-progressbar {
+        left: unset;
+        right: 0;
+    }
+
     .p-button.p-fileupload-choose {
         position: relative;
         overflow: hidden;

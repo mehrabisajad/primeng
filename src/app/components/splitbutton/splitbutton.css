@@ -13,6 +13,14 @@
         border-right: 0 none;
     }
 
+    html[dir='rtl'] .p-splitbutton .p-splitbutton-defaultbutton,
+    html[dir='rtl'] .p-splitbutton.p-button-rounded > .p-splitbutton-defaultbutton.p-button,
+    html[dir='rtl'] .p-splitbutton.p-button-outlined > .p-splitbutton-defaultbutton.p-button {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-left: 0 none;
+    }
+
     .p-splitbutton-menubutton,
     .p-splitbutton.p-button-rounded > .p-splitbutton-menubutton.p-button,
     .p-splitbutton.p-button-outlined > .p-splitbutton-menubutton.p-button {
@@ -21,6 +29,13 @@
         justify-content: center;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
+    }
+
+    html[dir='rtl'] .p-splitbutton-menubutton,
+    html[dir='rtl'] .p-splitbutton.p-button-rounded > .p-splitbutton-menubutton.p-button,
+    html[dir='rtl'] .p-splitbutton.p-button-outlined > .p-splitbutton-menubutton.p-button {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
     }
 
     .p-splitbutton .p-menu {

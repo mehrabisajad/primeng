@@ -345,12 +345,19 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
         const containerOffset = DomHandler.getOffset(this.container);
         const targetOffset = DomHandler.getOffset(this.target);
         const borderRadius = this.document.defaultView?.getComputedStyle(this.container!).getPropertyValue('border-radius');
-        let arrowLeft = 0;
+        let arrowLeft = 0, arrowRight = 0;
 
-        if (containerOffset.left < targetOffset.left) {
-            arrowLeft = targetOffset.left - containerOffset.left - parseFloat(borderRadius!) * 2;
+        if (DomHandler.isLTR(this.container)) {
+            if (containerOffset.left < targetOffset.left) {
+                arrowLeft = targetOffset.left - containerOffset.left - parseFloat(borderRadius!) * 2;
+            }
+            this.container?.style.setProperty('--overlayArrowLeft', `${arrowLeft}px`);
+        } else {
+            if (containerOffset.left + this.container.offsetWidth > targetOffset.left + this.target.offsetWidth) {
+                arrowRight = (containerOffset.left + this.container.offsetWidth) - (targetOffset.left + this.target.offsetWidth) - parseFloat(borderRadius!) * 2;
+            }
+            this.container?.style.setProperty('--overlayArrowRight', `${arrowRight}px`);
         }
-        this.container?.style.setProperty('--overlayArrowLeft', `${arrowLeft}px`);
 
         if (containerOffset.top < targetOffset.top) {
             DomHandler.addClass(this.container, 'p-overlaypanel-flipped');

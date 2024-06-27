@@ -75,6 +75,11 @@
         margin-left: auto;
     }
 
+    html[dir='rtl'] .p-treeselect-close {
+        margin-left: unset;
+        margin-right: auto;
+    }
+
     .p-treeselect-clear-icon {
         position: absolute;
         top: 50%;

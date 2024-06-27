@@ -10,8 +10,18 @@
         margin-right: auto;
     }
 
+    html[dir='rtl'] .p-paginator-left-content {
+        margin-right: unset;
+        margin-left: auto;
+    }
+
     .p-paginator-right-content {
         margin-left: auto;
+    }
+
+    html[dir='rtl'] .p-paginator-right-content {
+        margin-left: unset;
+        margin-right: auto;
     }
 
     .p-paginator-page,

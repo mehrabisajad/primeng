@@ -22,9 +22,19 @@
         right: 20px;
     }
 
+    html[dir='rtl'] .p-toast-top-right {
+        right: unset;
+        left: 20px;
+    }
+
     .p-toast-top-left {
         top: 20px;
         left: 20px;
+    }
+
+    html[dir='rtl'] .p-toast-top-left {
+        left: unset;
+        right: 20px;
     }
 
     .p-toast-bottom-left {
@@ -32,9 +42,19 @@
         left: 20px;
     }
 
+    html[dir='rtl'] .p-toast-bottom-left {
+        left: unset;
+        right: 20px;
+    }
+
     .p-toast-bottom-right {
         bottom: 20px;
         right: 20px;
+    }
+
+    html[dir='rtl'] .p-toast-bottom-right {
+        right: unset;
+        left: 20px;
     }
 
     .p-toast-top-center {
@@ -43,10 +63,22 @@
         transform: translateX(-50%);
     }
 
+    html[dir='rtl'] .p-toast-top-center {
+        left: unset;
+        right: 50%;
+        transform: translateX(50%);
+    }
+
     .p-toast-bottom-center {
         bottom: 20px;
         left: 50%;
         transform: translateX(-50%);
+    }
+
+    html[dir='rtl'] .p-toast-bottom-center {
+        left: unset;
+        right: 50%;
+        transform: translateX(50%);
     }
 
     .p-toast-center {
@@ -54,6 +86,12 @@
         top: 50%;
         min-width: 20vw;
         transform: translate(-50%, -50%);
+    }
+
+    html[dir='rtl'] .p-toast-center {
+        left: unset;
+        right: 50%;
+        transform: translate(50%, -50%);
     }
 
     .p-toast-icon-close {

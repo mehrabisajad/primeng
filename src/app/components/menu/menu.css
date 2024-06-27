@@ -5,6 +5,11 @@
         left: 0;
     }
 
+    html[dir='rtl'] .p-menu-overlay {
+        left: unset;
+        right: 0;
+    }
+
     .p-menu ul {
         margin: 0;
         padding: 0;

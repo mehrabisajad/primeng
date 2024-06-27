@@ -48,7 +48,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             <span
                 *ngIf="range && orientation == 'horizontal'"
                 class="p-slider-range"
-                [ngStyle]="{ left: offset !== null && offset !== undefined ? offset + '%' : handleValues[0] + '%', width: diff ? diff + '%' : handleValues[1] - handleValues[0] + '%' }"
+                [ngStyle]="{ left: isLtr ? (offset !== null && offset !== undefined ? offset + '%' : handleValues[0] + '%') : null, right: isLtr ? null : (offset !== null && offset !== undefined ? offset + '%' : handleValues[0] + '%'), width: diff ? diff + '%' : handleValues[1] - handleValues[0] + '%' }"
                 [attr.data-pc-section]="'range'"
             ></span>
             <span
@@ -64,7 +64,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
                 #sliderHandle
                 class="p-slider-handle"
                 [style.transition]="dragging ? 'none' : null"
-                [ngStyle]="{ left: orientation == 'horizontal' ? handleValue + '%' : null, bottom: orientation == 'vertical' ? handleValue + '%' : null }"
+                [ngStyle]="{ left: orientation == 'horizontal' && isLtr ? handleValue + '%' : null,'right': orientation == 'horizontal' && !isLtr ? handleValue + '%' : null, bottom: orientation == 'vertical' ? handleValue + '%' : null }"
                 (touchstart)="onDragStart($event)"
                 (touchmove)="onDrag($event)"
                 (touchend)="onDragEnd($event)"
@@ -87,7 +87,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
                 #sliderHandleStart
                 [style.transition]="dragging ? 'none' : null"
                 class="p-slider-handle"
-                [ngStyle]="{ left: rangeStartLeft, bottom: rangeStartBottom }"
+                [ngStyle]="{ left: isLtr ? rangeStartLeft : null, 'right': isLtr ? null : rangeStartLeft, bottom: rangeStartBottom }"
                 [ngClass]="{ 'p-slider-handle-active': handleIndex == 0 }"
                 (keydown)="onKeyDown($event, 0)"
                 (mousedown)="onMouseDown($event, 0)"
@@ -111,7 +111,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
                 #sliderHandleEnd
                 [style.transition]="dragging ? 'none' : null"
                 class="p-slider-handle"
-                [ngStyle]="{ left: rangeEndLeft, bottom: rangeEndBottom }"
+                [ngStyle]="{ left: isLtr ? rangeEndLeft : null, 'right': isLtr ? null : rangeEndLeft, bottom: rangeEndBottom }"
                 [ngClass]="{ 'p-slider-handle-active': handleIndex == 1 }"
                 (keydown)="onKeyDown($event, 1)"
                 (mousedown)="onMouseDown($event, 1)"
@@ -273,6 +273,10 @@ export class Slider implements OnDestroy, ControlValueAccessor {
         public cd: ChangeDetectorRef
     ) {}
 
+    get isLtr() {
+        return DomHandler.isLTR(this.el.nativeElement);
+    }
+
     onMouseDown(event: Event, index?: number) {
         if (this.disabled) {
             return;
@@ -334,7 +338,11 @@ export class Slider implements OnDestroy, ControlValueAccessor {
             handleValue = 0;
 
         if (this.orientation === 'horizontal') {
-            handleValue = Math.floor(((parseInt((touchobj as any).clientX, 10) - (this.startx as number)) * 100) / (this.barWidth as number)) + this.startHandleValue;
+            if (this.isLtr) {
+                handleValue = Math.floor(((parseInt((touchobj as any).clientX, 10) - (this.startx as number)) * 100) / (this.barWidth as number)) + this.startHandleValue;
+            } else {
+                handleValue = this.startHandleValue - Math.floor(((parseInt((touchobj as any).clientX, 10) - (this.startx as number)) * 100) / (this.barWidth as number));
+            }
         } else {
             handleValue = Math.floor((((this.starty as number) - parseInt((touchobj as any).clientY, 10)) * 100) / (this.barHeight as number)) + this.startHandleValue;
         }
@@ -594,7 +602,9 @@ export class Slider implements OnDestroy, ControlValueAccessor {
     }
 
     calculateHandleValue(event: Event): number {
-        if (this.orientation === 'horizontal') return (((event as MouseEvent).pageX - (this.initX as number)) * 100) / (this.barWidth as number);
+        if (this.orientation === 'horizontal')
+            if (this.isLtr) return (((event as MouseEvent).pageX - (this.initX as number)) * 100) / (this.barWidth as number);
+            else return ((this.barWidth as number) + (this.initX as number) - (event as MouseEvent).pageX) * 100 / (this.barWidth as number);
         else return (((this.initY as number) + (this.barHeight as number) - (event as MouseEvent).pageY) * 100) / (this.barHeight as number);
     }
 

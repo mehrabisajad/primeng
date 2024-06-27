@@ -62,8 +62,18 @@
         left: 0;
     }
 
+    html[dir='rtl'] .p-tabview-nav-prev {
+        left: unset;
+        right: 0;
+    }
+
     .p-tabview-nav-next {
         right: 0;
+    }
+
+    html[dir='rtl'] .p-tabview-nav-next {
+        left: 0;
+        right: unset;
     }
 
     .p-tabview-nav-content::-webkit-scrollbar {

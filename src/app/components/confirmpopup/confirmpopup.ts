@@ -303,12 +303,22 @@ export class ConfirmPopup implements AfterContentInit, OnDestroy {
 
         const containerOffset = DomHandler.getOffset(this.container);
         const targetOffset = DomHandler.getOffset(this.confirmation?.target);
-        let arrowLeft = 0;
+        let arrowLeft = 0, arrowRight = 0;
 
-        if (containerOffset.left < targetOffset.left) {
-            arrowLeft = targetOffset.left - containerOffset.left;
+        if (DomHandler.isLTR(this.container)) {
+            if (containerOffset.left < targetOffset.left) {
+                arrowLeft = targetOffset.left - containerOffset.left;
+            }
+            (this.container as HTMLDivElement).style.setProperty('--overlayArrowLeft', `${arrowLeft}px`);
+        } else {
+            const targetOffsetWidth = DomHandler.getWidth(this.confirmation.target);
+
+            if (containerOffset.left + this.container.offsetWidth > targetOffset.left + targetOffsetWidth) {
+                arrowRight = (containerOffset.left + this.container.offsetWidth) - (targetOffset.left + targetOffsetWidth);
+            }
+            (this.container as HTMLDivElement).style.setProperty('--overlayArrowRight', `${arrowRight}px`);
         }
-        (this.container as HTMLDivElement).style.setProperty('--overlayArrowLeft', `${arrowLeft}px`);
+
 
         if (containerOffset.top < targetOffset.top) {
             DomHandler.addClass(this.container, 'p-confirm-popup-flipped');

@@ -9,8 +9,16 @@
         text-align: right;
     }
 
+    html[dir='rtl'] .p-timeline-left .p-timeline-event-opposite {
+        text-align: left;
+    }
+
     .p-timeline-left .p-timeline-event-content {
         text-align: left;
+    }
+
+    html[dir='rtl'] .p-timeline-left .p-timeline-event-content {
+        text-align: right;
     }
 
     .p-timeline-right .p-timeline-event {
@@ -21,8 +29,16 @@
         text-align: left;
     }
 
+    html[dir='rtl'] .p-timeline-right .p-timeline-event-opposite {
+        text-align: right;
+    }
+
     .p-timeline-right .p-timeline-event-content {
         text-align: right;
+    }
+
+    html[dir='rtl'] .p-timeline-right .p-timeline-event-content {
+        text-align: left;
     }
 
     .p-timeline-vertical.p-timeline-alternate .p-timeline-event:nth-child(even) {
@@ -33,16 +49,32 @@
         text-align: right;
     }
 
+    html[dir='rtl'] .p-timeline-vertical.p-timeline-alternate .p-timeline-event:nth-child(odd) .p-timeline-event-opposite {
+        text-align: left;
+    }
+
     .p-timeline-vertical.p-timeline-alternate .p-timeline-event:nth-child(odd) .p-timeline-event-content {
         text-align: left;
+    }
+
+    html[dir='rtl'] .p-timeline-vertical.p-timeline-alternate .p-timeline-event:nth-child(odd) .p-timeline-event-content {
+        text-align: right;
     }
 
     .p-timeline-vertical.p-timeline-alternate .p-timeline-event:nth-child(even) .p-timeline-event-opposite {
         text-align: left;
     }
 
+    html[dir='rtl'] .p-timeline-vertical.p-timeline-alternate .p-timeline-event:nth-child(even) .p-timeline-event-opposite {
+        text-align: right;
+    }
+
     .p-timeline-vertical.p-timeline-alternate .p-timeline-event:nth-child(even) .p-timeline-event-content {
         text-align: right;
+    }
+
+    html[dir='rtl'] .p-timeline-vertical.p-timeline-alternate .p-timeline-event:nth-child(even) .p-timeline-event-content {
+        text-align: left;
     }
 
     .p-timeline-event {

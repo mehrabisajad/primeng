@@ -54,6 +54,11 @@
         top: 0;
     }
 
+    html[dir='rtl'] .p-menubar .p-submenu-list > .p-menuitem-active > p-menubarsub > .p-submenu-list  {
+        left: unset;
+        right: 100%;
+    }
+
     .p-menubar .p-submenu-list .p-menuitem-link .p-submenu-icon:not(svg) {
         margin-left: auto;
     }
@@ -66,10 +71,21 @@
         margin-left: auto;
     }
 
+    html[dir='rtl'] .p-menubar .p-submenu-list .p-menuitem-link .p-icon-wrapper {
+        margin-left: unset;
+        margin-right: auto;
+    }
+
     .p-menubar .p-menubar-custom,
     .p-menubar .p-menubar-end {
         margin-left: auto;
         align-self: center;
+    }
+
+    html[dir='rtl'] .p-menubar .p-menubar-custom,
+    html[dir='rtl'] .p-menubar .p-menubar-end {
+        margin-left: unset;
+        margin-right: auto;
     }
 
     .p-menubar-button {

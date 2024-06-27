@@ -12,6 +12,11 @@
         justify-content: center;
     }
 
+    html[dir='rtl'] .p-blockui {
+        left: unset;
+        right: 0;
+    }
+
     .p-blockui.p-component-overlay {
         position: absolute;
     }

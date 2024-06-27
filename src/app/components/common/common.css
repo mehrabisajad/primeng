@@ -57,6 +57,11 @@
         height: 100%;
     }
 
+    html[dir='rtl'] .p-component-overlay {
+        right: 0;
+        left: unset;
+    }
+
     .p-unselectable-text {
         user-select: none;
     }
@@ -102,6 +107,10 @@
         border: none;
         cursor: pointer;
         user-select: none;
+    }
+
+    html[dir='rtl'] .p-link {
+        text-align: right;
     }
 
     .p-link:disabled {

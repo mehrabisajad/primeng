@@ -60,6 +60,11 @@
         width: 100%;
     }
 
+    html[dir='rtl'] .p-dock-top {
+        left: unset;
+        right: 0;
+    }
+
     .p-dock-top .p-dock-item {
         transform-origin: center top;
     }
@@ -69,6 +74,11 @@
         left: 0;
         bottom: 0;
         width: 100%;
+    }
+
+    html[dir='rtl'] .p-dock-bottom {
+        left: unset;
+        right: 0;
     }
 
     .p-dock-bottom .p-dock-item {
@@ -82,8 +92,17 @@
         height: 100%;
     }
 
+    html[dir='rtl'] .p-dock-right {
+        left: 0;
+        right: unset;
+    }
+
     .p-dock-right .p-dock-item {
         transform-origin: center right;
+    }
+
+    html[dir='rtl'] .p-dock-right .p-dock-item {
+        transform-origin: center left;
     }
 
     .p-dock-right .p-dock-list {
@@ -97,8 +116,17 @@
         height: 100%;
     }
 
+    html[dir='rtl'] .p-dock-left {
+        left: unset;
+        right: 0;
+    }
+
     .p-dock-left .p-dock-item {
         transform-origin: center left;
+    }
+
+    html[dir='rtl'] .p-dock-left .p-dock-item {
+        transform-origin: center right;
     }
 
     .p-dock-left .p-dock-list {

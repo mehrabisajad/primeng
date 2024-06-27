@@ -16,9 +16,19 @@
         border-bottom-right-radius: 0;
     }
 
+    html[dir='rtl'] .p-calendar-w-btn .p-inputtext {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
     .p-calendar-w-btn .p-datepicker-trigger {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
+    }
+
+    html[dir='rtl'] .p-calendar-w-btn .p-datepicker-trigger {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
     }
 
     /* Fluid */
@@ -40,6 +50,11 @@
         position: absolute;
         top: 0;
         left: 0;
+    }
+
+    .html[dir='rtl'] .p-datepicker {
+        left: auto;
+        right: 0;
     }
 
     .p-datepicker-inline {
@@ -147,6 +162,13 @@
         left: 50%;
         min-width: 80vw;
         transform: translate(-50%, -50%);
+    }
+
+    html[dir='rtl'] .p-datepicker-touch-ui,
+    html[dir='rtl'] .p-calendar .p-datepicker-touch-ui {
+        left: auto;
+        right: 50%;
+        transform: translate(50%, -50%);
     }
 
     /* Year Picker */

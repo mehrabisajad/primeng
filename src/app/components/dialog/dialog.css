@@ -11,6 +11,11 @@
         pointer-events: none;
     }
 
+    html[dir='rtl'] .p-dialog-mask {
+        left: unset;
+        right: 0;
+    }
+
     .p-dialog-mask.p-component-overlay {
         pointer-events: auto;
     }
@@ -86,6 +91,12 @@
         max-height: 100%;
         height: 100%;
     }
+
+    html[dir='rtl'] .p-dialog-maximized {
+        left: unset !important;
+        right: 0 !important;
+    }
+
     .p-dialog-maximized .p-dialog-content {
         flex-grow: 1;
     }
@@ -130,6 +141,11 @@
         height: 12px;
         right: 1px;
         bottom: 1px;
+    }
+
+    html[dir='rtl'] .p-dialog .p-resizable-handle {
+        right: unset;
+        left: 1px;
     }
 
     .p-confirm-dialog .p-dialog-content {
