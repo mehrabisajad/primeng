@@ -10,12 +10,13 @@ import { ProductService } from '@service/productservice';
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
+                <button class="p-button-success" (click)="toggle = !toggle"> {{ toggle }} </button>
                 <p-table [value]="products" [resizableColumns]="true" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="header">
                         <tr>
                             <th pResizableColumn>Code</th>
                             <th pResizableColumn>Name</th>
-                            <th pResizableColumn>Category</th>
+                            <th pResizableColumn [pResizableColumnDisabled]="toggle">Category</th>
                             <th pResizableColumn>Quantity</th>
                         </tr>
                     </ng-template>
@@ -35,11 +36,14 @@ import { ProductService } from '@service/productservice';
 })
 export class ColumnResizeFitModeDoc {
     products!: Product[];
+    toggle = true;
 
     constructor(
         private productService: ProductService,
         private cd: ChangeDetectorRef
-    ) {}
+    ) {
+        // this.toggle = false;
+    }
 
     loadDemoData() {
         this.productService.getProductsMini().then((data) => {
@@ -49,10 +53,10 @@ export class ColumnResizeFitModeDoc {
     }
 
     code: Code = {
-        basic: `<p-table 
-    [value]="products" 
-    [resizableColumns]="true" 
-    styleClass="p-datatable-gridlines" 
+        basic: `<p-table
+    [value]="products"
+    [resizableColumns]="true"
+    styleClass="p-datatable-gridlines"
     [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="header">
             <tr>
@@ -72,10 +76,10 @@ export class ColumnResizeFitModeDoc {
         </ng-template>
 </p-table>`,
         html: `<div class="card">
-    <p-table 
-        [value]="products" 
-        [resizableColumns]="true" 
-        styleClass="p-datatable-gridlines" 
+    <p-table
+        [value]="products"
+        [resizableColumns]="true"
+        styleClass="p-datatable-gridlines"
         [tableStyle]="{'min-width': '50rem'}">
             <ng-template pTemplate="header">
                 <tr>
@@ -116,7 +120,7 @@ export class TableColumnResizeFitModeDemo implements OnInit{
         this.productService.getProductsMini().then((data) => {
             this.products = data;
         });
-    } 
+    }
 }`,
         data: `{
     id: '1000',
