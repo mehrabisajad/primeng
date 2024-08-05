@@ -2,6 +2,7 @@ import { animate, AnimationEvent, style, transition, trigger } from '@angular/an
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
+    AfterViewChecked,
     AfterViewInit,
     booleanAttribute,
     ChangeDetectionStrategy,
@@ -221,7 +222,7 @@ export class TableService {
                         role="table"
                         [ngClass]="{ 'p-datatable-table': true, 'p-datatable-scrollable-table': scrollable, 'p-datatable-resizable-table': resizableColumns, 'p-datatable-resizable-table-fit': resizableColumns && columnResizeMode === 'fit' }"
                         [class]="tableStyleClass"
-                        [style]="tableStyle"
+                        [ngStyle]="tableStyle"
                         [attr.id]="id + '-table'"
                     >
                         <ng-container *ngTemplateOutlet="colGroupTemplate; context: { $implicit: scrollerOptions.columns }"></ng-container>
@@ -242,7 +243,7 @@ export class TableService {
                             role="rowgroup"
                             class="p-datatable-tbody"
                             [ngClass]="scrollerOptions.contentStyleClass"
-                            [style]="scrollerOptions.contentStyle"
+                            [ngStyle]="scrollerOptions.contentStyle"
                             [value]="dataToRender(scrollerOptions.rows)"
                             [pTableBody]="scrollerOptions.columns"
                             [pTableBodyTemplate]="bodyTemplate"
@@ -251,7 +252,7 @@ export class TableService {
                         <tbody
                             role="rowgroup"
                             *ngIf="scrollerOptions.spacerStyle"
-                            [style]="'height: calc(' + scrollerOptions.spacerStyle.height + ' - ' + scrollerOptions.rows.length * scrollerOptions.itemSize + 'px);'"
+                            [ngStyle]="{ height: 'calc(' + scrollerOptions.spacerStyle.height + ' - ' + scrollerOptions.rows.length * scrollerOptions.itemSize + 'px)' }"
                             class="p-datatable-scroller-spacer"
                         ></tbody>
                         <tfoot role="rowgroup" *ngIf="footerGroupedTemplate || footerTemplate" #tfoot class="p-datatable-tfoot">
@@ -309,12 +310,33 @@ export class TableService {
                 <ng-container *ngTemplateOutlet="summaryTemplate"></ng-container>
             </div>
 
-            <div #resizeHelper class="p-column-resizer-helper" style="display:none" *ngIf="resizableColumns"></div>
-            <span #reorderIndicatorUp class="p-datatable-reorder-indicator-up" style="display: none;" *ngIf="reorderableColumns">
+            <div
+                #resizeHelper
+                class="p-column-resizer-helper"
+                [ngStyle]="{
+                    display: 'none'
+                }"
+                *ngIf="resizableColumns"
+            ></div>
+            <span
+                #reorderIndicatorUp
+                class="p-datatable-reorder-indicator-up"
+                [ngStyle]="{
+                    display: 'none'
+                }"
+                *ngIf="reorderableColumns"
+            >
                 <ArrowDownIcon *ngIf="!reorderIndicatorUpIconTemplate" />
                 <ng-template *ngTemplateOutlet="reorderIndicatorUpIconTemplate"></ng-template>
             </span>
-            <span #reorderIndicatorDown class="p-datatable-reorder-indicator-down" style="display: none;" *ngIf="reorderableColumns">
+            <span
+                #reorderIndicatorDown
+                class="p-datatable-reorder-indicator-down"
+                [ngStyle]="{
+                    display: 'none'
+                }"
+                *ngIf="reorderableColumns"
+            >
                 <ArrowUpIcon *ngIf="!reorderIndicatorDownIconTemplate" />
                 <ng-template *ngTemplateOutlet="reorderIndicatorDownIconTemplate"></ng-template>
             </span>
@@ -1555,9 +1577,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 this.restoringSort = false;
             }
 
-            if (this.lazy) {
-                this.onLazyLoad.emit(this.createLazyLoadMetadata());
-            } else if (this.value) {
+            this.lazy && this.onLazyLoad.emit(this.createLazyLoadMetadata());
+
+            if (this.value) {
                 if (this.customSort) {
                     this.sortFunction.emit({
                         data: this.value,
@@ -1565,7 +1587,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                         field: field,
                         order: order
                     });
-                } else {
+                } else if (!this.lazy) {
                     this.value.sort((data1, data2) => {
                         let value1 = ObjectUtils.resolveFieldData(data1, field);
                         let value2 = ObjectUtils.resolveFieldData(data2, field);
@@ -1583,7 +1605,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     this._value = [...this.value];
                 }
 
-                if (this.hasFilter()) {
+                if ((!this.lazy || this.customSort) && this.hasFilter()) {
                     this._filter();
                 }
             }
@@ -1605,16 +1627,15 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
 
         if (this.multiSortMeta) {
-            if (this.lazy) {
-                this.onLazyLoad.emit(this.createLazyLoadMetadata());
-            } else if (this.value) {
+            this.lazy && this.onLazyLoad.emit(this.createLazyLoadMetadata());
+            if (this.value) {
                 if (this.customSort) {
                     this.sortFunction.emit({
                         data: this.value,
                         mode: this.sortMode,
                         multiSortMeta: this.multiSortMeta
                     });
-                } else {
+                } else if (!this.lazy) {
                     this.value.sort((data1, data2) => {
                         return this.multisortField(data1, data2, <SortMeta[]>this.multiSortMeta, 0);
                     });
@@ -1622,7 +1643,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     this._value = [...this.value];
                 }
 
-                if (this.hasFilter()) {
+                if ((!this.lazy || this.customSort) && this.hasFilter()) {
                     this._filter();
                 }
             }
@@ -1849,7 +1870,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
     }
 
-    selectRange(event: MouseEvent | KeyboardEvent, rowIndex: number) {
+    selectRange(event: MouseEvent | KeyboardEvent, rowIndex: number, isMetaKeySelection?: boolean | undefined) {
         let rangeStart, rangeEnd;
 
         if (<number>this.anchorRowIndex > rowIndex) {
@@ -1871,7 +1892,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         let rangeRowsData = [];
         for (let i = <number>rangeStart; i <= <number>rangeEnd; i++) {
             let rangeRowData = this.filteredValue ? this.filteredValue[i] : this.value[i];
-            if (!this.isSelected(rangeRowData)) {
+            if (!this.isSelected(rangeRowData) && !isMetaKeySelection) {
                 if (!this.isRowSelectable(rangeRowData, rowIndex)) {
                     continue;
                 }
@@ -2976,8 +2997,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     createStyleElement() {
         this.styleElement = this.renderer.createElement('style');
         this.styleElement.type = 'text/css';
-        this.renderer.appendChild(this.document.head, this.styleElement);
         DomHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
+        this.renderer.appendChild(this.document.head, this.styleElement);
     }
 
     getGroupRowsMeta() {
@@ -2989,6 +3010,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             if (!this.responsiveStyleElement) {
                 this.responsiveStyleElement = this.renderer.createElement('style');
                 this.responsiveStyleElement.type = 'text/css';
+                DomHandler.setAttribute(this.responsiveStyleElement, 'nonce', this.config?.csp()?.nonce);
                 this.renderer.appendChild(this.document.head, this.responsiveStyleElement);
 
                 let innerHTML = `
@@ -3184,12 +3206,7 @@ export class TableBody implements AfterViewInit, OnDestroy {
         }
     }
 
-    constructor(
-        public dt: Table,
-        public tableService: TableService,
-        public cd: ChangeDetectorRef,
-        public el: ElementRef
-    ) {
+    constructor(public dt: Table, public tableService: TableService, public cd: ChangeDetectorRef, public el: ElementRef) {
         this.subscription = this.dt.tableService.valueSource$.subscribe(() => {
             if (this.dt.virtualScroll) {
                 this.cd.detectChanges();
@@ -3303,40 +3320,29 @@ export class RowGroupHeader {
         '[class.p-frozen-column]': 'frozen'
     }
 })
-export class FrozenColumn implements AfterViewInit {
+export class FrozenColumn implements AfterViewChecked {
     @Input() get frozen(): boolean {
         return this._frozen;
     }
 
     set frozen(val: boolean) {
         this._frozen = val;
-        Promise.resolve(null).then(() => this.updateStickyPosition());
+        this.updateStickyPosition();
     }
 
     @Input() alignFrozen: string = 'left';
 
-    constructor(
-        private el: ElementRef,
-        private zone: NgZone
-    ) {}
+    constructor(private el: ElementRef, private zone: NgZone) {}
 
-    ngAfterViewInit() {
+    ngAfterViewChecked() {
         this.zone.runOutsideAngular(() => {
-            setTimeout(() => {
-                this.recalculateColumns();
-            }, 1000);
+            this.recalculateColumns();
         });
     }
 
     @HostListener('window:resize', ['$event'])
     recalculateColumns() {
-        const siblings = DomHandler.siblings(this.el.nativeElement);
-        const index = DomHandler.index(this.el.nativeElement);
-        const time = (siblings.length - index + 1) * 50;
-
-        setTimeout(() => {
-            this.updateStickyPosition();
-        }, time);
+        this.updateStickyPosition();
     }
 
     _frozen: boolean = true;
@@ -3477,10 +3483,7 @@ export class SortIcon implements OnInit, OnDestroy {
 
     sortOrder: number | undefined;
 
-    constructor(
-        public dt: Table,
-        public cd: ChangeDetectorRef
-    ) {
+    constructor(public dt: Table, public cd: ChangeDetectorRef) {
         this.subscription = this.dt.tableService.sortSource$.subscribe((sortMeta) => {
             this.updateSortState();
         });
@@ -3561,11 +3564,7 @@ export class SelectableRow implements OnInit, OnDestroy {
 
     subscription: Subscription | undefined;
 
-    constructor(
-        public dt: Table,
-        public tableService: TableService,
-        private el: ElementRef
-    ) {
+    constructor(public dt: Table, public tableService: TableService, private el: ElementRef) {
         if (this.isEnabled()) {
             this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
                 this.selected = this.dt.isSelected(this.data);
@@ -3634,7 +3633,7 @@ export class SelectableRow implements OnInit, OnDestroy {
                 if (event.code === 'KeyA' && (event.metaKey || event.ctrlKey) && this.dt.selectionMode === 'multiple') {
                     const data = this.dt.dataToRender(this.dt.processedData);
                     this.dt.selection = [...data];
-                    this.dt.selectRange(event, data.length - 1);
+                    this.dt.selectRange(event, data.length - 1, true);
 
                     event.preventDefault();
                 }
@@ -3813,10 +3812,7 @@ export class SelectableRowDblClick implements OnInit, OnDestroy {
 
     subscription: Subscription | undefined;
 
-    constructor(
-        public dt: Table,
-        public tableService: TableService
-    ) {
+    constructor(public dt: Table, public tableService: TableService) {
         if (this.isEnabled()) {
             this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
                 this.selected = this.dt.isSelected(this.data);
@@ -3871,11 +3867,7 @@ export class ContextMenuRow {
 
     subscription: Subscription | undefined;
 
-    constructor(
-        public dt: Table,
-        public tableService: TableService,
-        private el: ElementRef
-    ) {
+    constructor(public dt: Table, public tableService: TableService, private el: ElementRef) {
         if (this.isEnabled()) {
             this.subscription = this.dt.tableService.contextMenuSource$.subscribe((data) => {
                 this.selected = this.dt.equals(this.data, data);
@@ -3982,14 +3974,7 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
         return this._pResizableColumnDisabled;
     }
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        private renderer: Renderer2,
-        public dt: Table,
-        public el: ElementRef,
-        public zone: NgZone
-    ) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public dt: Table, public el: ElementRef, public zone: NgZone) {}
 
     ngAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
@@ -4098,13 +4083,7 @@ export class ReorderableColumn implements AfterViewInit, OnDestroy {
 
     mouseDownListener: VoidListener;
 
-    constructor(
-        @Inject(PLATFORM_ID) private platformId: any,
-        private renderer: Renderer2,
-        public dt: Table,
-        public el: ElementRef,
-        public zone: NgZone
-    ) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public dt: Table, public el: ElementRef, public zone: NgZone) {}
 
     ngAfterViewInit() {
         if (this.isEnabled()) {
@@ -4211,11 +4190,7 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
 
     overlayEventListener: any;
 
-    constructor(
-        public dt: Table,
-        public el: ElementRef,
-        public zone: NgZone
-    ) {}
+    constructor(public dt: Table, public el: ElementRef, public zone: NgZone) {}
 
     public ngOnChanges(changes: SimpleChanges): void {
         if (this.el.nativeElement && !changes.data?.firstChange) {
@@ -4556,10 +4531,7 @@ export class EditableRow {
     }
 })
 export class InitEditableRow {
-    constructor(
-        public dt: Table,
-        public editableRow: EditableRow
-    ) {}
+    constructor(public dt: Table, public editableRow: EditableRow) {}
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
@@ -4575,10 +4547,7 @@ export class InitEditableRow {
     }
 })
 export class SaveEditableRow {
-    constructor(
-        public dt: Table,
-        public editableRow: EditableRow
-    ) {}
+    constructor(public dt: Table, public editableRow: EditableRow) {}
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
@@ -4594,10 +4563,7 @@ export class SaveEditableRow {
     }
 })
 export class CancelEditableRow {
-    constructor(
-        public dt: Table,
-        public editableRow: EditableRow
-    ) {}
+    constructor(public dt: Table, public editableRow: EditableRow) {}
 
     @HostListener('click', ['$event'])
     onClick(event: Event) {
@@ -4628,11 +4594,7 @@ export class CellEditor implements AfterContentInit {
 
     outputTemplate: Nullable<TemplateRef<any>>;
 
-    constructor(
-        public dt: Table,
-        @Optional() public editableColumn: EditableColumn,
-        @Optional() public editableRow: EditableRow
-    ) {}
+    constructor(public dt: Table, @Optional() public editableColumn: EditableColumn, @Optional() public editableRow: EditableRow) {}
 
     ngAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
@@ -4692,10 +4654,7 @@ export class TableRadioButton {
 
     subscription: Subscription;
 
-    constructor(
-        public dt: Table,
-        public cd: ChangeDetectorRef
-    ) {
+    constructor(public dt: Table, public cd: ChangeDetectorRef) {
         this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
             this.checked = this.dt.isSelected(this.value);
             this.ariaLabel = this.ariaLabel || this.dt.config.translation.aria ? (this.checked ? this.dt.config.translation.aria.selectRow : this.dt.config.translation.aria.unselectRow) : undefined;
@@ -4792,11 +4751,7 @@ export class TableCheckbox {
 
     subscription: Subscription;
 
-    constructor(
-        public dt: Table,
-        public tableService: TableService,
-        public cd: ChangeDetectorRef
-    ) {
+    constructor(public dt: Table, public tableService: TableService, public cd: ChangeDetectorRef) {
         this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
             this.checked = this.dt.isSelected(this.value) && !this.disabled;
             this.ariaLabel = this.ariaLabel || this.dt.config.translation.aria ? (this.checked ? this.dt.config.translation.aria.selectRow : this.dt.config.translation.aria.unselectRow) : undefined;
@@ -4876,11 +4831,7 @@ export class TableHeaderCheckbox {
 
     valueChangeSubscription: Subscription;
 
-    constructor(
-        public dt: Table,
-        public tableService: TableService,
-        public cd: ChangeDetectorRef
-    ) {
+    constructor(public dt: Table, public tableService: TableService, public cd: ChangeDetectorRef) {
         this.valueChangeSubscription = this.dt.tableService.valueSource$.subscribe(() => {
             this.checked = this.updateCheckedState();
             this.ariaLabel = this.ariaLabel || this.dt.config.translation.aria ? (this.checked ? this.dt.config.translation.aria.selectAll : this.dt.config.translation.aria.unselectAll) : undefined;
@@ -4979,12 +4930,7 @@ export class ReorderableRow implements AfterViewInit {
 
     dropListener: VoidListener;
 
-    constructor(
-        private renderer: Renderer2,
-        public dt: Table,
-        public el: ElementRef,
-        public zone: NgZone
-    ) {}
+    constructor(private renderer: Renderer2, public dt: Table, public el: ElementRef, public zone: NgZone) {}
 
     ngAfterViewInit() {
         if (this.isEnabled()) {
@@ -5214,7 +5160,7 @@ export class ReorderableRow implements AfterViewInit {
                             <ng-template *ngTemplateOutlet="addRuleIconTemplate"></ng-template>
                         </button>
                     </div>
-                    <div class="p-column-filter-buttonbar">
+                    <div class="p-column-filter-buttonbar" *ngIf="showButtons">
                         <button #clearBtn *ngIf="showClearButton" type="button" pButton class="p-button-outlined p-button-sm" (click)="clearFilter()" [attr.aria-label]="clearButtonLabel" [label]="clearButtonLabel" pRipple></button>
                         <button *ngIf="showApplyButton" type="button" pButton (click)="applyFilter()" class="p-button-sm" [label]="applyButtonLabel" pRipple [attr.aria-label]="applyButtonLabel"></button>
                     </div>
@@ -5482,15 +5428,7 @@ export class ColumnFilter implements AfterContentInit {
         return this.config.translation ? this.config.translation.aria.filterConstraint : undefined;
     }
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        public el: ElementRef,
-        public dt: Table,
-        public renderer: Renderer2,
-        public config: PrimeNGConfig,
-        public overlayService: OverlayService,
-        private cd: ChangeDetectorRef
-    ) {
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public dt: Table, public renderer: Renderer2, public config: PrimeNGConfig, public overlayService: OverlayService, private cd: ChangeDetectorRef) {
         this.window = this.document.defaultView as Window;
     }
 
@@ -5794,9 +5732,12 @@ export class ColumnFilter implements AfterContentInit {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
             this.documentClickListener = this.renderer.listen(documentTarget, 'mousedown', (event) => {
-                const dialogElements = document.querySelectorAll('[role="dialog"]');
+                let isDateDialog = false;
+                document.querySelectorAll('[role="dialog"]').forEach((d) => {
+                    if (DomHandler.hasClass(d, 'p-datepicker')) isDateDialog = true;
+                });
                 const targetIsColumnFilterMenuButton = event.target.closest('.p-column-filter-menu-button');
-                if (this.overlayVisible && this.isOutsideClicked(event) && (targetIsColumnFilterMenuButton || dialogElements?.length <= 1)) {
+                if (this.overlayVisible && this.isOutsideClicked(event) && (targetIsColumnFilterMenuButton || !isDateDialog)) {
                     this.hide();
                 }
 
@@ -5998,10 +5939,7 @@ export class ColumnFilterFormElement implements OnInit {
 
     filterCallback: any;
 
-    constructor(
-        public dt: Table,
-        private colFilter: ColumnFilter
-    ) {}
+    constructor(public dt: Table, private colFilter: ColumnFilter) {}
 
     ngOnInit() {
         this.filterCallback = (value: any) => {

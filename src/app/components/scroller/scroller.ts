@@ -504,13 +504,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         return this._columns;
     }
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        private renderer: Renderer2,
-        private cd: ChangeDetectorRef,
-        private zone: NgZone
-    ) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, private cd: ChangeDetectorRef, private zone: NgZone) {}
 
     ngOnInit() {
         this.setInitialState();
@@ -614,6 +608,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
                 this.setInitialState();
                 this.setContentEl(this.contentEl);
                 this.init();
+                this.calculateAutoSize();
 
                 this.defaultWidth = DomHandler.getWidth(this.elementViewChild?.nativeElement);
                 this.defaultHeight = DomHandler.getHeight(this.elementViewChild?.nativeElement);
@@ -1074,6 +1069,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
                         this.defaultContentHeight = DomHandler.getHeight(this.contentEl);
 
                         this.init();
+                        this.calculateAutoSize();
                     });
             }
         }, this._resizeDelay);

@@ -264,14 +264,7 @@ export class Slider implements OnDestroy, ControlValueAccessor {
 
     public starty: Nullable<number>;
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        public el: ElementRef,
-        public renderer: Renderer2,
-        private ngZone: NgZone,
-        public cd: ChangeDetectorRef
-    ) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public renderer: Renderer2, private ngZone: NgZone, public cd: ChangeDetectorRef) {}
 
     get isLtr() {
         return DomHandler.isLTR(this.el.nativeElement);

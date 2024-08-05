@@ -10,13 +10,12 @@ import { ProductService } from '@service/productservice';
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <button class="p-button-success" (click)="toggle = !toggle"> {{ toggle }} </button>
                 <p-table [value]="products" [resizableColumns]="true" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="header">
                         <tr>
                             <th pResizableColumn>Code</th>
                             <th pResizableColumn>Name</th>
-                            <th pResizableColumn [pResizableColumnDisabled]="toggle">Category</th>
+                            <th pResizableColumn>Category</th>
                             <th pResizableColumn>Quantity</th>
                         </tr>
                     </ng-template>
@@ -36,14 +35,8 @@ import { ProductService } from '@service/productservice';
 })
 export class ColumnResizeFitModeDoc {
     products!: Product[];
-    toggle = true;
 
-    constructor(
-        private productService: ProductService,
-        private cd: ChangeDetectorRef
-    ) {
-        // this.toggle = false;
-    }
+    constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
     loadDemoData() {
         this.productService.getProductsMini().then((data) => {
