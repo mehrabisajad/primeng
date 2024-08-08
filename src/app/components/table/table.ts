@@ -3933,7 +3933,7 @@ export class RowToggler {
     }
 })
 export class ResizableColumn implements AfterViewInit, OnDestroy {
-    @Input({ transform: booleanAttribute }) pResizableColumnDisabled: boolean | undefined;
+    _pResizableColumnDisabled: boolean | undefined;
 
     resizer: HTMLSpanElement | undefined;
 
@@ -3948,6 +3948,31 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
     documentMouseMoveListener: VoidListener;
 
     documentMouseUpListener: VoidListener;
+
+    @Input({ transform: booleanAttribute })
+    set pResizableColumnDisabled(pResizableColumnDisabled: boolean | undefined) {
+        if (pResizableColumnDisabled === this._pResizableColumnDisabled) return;
+
+        this._pResizableColumnDisabled = pResizableColumnDisabled;
+        if (isPlatformBrowser(this.platformId) && this.isEnabled())
+            this.ngAfterViewInit();
+        else if (this.resizer) {
+            this.renderer.removeChild(this.el.nativeElement, this.resizer);
+            if (this.resizerMouseDownListener) {
+                this.resizerMouseDownListener();
+                this.resizerMouseDownListener = null;
+            }
+
+            if (this.resizerTouchStartListener) {
+                this.resizerTouchStartListener();
+                this.resizerTouchStartListener = null;
+            }
+        }
+    };
+
+    get pResizableColumnDisabled() {
+        return this._pResizableColumnDisabled;
+    }
 
     constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public dt: Table, public el: ElementRef, public zone: NgZone) {}
 
