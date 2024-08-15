@@ -3956,8 +3956,7 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
         this._pResizableColumnDisabled = pResizableColumnDisabled;
         if (isPlatformBrowser(this.platformId) && this.isEnabled())
             this.ngAfterViewInit();
-        else if (this.resizer) {
-            this.renderer.removeChild(this.el.nativeElement, this.resizer);
+        else {
             if (this.resizerMouseDownListener) {
                 this.resizerMouseDownListener();
                 this.resizerMouseDownListener = null;
@@ -3966,6 +3965,12 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
             if (this.resizerTouchStartListener) {
                 this.resizerTouchStartListener();
                 this.resizerTouchStartListener = null;
+            }
+
+            if (this.resizer) {
+                this.renderer.removeChild(this.el.nativeElement, this.resizer);
+                this.resizer = undefined;
+                DomHandler.removeClass(this.el.nativeElement, 'p-resizable-column');
             }
         }
     };
