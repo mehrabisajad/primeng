@@ -311,7 +311,7 @@ export class ConfirmPopup implements AfterContentInit, OnDestroy {
             }
             (this.container as HTMLDivElement).style.setProperty('--overlayArrowLeft', `${arrowLeft}px`);
         } else {
-            const targetOffsetWidth = DomHandler.getWidth(this.confirmation.target);
+            const targetOffsetWidth = DomHandler.getWidth(this.confirmation.target as HTMLElement);
 
             if (containerOffset.left + this.container.offsetWidth > targetOffset.left + targetOffsetWidth) {
                 arrowRight = (containerOffset.left + this.container.offsetWidth) - (targetOffset.left + targetOffsetWidth);

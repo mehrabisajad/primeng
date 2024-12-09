@@ -52,8 +52,8 @@
         left: 0;
     }
 
-    .html[dir='rtl'] .p-datepicker {
-        left: auto;
+    html[dir='rtl'] .p-datepicker {
+        left: unset;
         right: 0;
     }
 
