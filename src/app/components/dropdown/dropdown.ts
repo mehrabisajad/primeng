@@ -649,6 +649,11 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      */
     @Input({ transform: booleanAttribute }) autofocusFilter: boolean = true;
     /**
+     * Determines if the panel will be shown when the input is focused and receives a character key down event.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) autoShowPanelOnPrintableCharacterKeyDown: boolean = true;
+    /**
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
@@ -1011,14 +1016,25 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     filled = computed(() => {
         if (typeof this.modelValue() === 'string') return !!this.modelValue();
-        return this.label() !== 'p-emptylabel' && this.modelValue() !== undefined && this.modelValue() !== null;
+
+        const options = this.getAllVisibleAndNonVisibleOptions();
+        const isOptionSelected = options.findIndex((option) => this.isOptionValueEqualsModelValue(option)) !== -1;
+
+        return this.label() !== 'p-emptylabel' && isOptionSelected;
     });
 
     selectedOption: any;
 
     editableInputValue = computed(() => this.getOptionLabel(this.selectedOption) || this.modelValue() || '');
 
-    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public filterService: FilterService, public config: PrimeNGConfig) {
+    constructor(
+        public el: ElementRef,
+        public renderer: Renderer2,
+        public cd: ChangeDetectorRef,
+        public zone: NgZone,
+        public filterService: FilterService,
+        public config: PrimeNGConfig
+    ) {
         effect(() => {
             const modelValue = this.modelValue();
             const visibleOptions = this.visibleOptions();
@@ -1196,13 +1212,15 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         this.selectedOptionUpdated = true;
     }
 
-    writeValue(value: any): void {
+    writeValue(value: any, emitEvent: boolean = true): void {
         if (this.filter) {
             this.resetFilter();
         }
 
         this.value = value;
-        this.allowModelChange() && this.onModelChange(value);
+        if (emitEvent && this.allowModelChange()) {
+            this.onModelChange(value);
+        }
         this.modelValue.set(this.value);
         this.updateEditableLabel();
         this.cd.markForCheck();
@@ -1544,7 +1562,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
             default:
                 if (!event.metaKey && ObjectUtils.isPrintableCharacter(event.key)) {
-                    !this.overlayVisible && this.show();
+                    !this.overlayVisible && this.autoShowPanelOnPrintableCharacterKeyDown && this.show();
                     !this.editable && this.searchOptions(event, event.key);
                 }
 

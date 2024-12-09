@@ -1,10 +1,10 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Tree, UITreeNode } from './tree';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ContextMenu, ContextMenuSub } from 'primeng/contextmenu';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Component, ElementRef, ViewChild, OnInit, NO_ERRORS_SCHEMA } from '@angular/core';
+import { Component, ElementRef, NO_ERRORS_SCHEMA, OnInit, ViewChild } from '@angular/core';
 import { ContextMenuService, TreeDragDropService } from 'primeng/api';
 
 @Component({
@@ -83,7 +83,7 @@ class TestTreeComponent implements OnInit {
                         data: 'De Niro Movies',
                         children: [
                             { label: 'Goodfellas', icon: 'pi pi-file-video-o', data: 'Goodfellas Movie' },
-                            { label: 'Untouchables', icon: 'pi pi-file-video-o', data: 'Untouchables Movie' }
+                            { label: 'Untouchables', icon: 'pi pi-file-video-o', data: 'Untouchables Movie', selectable: false }
                         ]
                     }
                 ]
@@ -195,7 +195,12 @@ describe('Tree', () => {
                         data: 'De Niro Movies',
                         children: [
                             { label: 'Goodfellas', icon: 'pi pi-file-video-o', data: 'Goodfellas Movie' },
-                            { label: 'Untouchables', icon: 'pi pi-file-video-o', data: 'Untouchables Movie' }
+                            {
+                                label: 'Untouchables',
+                                icon: 'pi pi-file-video-o',
+                                data: 'Untouchables Movie',
+                                selectable: false
+                            }
                         ]
                     }
                 ]
@@ -284,5 +289,37 @@ describe('Tree', () => {
 
         expect(tree.filteredNodes).toBeTruthy();
         expect(tree.filteredNodes.length).toEqual(2);
+    });
+
+    it('should select nodes by reference', () => {
+        // <p-tree selectionMode="single" [value]="[root]" [selection]="root" />
+
+        const root = { key: undefined, label: '(root)' };
+        tree.selectionMode = 'single';
+        tree.value = [root];
+
+        tree.selection = root;
+        fixture.detectChanges();
+        expect(fixture.debugElement.query(By.css('.p-highlight'))).toBeTruthy();
+
+        tree.selection = undefined;
+        fixture.detectChanges();
+        expect(fixture.debugElement.query(By.css('.p-highlight'))).toBeFalsy();
+    });
+
+    it('should select nodes by key (even if key is empty!)', () => {
+        // <p-tree selectionMode="single" [value]="[root]" [selection]="{key: root.key, label: root.label}" />
+
+        const root = { key: '', label: '(root)' };
+        tree.selectionMode = 'single';
+        tree.value = [root];
+
+        tree.selection = { key: root.key, label: root.label };
+        fixture.detectChanges();
+        expect(fixture.debugElement.query(By.css('.p-highlight'))).toBeTruthy();
+
+        tree.selection = { key: 'non-' + root.key, label: root.label };
+        fixture.detectChanges();
+        expect(fixture.debugElement.query(By.css('.p-highlight'))).toBeFalsy();
     });
 });

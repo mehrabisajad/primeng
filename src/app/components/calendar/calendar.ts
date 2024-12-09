@@ -37,7 +37,7 @@ import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { TimesIcon } from 'primeng/icons/times';
 import { CalendarIcon } from 'primeng/icons/calendar';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { NavigationState, CalendarResponsiveOptions, CalendarTypeView, LocaleSettings, Month, CalendarMonthChangeEvent, CalendarYearChangeEvent } from './calendar.interface';
+import { CalendarMonthChangeEvent, CalendarResponsiveOptions, CalendarTypeView, CalendarYearChangeEvent, LocaleSettings, Month, NavigationState } from './calendar.interface';
 import { AutoFocusModule } from 'primeng/autofocus';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
@@ -1203,7 +1203,15 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         return this.currentView === 'year' ? this.getTranslation('nextDecade') : this.currentView === 'month' ? this.getTranslation('nextYear') : this.getTranslation('nextMonth');
     }
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone, private config: PrimeNGConfig, public overlayService: OverlayService) {
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        public el: ElementRef,
+        public renderer: Renderer2,
+        public cd: ChangeDetectorRef,
+        private zone: NgZone,
+        private config: PrimeNGConfig,
+        public overlayService: OverlayService
+    ) {
         this.window = this.document.defaultView as Window;
     }
 
@@ -1679,9 +1687,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     formatDateKey(date: Date): string {
         if (this.isJalali) {
             const jDate = new JDate(date);
-            return `${jDate.getYear()}-${jDate.getMonth()}-${jDate.getDay()}`;
+            return `${jDate.getYear()}-${jDate.getMonth() + 1}-${jDate.getDay()}`;
         }
-        return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+        return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
     }
 
     setCurrentHourPM(hours: number) {
@@ -1893,17 +1901,14 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     isYearSelected(year: number) {
-        if (this.isComparable()) {
-            let value = this.isRangeSelection() ? this.value[0] : this.value;
-            if (this.isJalali) {
-                const jValue = new JDate(value);
-                return !this.isMultipleSelection() ? (jValue.getYear() === year) : false;
-            }
+        if (!this.isComparable()) return false;
+        if (this.isMultipleSelection()) return false;
 
-            return !this.isMultipleSelection() ? value.getFullYear() === year : false;
+        let value = this.isRangeSelection() ? this.value[0] : this.value;
+        if (this.isJalali) {
+            return value ? new JDate(value).getYear() === year : false;
         }
-
-        return false;
+        return value ? value.getFullYear() === year : false;
     }
 
     isDateEquals(value: any, dateMeta: any) {
@@ -3175,10 +3180,16 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         } else if (this.overlay) {
             if (this.appendTo) {
                 if (this.view === 'date') {
-                    this.overlay.style.width = DomHandler.getOuterWidth(this.overlay) + 'px';
-                    this.overlay.style.minWidth = DomHandler.getOuterWidth(this.inputfieldViewChild?.nativeElement) + 'px';
+                    if (!this.overlay.style.width) {
+                        this.overlay.style.width = DomHandler.getOuterWidth(this.overlay) + 'px';
+                    }
+                    if (!this.overlay.style.minWidth) {
+                        this.overlay.style.minWidth = DomHandler.getOuterWidth(this.inputfieldViewChild?.nativeElement) + 'px';
+                    }
                 } else {
-                    this.overlay.style.width = DomHandler.getOuterWidth(this.inputfieldViewChild?.nativeElement) + 'px';
+                    if (!this.overlay.style.width) {
+                        this.overlay.style.width = DomHandler.getOuterWidth(this.inputfieldViewChild?.nativeElement) + 'px';
+                    }
                 }
 
                 DomHandler.absolutePosition(this.overlay, this.inputfieldViewChild?.nativeElement);

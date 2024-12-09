@@ -114,7 +114,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                     class="p-button-icon-only"
                     [class]="incrementButtonClass"
                     [disabled]="disabled"
-                    tabindex="-1"
+                    tabindex="0"
                     (mousedown)="onUpButtonMouseDown($event)"
                     (mouseup)="onUpButtonMouseUp()"
                     (mouseleave)="onUpButtonMouseLeave()"
@@ -136,7 +136,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                     class="p-button-icon-only"
                     [class]="decrementButtonClass"
                     [disabled]="disabled"
-                    tabindex="-1"
+                    tabindex="0"
                     [attr.aria-hidden]="true"
                     (mousedown)="onDownButtonMouseDown($event)"
                     (mouseup)="onDownButtonMouseUp()"
@@ -160,7 +160,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 [class]="incrementButtonClass"
                 class="p-button-icon-only"
                 [disabled]="disabled"
-                tabindex="-1"
+                tabindex="0"
                 [attr.aria-hidden]="true"
                 (mousedown)="onUpButtonMouseDown($event)"
                 (mouseup)="onUpButtonMouseUp()"
@@ -183,7 +183,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 class="p-button-icon-only"
                 [class]="decrementButtonClass"
                 [disabled]="disabled"
-                tabindex="-1"
+                tabindex="0"
                 [attr.aria-hidden]="true"
                 (mousedown)="onDownButtonMouseDown($event)"
                 (mouseup)="onDownButtonMouseUp()"
@@ -517,7 +517,13 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
 
     private ngControl: NgControl | null = null;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, private cd: ChangeDetectorRef, private readonly injector: Injector, public config: PrimeNGConfig) {}
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        public el: ElementRef,
+        private cd: ChangeDetectorRef,
+        private readonly injector: Injector,
+        public config: PrimeNGConfig
+    ) {}
 
     ngOnChanges(simpleChange: SimpleChanges) {
         const props = ['locale', 'localeMatcher', 'mode', 'currency', 'currencyDisplay', 'useGrouping', 'minFractionDigits', 'maxFractionDigits', 'prefix', 'suffix'];
@@ -829,7 +835,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
         }
 
         this.lastValue = (event.target as HTMLInputElement).value;
-        if ((event as KeyboardEvent).shiftKey || (event as KeyboardEvent).altKey) {
+        if ((event as KeyboardEvent).shiftKey || (event as KeyboardEvent).altKey || event.key === 'Dead') {
             this.isSpecialChar = true;
             return;
         }
@@ -1009,10 +1015,14 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
             char = this._decimalChar;
             code = char.charCodeAt(0);
         }
-        const newValue = this.parseValue(this.input.nativeElement.value + char);
+        const { value, selectionStart, selectionEnd } = this.input.nativeElement;
+        const newValue = this.parseValue(value + char);
         const newValueStr = newValue != null ? newValue.toString() : '';
+        const selectedValue = value.substring(selectionStart, selectionEnd);
+        const selectedValueParsed = this.parseValue(selectedValue);
+        const selectedValueStr = selectedValueParsed != null ? selectedValueParsed.toString() : '';
 
-        if (this.maxlength && this.getSelectedText()?.length == this.maxlength) {
+        if (selectionStart !== selectionEnd && selectedValueStr.length > 0) {
             this.insert(event, char, { isDecimalSign, isMinusSign });
             return;
         }
@@ -1024,15 +1034,6 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
         if ((48 <= code && code <= 57) || isMinusSign || isDecimalSign) {
             this.insert(event, char, { isDecimalSign, isMinusSign });
         }
-    }
-
-    private getSelectedText() {
-        return (
-            window
-                ?.getSelection()
-                ?.toString()
-                .replaceAll(/[^0-9']/g, '') || ''
-        );
     }
 
     onPaste(event: ClipboardEvent) {

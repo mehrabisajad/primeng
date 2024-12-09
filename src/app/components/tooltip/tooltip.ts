@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Directive, ElementRef, HostListener, Inject, Input, NgModule, NgZone, OnDestroy, PLATFORM_ID, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef, booleanAttribute, numberAttribute } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, Inject, Input, NgModule, NgZone, OnDestroy, PLATFORM_ID, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef, booleanAttribute, numberAttribute } from '@angular/core';
 import { PrimeNGConfig, TooltipOptions } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Nullable } from 'primeng/ts-helpers';
@@ -160,13 +160,22 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     blurListener: Nullable<Function>;
 
+    documentEscapeListener: Nullable<Function>;
+
     scrollHandler: any;
 
     resizeListener: any;
 
     interactionInProgress = false;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig, private renderer: Renderer2, private viewContainer: ViewContainerRef, private cd: ChangeDetectorRef) {}
+    constructor(
+        @Inject(PLATFORM_ID) private platformId: any,
+        public el: ElementRef,
+        public zone: NgZone,
+        public config: PrimeNGConfig,
+        private renderer: Renderer2,
+        private viewContainer: ViewContainerRef
+    ) {}
 
     ngAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
@@ -185,14 +194,28 @@ export class Tooltip implements AfterViewInit, OnDestroy {
                     this.focusListener = this.onFocus.bind(this);
                     this.blurListener = this.onBlur.bind(this);
 
-                    let target = this.getTarget(this.el.nativeElement);
+                    let target = this.el.nativeElement.querySelector('.p-component');
+
+                    if (!target) {
+                        target = this.getTarget(this.el.nativeElement);
+                    }
 
                     target.addEventListener('focus', this.focusListener);
                     target.addEventListener('blur', this.blurListener);
                 }
             });
-            this.cd.detectChanges();
         }
+    }
+
+    setAriaDescribedBy() {
+        const tooltipId = this.getOption('id');
+        if (tooltipId && this.active) {
+            this.renderer.setAttribute(this.el.nativeElement, 'aria-describedby', tooltipId);
+        }
+    }
+
+    removeAriaDescribedBy() {
+        this.renderer.removeAttribute(this.el.nativeElement, 'aria-describedby');
     }
 
     ngOnChanges(simpleChange: SimpleChanges) {
@@ -323,13 +346,6 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         this.deactivate();
     }
 
-    @HostListener('document:keydown.escape', ['$event'])
-    onPressEscape() {
-        if (this.hideOnEscape) {
-            this.deactivate();
-        }
-    }
-
     activate() {
         if (!this.interactionInProgress) {
             this.active = true;
@@ -347,6 +363,13 @@ export class Tooltip implements AfterViewInit, OnDestroy {
                     this.hide();
                 }, duration);
             }
+
+            if (this.getOption('hideOnEscape')) {
+                this.documentEscapeListener = this.renderer.listen('document', 'keydown.escape', () => {
+                    this.deactivate();
+                    this.documentEscapeListener();
+                });
+            }
         }
         this.interactionInProgress = true;
     }
@@ -363,6 +386,10 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             }, this.getOption('hideDelay'));
         } else {
             this.hide();
+        }
+
+        if (this.documentEscapeListener) {
+            this.documentEscapeListener();
         }
     }
 
@@ -407,6 +434,8 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             this.container.style.pointerEvents = 'unset';
             this.bindContainerMouseleaveListener();
         }
+
+        this.setAriaDescribedBy();
     }
 
     bindContainerMouseleaveListener() {
@@ -603,7 +632,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     }
 
     getTarget(el: Element) {
-        return DomHandler.hasClass(el, 'p-inputwrapper') ? DomHandler.findSingle(el, 'input') : el.querySelector('.p-component') || el;
+        return DomHandler.hasClass(el, 'p-inputwrapper') ? DomHandler.findSingle(el, 'input') : el;
     }
 
     preAlign(position: string) {
@@ -670,10 +699,11 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             this.el.nativeElement.removeEventListener('click', this.clickListener);
         }
         if (tooltipEvent === 'focus' || tooltipEvent === 'both') {
-            let target = this.getTarget(this.el.nativeElement);
+            let target = this.el.nativeElement.querySelector('.p-component');
 
-            target.removeEventListener('focus', this.focusListener);
-            target.removeEventListener('blur', this.blurListener);
+            if (!target) {
+                target = this.getTarget(this.el.nativeElement);
+            }
         }
         this.unbindDocumentResizeListener();
     }
@@ -689,6 +719,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         this.unbindScrollListener();
         this.unbindContainerMouseleaveListener();
         this.clearTimeouts();
+        this.removeAriaDescribedBy();
         this.container = null;
         this.scrollHandler = null;
     }
@@ -724,6 +755,10 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         if (this.scrollHandler) {
             this.scrollHandler.destroy();
             this.scrollHandler = null;
+        }
+
+        if (this.documentEscapeListener) {
+            this.documentEscapeListener();
         }
     }
 }

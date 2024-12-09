@@ -1,6 +1,7 @@
 {
-    "id": 65,
-    "content": "News on Angular 18 Support",
-    "linkText": "Learn More",
-    "linkHref": "https://www.primefaces.org/blog/primeng-for-angular-18/"
+    "id": 72,
+    "content": "The Black Friday Sale is now live with up to 50% off! 🎉",
+    "linkText": "Visit Store",
+    "linkHref": "https://primefaces.org/store",
+    "target": "_blank"
 }

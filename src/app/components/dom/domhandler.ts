@@ -445,7 +445,7 @@ export class DomHandler {
         return height;
     }
 
-    public static getHeight(el): number {
+    public static getHeight(el: HTMLElement): number {
         let height = el.offsetHeight;
         let style = getComputedStyle(el);
 
@@ -454,7 +454,7 @@ export class DomHandler {
         return height;
     }
 
-    public static getWidth(el): number {
+    public static getWidth(el: HTMLElement): number {
         let width = el.offsetWidth;
         let style = getComputedStyle(el);
 
