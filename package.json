@@ -1,8 +1,11 @@
 {
     "name": "primeng",
-    "version": "17.18.12",
+    "version": "17.18.15",
     "license": "SEE LICENSE IN LICENSE.md",
     "scripts": {
+        "setup": "npm run clean && npm run init",
+        "clean": "npx rimraf ./node_modules ./dist ./.angular ./package-lock.json",
+        "init": "npm install && husky",
         "ng": "ng",
         "start": "ng serve",
         "test": "ng test",
@@ -74,6 +77,7 @@
         "karma-jasmine": "~5.1.0",
         "karma-jasmine-html-reporter": "~2.0.0",
         "prettier": "^3.0.0",
+        "husky": "^9.1.6",
         "ng-packagr": "^18.0.0",
         "primeflex": "^3.3.1",
         "primeicons": "^7.0.0",

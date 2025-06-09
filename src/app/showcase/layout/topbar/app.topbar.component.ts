@@ -3,10 +3,10 @@ import { Component, ElementRef, EventEmitter, Inject, Input, OnDestroy, Output, 
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import docsearch from '@docsearch/js';
+import { AppConfigService } from '@service/appconfigservice';
 import { DomHandler } from 'primeng/dom';
 import { StyleClassModule } from 'primeng/styleclass';
 import Versions from '../../data/versions.json';
-import { AppConfigService } from '@service/appconfigservice';
 
 @Component({
     selector: 'app-topbar',
@@ -22,6 +22,8 @@ export class AppTopBarComponent implements OnDestroy {
     @Output() onDarkModeSwitch = new EventEmitter<any>();
 
     versions: any[] = Versions;
+
+    version: string = 'v17';
 
     scrollListener: VoidFunction | null;
 
@@ -66,9 +68,9 @@ export class AppTopBarComponent implements OnDestroy {
 
     initDocSearch() {
         docsearch({
-            appId: 'XG1L2MUWT9',
-            apiKey: '6057fe1af77fee4e7e41907b0b3ec79d',
-            indexName: 'primeng',
+            appId: 'LIYXHCGZM7',
+            apiKey: '613999de8971de0c46f8ddd72f31dcd5',
+            indexName: 'v17-primeng',
             container: '#docsearch'
         });
     }
