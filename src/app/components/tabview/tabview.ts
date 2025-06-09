@@ -559,7 +559,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
 
     ngAfterViewChecked() {
         if (isPlatformBrowser(this.platformId)) {
-            if (this.tabChanged) {
+            if (this.tabChanged && this.el.nativeElement.offsetParent !== null) {
                 this.updateInkBar();
                 this.tabChanged = false;
             }
@@ -810,7 +810,11 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
                 }
 
                 (this.inkbar as ElementRef).nativeElement.style.width = DomHandler.getWidth(tabHeader) + 'px';
-                (this.inkbar as ElementRef).nativeElement.style.left = DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar.nativeElement).left + 'px';
+                if (DomHandler.isLTR(this.el.nativeElement)) {
+                    (this.inkbar as ElementRef).nativeElement.style.left = DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar.nativeElement).left + 'px';
+                } else {
+                    (this.inkbar as ElementRef).nativeElement.style.right = DomHandler.getOffset(this.navbar.nativeElement).right - DomHandler.getOffset(tabHeader).right + 'px';
+                }
             }
         }
     }
