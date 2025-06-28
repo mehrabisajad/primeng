@@ -39,7 +39,6 @@ import {
     inject,
     Input,
     NgModule,
-    numberAttribute,
     OnInit,
     Output,
     QueryList,
@@ -84,14 +83,16 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             [attr.placeholder]="placeholder"
             [attr.title]="title"
             [pSize]="size()"
+            [attr.size]="inputSize()"
             [attr.autocomplete]="autocomplete"
             [attr.maxlength]="maxlength()"
+            [attr.minlength]="minlength()"
             [attr.tabindex]="tabindex"
             [attr.aria-label]="ariaLabel"
             [attr.aria-labelledBy]="ariaLabelledBy"
             [attr.aria-required]="ariaRequired"
-            [disabled]="disabled()"
-            [readonly]="readonly"
+            [attr.disabled]="disabled()"
+            [attr.readonly]="readonly"
             [attr.required]="required()"
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
@@ -104,7 +105,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             [attr.data-pc-name]="'inputmask'"
             [attr.data-pc-section]="'root'"
         />
-        <ng-container *ngIf="value != null && filled && showClear && !disabled">
+        <ng-container *ngIf="value != null && $filled() && showClear && !disabled()">
             <TimesIcon *ngIf="!clearIconTemplate && !_clearIconTemplate" [styleClass]="cx('clearIcon')" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
             <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [attr.data-pc-section]="'clearIcon'">
                 <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
@@ -202,15 +203,6 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
-     * When present, the input gets a focus automatically on load.
-     * @group Props
-     * @deprecated Use autofocus property instead.
-     */
-    @Input({ transform: booleanAttribute }) set autoFocus(value: boolean | undefined) {
-        this.autofocus = value;
-        console.log('autoFocus is deprecated. Use autofocus property instead.');
-    }
-    /**
      * Used to define a string that autocomplete attribute the current element.
      * @group Props
      */
@@ -287,8 +279,6 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
     onModelTouched: Function = () => {};
 
     input: Nullable<HTMLInputElement>;
-
-    filled: Nullable<boolean>;
 
     defs: Nullable<{ [klass: string]: any }>;
 
@@ -383,6 +373,7 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
 
     writeValue(value: any): void {
         this.value = value;
+        this.writeModelValue(this.value);
 
         if (this.inputViewChild && this.inputViewChild.nativeElement) {
             if (this.value == undefined || this.value == null) this.inputViewChild.nativeElement.value = '';
@@ -390,7 +381,6 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
 
             this.checkVal();
             this.focusText = this.inputViewChild.nativeElement.value;
-            this.updateFilledState();
         }
     }
 
@@ -541,10 +531,9 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
         if (!this.keepBuffer) {
             this.checkVal();
         }
-        this.updateFilledState();
         this.onBlur.emit(e);
 
-        if (this.inputViewChild?.nativeElement.value != this.focusText || this.inputViewChild?.nativeElement.value != this.value) {
+        if (this.modelValue() != this.focusText || this.modelValue() != this.value) {
             this.updateModel(e);
             let event = this.document.createEvent('HTMLEvents');
             event.initEvent('change', true, false);
@@ -656,8 +645,6 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
         }
 
         this.updateModel(e);
-
-        this.updateFilledState();
 
         if (completed) {
             this.onComplete.emit();
@@ -800,13 +787,9 @@ export class InputMask extends BaseInput implements OnInit, AfterContentInit, Co
         const updatedValue = this.unmask ? this.getUnmaskedValue() : (e.target as HTMLInputElement).value;
         if (updatedValue !== null || updatedValue !== undefined) {
             this.value = updatedValue;
+            this.writeModelValue(this.value);
             this.onModelChange(this.value);
         }
-    }
-
-    updateFilledState() {
-        this.filled = this.inputViewChild?.nativeElement && this.inputViewChild.nativeElement.value != '';
-        this.cd.markForCheck();
     }
 
     focus() {

@@ -28,7 +28,7 @@ import {
     ViewRef
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { absolutePosition, addStyle, appendChild, findLastIndex, findSingle, focus, getOuterWidth, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, nestedPosition, relativePosition, resolve, uuid } from '@primeuix/utils';
+import { addStyle, appendChild, findLastIndex, findSingle, focus, getOuterWidth, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, nestedPosition, relativePosition, resolve, uuid } from '@primeuix/utils';
 import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ConnectedOverlayScrollHandler } from 'primeng/dom';
@@ -38,6 +38,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { TieredMenuStyle } from './style/tieredmenustyle';
+import { absolutePosition } from 'primeng/utils';
 
 @Component({
     selector: 'p-tieredMenuSub, p-tieredmenusub',
@@ -349,7 +350,7 @@ export class TieredMenuSub extends BaseComponent {
             [attr.data-pc-section]="'root'"
             [attr.data-pc-name]="'tieredmenu'"
             [id]="id"
-            [class]="cx('root')"
+            [class]="cn(cx('root'), styleClass)"
             [ngStyle]="style"
             (click)="onOverlayClick($event)"
             [@overlayAnimation]="{
@@ -416,11 +417,6 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
      * @group Props
      */
     @Input() styleClass: string | undefined;
-    /**
-     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element.
-     * @group Props
-     */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
     /**
      * The breakpoint to define the maximum width boundary.
      * @group Props
@@ -959,6 +955,7 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
                     this.moveOnTop();
                     this.onShow.emit({});
                     addStyle(this.containerViewChild.nativeElement, { position: 'absolute', top: 0 });
+                    this.attrSelector && this.container.setAttribute(this.attrSelector, '');
                     this.appendOverlay();
                     this.alignOverlay();
                     this.bindOutsideClickListener();
@@ -997,14 +994,14 @@ export class TieredMenu extends BaseComponent implements OnInit, OnDestroy {
     }
 
     appendOverlay() {
-        if (this.appendTo) {
-            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.container);
-            else appendChild(this.appendTo, this.container);
+        if (this.$appendTo() && this.$appendTo() !== 'self') {
+            if (this.$appendTo() === 'body') this.renderer.appendChild(this.document.body, this.container);
+            else appendChild(this.$appendTo(), this.container);
         }
     }
 
     restoreOverlayAppend() {
-        if (this.container && this.appendTo) {
+        if (this.container && this.$appendTo() !== 'self') {
             this.renderer.appendChild(this.el.nativeElement, this.container);
         }
     }

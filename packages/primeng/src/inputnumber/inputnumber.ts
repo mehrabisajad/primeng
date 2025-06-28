@@ -27,12 +27,12 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/for
 import { getSelection } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { BaseInput } from 'primeng/baseinput';
 import { AngleDownIcon, AngleUpIcon, TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
 import { Nullable } from 'primeng/ts-helpers';
 import { InputNumberInputEvent } from './inputnumber.interface';
 import { InputNumberStyle } from './style/inputnumberstyle';
-import { BaseInput } from 'primeng/baseinput';
 
 export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -57,26 +57,28 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             [ngStyle]="inputStyle"
             [value]="formattedValue()"
             [variant]="$variant()"
+            [invalid]="invalid()"
             [attr.aria-valuemin]="min()"
             [attr.aria-valuemax]="max()"
             [attr.aria-valuenow]="value"
-            [disabled]="disabled()"
-            [readonly]="readonly"
+            [attr.disabled]="disabled()"
+            [attr.readonly]="readonly"
             [attr.placeholder]="placeholder"
             [attr.aria-label]="ariaLabel"
             [attr.aria-labelledby]="ariaLabelledBy"
             [attr.aria-describedby]="ariaDescribedBy"
             [attr.title]="title"
             [pSize]="size()"
-            [name]="name()"
+            [attr.size]="inputSize()"
+            [attr.name]="name()"
             [attr.autocomplete]="autocomplete"
-            [maxlength]="maxlength()"
-            [minlength]="minlength()"
-            [tabindex]="tabindex"
+            [attr.maxlength]="maxlength()"
+            [attr.minlength]="minlength()"
+            [attr.tabindex]="tabindex"
             [attr.aria-required]="ariaRequired"
-            [required]="required()"
-            [min]="min()"
-            [max]="max()"
+            [attr.required]="required()"
+            [attr.min]="min()"
+            [attr.max]="max()"
             [attr.step]="step()"
             inputmode="decimal"
             (input)="onUserInput($event)"
@@ -100,7 +102,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             <button
                 type="button"
                 [class]="cn(cx('incrementButton'), incrementButtonClass)"
-                [disabled]="disabled"
+                [attr.disabled]="disabled()"
                 tabindex="-1"
                 (mousedown)="onUpButtonMouseDown($event)"
                 (mouseup)="onUpButtonMouseUp()"
@@ -120,7 +122,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             <button
                 type="button"
                 [class]="cn(cx('decrementButton'), decrementButtonClass)"
-                [disabled]="disabled"
+                [attr.disabled]="disabled()"
                 tabindex="-1"
                 [attr.aria-hidden]="true"
                 (mousedown)="onDownButtonMouseDown($event)"
@@ -141,7 +143,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             *ngIf="showButtons && buttonLayout !== 'stacked'"
             type="button"
             [class]="cx('incrementButton')"
-            [disabled]="disabled"
+            [attr.disabled]="disabled()"
             tabindex="-1"
             [attr.aria-hidden]="true"
             (mousedown)="onUpButtonMouseDown($event)"
@@ -161,7 +163,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             *ngIf="showButtons && buttonLayout !== 'stacked'"
             type="button"
             [class]="cx('decrementButton')"
-            [disabled]="disabled"
+            [attr.disabled]="disabled()"
             tabindex="-1"
             [attr.aria-hidden]="true"
             (mousedown)="onDownButtonMouseDown($event)"
@@ -184,7 +186,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     host: {
         '[attr.data-pc-name]': "'inputnumber'",
         '[attr.data-pc-section]': "'root'",
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class InputNumber extends BaseInput implements OnInit, AfterContentInit, OnChanges, ControlValueAccessor {
@@ -278,7 +280,7 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
      * When present, it specifies that an input field is read-only.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) readonly: boolean = false;
+    @Input({ transform: booleanAttribute }) readonly: boolean | undefined;
     /**
      * Determines whether the input field is empty.
      * @group Props
@@ -354,20 +356,6 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
      * @group Props
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
-    /**
-     * When present, it specifies that the element should be disabled.
-     * @group Props
-     */
-    // @Input() get disabled(): boolean | undefined {
-    //     return this._disabled;
-    // }
-    // set disabled(disabled: boolean | undefined) {
-    //     if (disabled) this.focused = false;
-    //
-    //     this._disabled = disabled;
-    //
-    //     if (this.timer) this.clearTimer();
-    // }
     /**
      * Callback to invoke on input.
      * @param {InputNumberInputEvent} event - Custom input event.
@@ -466,8 +454,6 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
     _suffix: Nullable<RegExp>;
 
     _index: number | any;
-
-    _disabled: boolean | undefined;
 
     _componentStyle = inject(InputNumberStyle);
 
@@ -1440,10 +1426,6 @@ export class InputNumber extends BaseInput implements OnInit, AfterContentInit, 
 
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
-    }
-
-    get filled() {
-        return this.value != null && this.value.toString().length > 0;
     }
 
     clearTimer() {

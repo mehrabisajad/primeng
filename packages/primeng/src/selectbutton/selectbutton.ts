@@ -9,6 +9,7 @@ import {
     EventEmitter,
     forwardRef,
     inject,
+    input,
     Input,
     NgModule,
     numberAttribute,
@@ -23,7 +24,7 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { ToggleButton } from 'primeng/togglebutton';
 import { SelectButtonChangeEvent, SelectButtonOptionClickEvent } from './selectbutton.interface';
 import { SelectButtonStyle } from './style/selectbuttonstyle';
-import { BaseInput } from 'primeng/baseinput';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 
 export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -40,7 +41,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     imports: [ToggleButton, FormsModule, CommonModule, SharedModule],
     template: `
         @for (option of options; track getOptionLabel(option); let i = $index) {
-            <p-toggleButton
+            <p-togglebutton
                 [autofocus]="autofocus"
                 [styleClass]="styleClass"
                 [ngModel]="isSelected(option)"
@@ -50,13 +51,14 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
                 (onChange)="onOptionSelect($event, option, i)"
                 [allowEmpty]="getAllowEmpty()"
                 [size]="size()"
+                [fluid]="fluid()"
             >
                 @if (itemTemplate || _itemTemplate) {
                     <ng-template #content>
                         <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: option, index: i }"></ng-container>
                     </ng-template>
                 }
-            </p-toggleButton>
+            </p-togglebutton>
         }
     `,
     providers: [SELECTBUTTON_VALUE_ACCESSOR, SelectButtonStyle],
@@ -70,7 +72,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
         '[attr.data-pc-name]': '"selectbutton"'
     }
 })
-export class SelectButton extends BaseInput implements AfterContentInit, ControlValueAccessor {
+export class SelectButton extends BaseEditableHolder implements AfterContentInit, ControlValueAccessor {
     /**
      * An array of selectitems to display as the available options.
      * @group Props
@@ -142,6 +144,18 @@ export class SelectButton extends BaseInput implements AfterContentInit, Control
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
+     * Specifies the size of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    size = input<'large' | 'small' | undefined>();
+    /**
+     * Spans 100% width of the container when enabled.
+     * @defaultValue undefined
+     * @group Props
+     */
+    fluid = input(undefined, { transform: booleanAttribute });
+    /**
      * Callback to invoke on input click.
      * @param {SelectButtonOptionClickEvent} event - Custom click event.
      * @group Emits
@@ -196,6 +210,7 @@ export class SelectButton extends BaseInput implements AfterContentInit, Control
 
     writeValue(value: any): void {
         this.value = value;
+        this.writeModelValue(this.value);
         this.cd.markForCheck();
     }
 
@@ -233,6 +248,7 @@ export class SelectButton extends BaseInput implements AfterContentInit, Control
 
         this.focusedIndex = index;
         this.value = newValue;
+        this.writeModelValue(this.value);
         this.onModelChange(this.value);
 
         this.onChange.emit({

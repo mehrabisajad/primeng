@@ -1,8 +1,9 @@
-import { AfterViewInit, booleanAttribute, Directive, EventEmitter, HostListener, inject, Input, NgModule, OnDestroy, OnInit, Optional, Output } from '@angular/core';
-import { NgControl, NgModel } from '@angular/forms';
+import { AfterViewInit, booleanAttribute, computed, Directive, EventEmitter, HostListener, inject, input, Input, NgModule, OnDestroy, OnInit, Output } from '@angular/core';
+import { NgControl } from '@angular/forms';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { Fluid } from 'primeng/fluid';
 import { Subscription } from 'rxjs';
 import { TextareaStyle } from './style/textareastyle';
-import { BaseInput } from 'primeng/baseinput';
 
 /**
  * Textarea adds styling and autoResize functionality to standard textarea element.
@@ -16,7 +17,7 @@ import { BaseInput } from 'primeng/baseinput';
     },
     providers: [TextareaStyle]
 })
-export class Textarea extends BaseInput implements OnInit, AfterViewInit, OnDestroy {
+export class Textarea extends BaseEditableHolder implements OnInit, AfterViewInit, OnDestroy {
     /**
      * When present, textarea size changes as being typed.
      * @group Props
@@ -28,15 +29,25 @@ export class Textarea extends BaseInput implements OnInit, AfterViewInit, OnDest
      */
     @Input() pSize: 'large' | 'small';
     /**
+     * Specifies the input variant of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    variant = input<'filled' | 'outlined' | undefined>();
+    /**
+     * Spans 100% width of the container when enabled.
+     * @defaultValue undefined
+     * @group Props
+     */
+    fluid = input(undefined, { transform: booleanAttribute });
+
+    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
+    /**
      * Callback to invoke on textarea resize.
      * @param {(Event | {})} event - Custom resize event.
      * @group Emits
      */
     @Output() onResize: EventEmitter<Event | {}> = new EventEmitter<Event | {}>();
-
-    filled: boolean | undefined;
-
-    cachedScrollHeight: number | undefined;
 
     ngModelSubscription: Subscription | undefined;
 
@@ -44,23 +55,18 @@ export class Textarea extends BaseInput implements OnInit, AfterViewInit, OnDest
 
     _componentStyle = inject(TextareaStyle);
 
-    constructor(
-        @Optional() public ngModel: NgModel,
-        @Optional() public control: NgControl
-    ) {
-        super();
+    ngControl = inject(NgControl, { optional: true, self: true });
+
+    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
+
+    get hasFluid() {
+        return this.fluid() ?? !!this.pcFluid;
     }
 
     ngOnInit() {
         super.ngOnInit();
-        if (this.ngModel) {
-            this.ngModelSubscription = (this.ngModel as any).valueChanges.subscribe(() => {
-                this.updateState();
-            });
-        }
-
-        if (this.control) {
-            this.ngControlSubscription = (this.control as any).valueChanges.subscribe(() => {
+        if (this.ngControl) {
+            this.ngControlSubscription = (this.ngControl as any).valueChanges.subscribe(() => {
                 this.updateState();
             });
         }
@@ -70,7 +76,6 @@ export class Textarea extends BaseInput implements OnInit, AfterViewInit, OnDest
         super.ngAfterViewInit();
         if (this.autoResize) this.resize();
 
-        this.updateFilledState();
         this.cd.detectChanges();
     }
 
@@ -80,11 +85,8 @@ export class Textarea extends BaseInput implements OnInit, AfterViewInit, OnDest
 
     @HostListener('input', ['$event'])
     onInput(e: Event) {
+        this.writeModelValue(e.target['value']);
         this.updateState();
-    }
-
-    updateFilledState() {
-        this.filled = this.el.nativeElement.value && this.el.nativeElement.value.length;
     }
 
     resize(event?: Event) {
@@ -102,8 +104,6 @@ export class Textarea extends BaseInput implements OnInit, AfterViewInit, OnDest
     }
 
     updateState() {
-        this.updateFilledState();
-
         if (this.autoResize) {
             this.resize();
         }

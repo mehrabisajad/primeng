@@ -1,21 +1,18 @@
 import { Injectable } from '@angular/core';
-import { css } from '@primeuix/styled';
 import { style } from '@primeuix/styles/tree';
 import { BaseStyle } from 'primeng/base';
+import { css } from '@primeuix/styled';
 
 const theme = css`
     ${style}
-
-    /* For PrimeNG */
-    .p-tree {
-        display: block;
+    .p-tree-node-toggle-button chevronrighticon:dir(rtl) {
+        transform: rotate(-180deg);
     }
 `;
 
 const classes = {
     root: ({ instance }) => [
         'p-tree p-component',
-        instance.styleClass,
         {
             'p-tree-selectable': instance.selectionMode != null,
             'p-tree-loading': instance.loading,

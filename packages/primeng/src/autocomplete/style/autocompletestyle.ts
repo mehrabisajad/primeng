@@ -1,25 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from 'primeng/base';
-import { style } from '@primeuix/styles/autocomplete';
 import { css, dt } from '@primeuix/styled';
+import { style } from '@primeuix/styles/autocomplete';
+import { BaseStyle } from 'primeng/base';
 
 const theme = css`
     ${style}
 
     /* For PrimeNG */
-   .p-autocomplete-clear-icon {
-        position: absolute;
-        top: 50%;
-        margin-top: -0.5rem;
-        cursor: pointer;
-        right: ${dt('autocomplete.padding.x')};
-        color: ${dt('autocomplete.dropdown.color')};
-    }
-
-    .p-autocomplete:has(.p-autocomplete-dropdown) .p-autocomplete-clear-icon {
-        right: calc(${dt('autocomplete.padding.x')} + ${dt('autocomplete.dropdown.width')});
-    }
-
     p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input,
     p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input-multiple,
     p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input,
@@ -57,9 +44,7 @@ const inlineStyles = {
 const classes = {
     root: ({ instance }) => [
         'p-autocomplete p-component p-inputwrapper',
-        instance.styleClass,
         {
-            'p-disabled': instance.disabled(),
             'p-invalid': instance.invalid(),
             'p-focus': instance.focused,
             'p-inputwrapper-filled': instance.$filled(),
@@ -70,10 +55,13 @@ const classes = {
         }
     ],
     pcInputText: 'p-autocomplete-input',
-    inputMultiple: ({ instance }) => ({
-        'p-autocomplete-input-multiple': true,
-        'p-variant-filled': instance.$variant() === 'filled'
-    }),
+    inputMultiple: ({ instance }) => [
+        'p-autocomplete-input-multiple',
+        {
+            'p-disabled': instance.disabled(),
+            'p-variant-filled': instance.$variant() === 'filled'
+        }
+    ],
     chipItem: ({ instance, i }) => [
         'p-autocomplete-chip-item',
         {

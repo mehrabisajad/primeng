@@ -4,12 +4,14 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     ElementRef,
     EventEmitter,
     forwardRef,
     inject,
+    input,
     Input,
     NgModule,
     numberAttribute,
@@ -24,11 +26,11 @@ import {
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { contains, equals } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { CheckIcon, MinusIcon } from 'primeng/icons';
 import { Nullable } from 'primeng/ts-helpers';
 import { CheckboxChangeEvent } from './checkbox.interface';
 import { CheckboxStyle } from './style/checkboxstyle';
-import { BaseInput } from 'primeng/baseinput';
 
 export const CHECKBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -48,12 +50,12 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
             #input
             [attr.id]="inputId"
             type="checkbox"
-            [value]="value"
+            [attr.value]="value"
             [attr.name]="name()"
             [checked]="checked"
             [attr.tabindex]="tabindex"
-            [disabled]="disabled()"
-            [readonly]="readonly"
+            [attr.disabled]="disabled()"
+            [attr.readonly]="readonly"
             [attr.required]="required() ? true : null"
             [attr.aria-labelledby]="ariaLabelledBy"
             [attr.aria-label]="ariaLabel"
@@ -78,13 +80,13 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': "cx('root')",
+        '[class]': "cn(cx('root'), styleClass)",
         '[attr.data-p-highlight]': 'checked',
         '[attr.data-p-checked]': 'checked',
         '[attr.data-p-disabled]': 'disabled()'
     }
 })
-export class Checkbox extends BaseInput implements AfterContentInit, ControlValueAccessor {
+export class Checkbox extends BaseEditableHolder implements AfterContentInit, ControlValueAccessor {
     /**
      * Value of the checkbox.
      * @group Props
@@ -167,6 +169,18 @@ export class Checkbox extends BaseInput implements AfterContentInit, ControlValu
      */
     @Input() falseValue: any = false;
     /**
+     * Specifies the input variant of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    variant = input<'filled' | 'outlined' | undefined>();
+    /**
+     * Specifies the size of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    size = input<'large' | 'small' | undefined>();
+    /**
      * Callback to invoke on value change.
      * @param {CheckboxChangeEvent} event - Custom value change event.
      * @group Emits
@@ -188,7 +202,7 @@ export class Checkbox extends BaseInput implements AfterContentInit, ControlValu
     @ViewChild('input') inputViewChild: Nullable<ElementRef>;
 
     get checked() {
-        return this._indeterminate() ? false : this.binary ? this.model === this.trueValue : contains(this.value, this.model);
+        return this._indeterminate() ? false : this.binary ? this.modelValue() === this.trueValue : contains(this.value, this.modelValue());
     }
 
     _indeterminate = signal<any>(undefined);
@@ -202,8 +216,6 @@ export class Checkbox extends BaseInput implements AfterContentInit, ControlValu
 
     _checkboxIconTemplate: TemplateRef<any> | undefined;
 
-    model: any;
-
     onModelChange: Function = () => {};
 
     onModelTouched: Function = () => {};
@@ -211,6 +223,8 @@ export class Checkbox extends BaseInput implements AfterContentInit, ControlValu
     focused: boolean = false;
 
     _componentStyle = inject(CheckboxStyle);
+
+    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -242,21 +256,21 @@ export class Checkbox extends BaseInput implements AfterContentInit, ControlValu
          * */
         const selfControl = this.injector.get<NgControl | null>(NgControl, null, { optional: true, self: true });
 
-        const currentModelValue = selfControl && !this.formControl ? selfControl.value : this.model;
+        const currentModelValue = selfControl && !this.formControl ? selfControl.value : this.modelValue();
 
         if (!this.binary) {
             if (this.checked || this._indeterminate()) newModelValue = currentModelValue.filter((val) => !equals(val, this.value));
             else newModelValue = currentModelValue ? [...currentModelValue, this.value] : [this.value];
 
             this.onModelChange(newModelValue);
-            this.model = newModelValue;
+            this.writeModelValue(newModelValue);
 
             if (this.formControl) {
                 this.formControl.setValue(newModelValue);
             }
         } else {
             newModelValue = this._indeterminate() ? this.trueValue : this.checked ? this.falseValue : this.trueValue;
-            this.model = newModelValue;
+            this.writeModelValue(newModelValue);
             this.onModelChange(newModelValue);
         }
 
@@ -289,7 +303,7 @@ export class Checkbox extends BaseInput implements AfterContentInit, ControlValu
     }
 
     writeValue(model: any): void {
-        this.model = model;
+        this.writeModelValue(model);
         this.cd.markForCheck();
     }
 

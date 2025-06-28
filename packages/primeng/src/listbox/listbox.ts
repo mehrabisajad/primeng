@@ -22,12 +22,14 @@ import {
     computed,
     forwardRef,
     inject,
+    input,
     numberAttribute,
     signal
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { equals, findLastIndex, findSingle, focus, getFirstFocusableElement, isEmpty, isFunction, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@primeuix/utils';
 import { FilterService, Footer, Header, PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { Checkbox } from 'primeng/checkbox';
 import { IconField } from 'primeng/iconfield';
 import { BlankIcon, CheckIcon, SearchIcon } from 'primeng/icons';
@@ -39,7 +41,6 @@ import { Nullable } from 'primeng/ts-helpers';
 import { Subscription } from 'rxjs';
 import { ListboxChangeEvent, ListboxClickEvent, ListboxDoubleClickEvent, ListboxFilterEvent, ListboxFilterOptions, ListboxSelectAllChangeEvent } from './listbox.interface';
 import { ListBoxStyle } from './style/listboxstyle';
-import { BaseInput } from 'primeng/baseinput';
 
 export const LISTBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -94,12 +95,12 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                             [class]="cx('pcFilter')"
                             role="searchbox"
                             [value]="_filterValue() || ''"
-                            [disabled]="disabled()"
+                            [attr.disabled]="disabled()"
                             [attr.aria-owns]="id + '_list'"
                             [attr.aria-activedescendant]="focusedOptionId"
                             [attr.placeholder]="filterPlaceHolder"
                             [attr.aria-label]="ariaFilterLabel"
-                            [tabindex]="!disabled() && !focused ? tabindex : -1"
+                            [attr.tabindex]="!disabled() && !focused ? tabindex : -1"
                             (input)="onFilterChange($event)"
                             (keydown)="onFilterKeyDown($event)"
                             (focus)="onFilterFocus($event)"
@@ -113,7 +114,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                         </p-inputicon>
                     </p-iconfield>
                 </div>
-                <span role="status" attr.aria-live="polite" class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
+                <span role="status" [attr.aria-live]="'polite'" class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
                     {{ filterResultMessageText }}
                 </span>
             </ng-template>
@@ -268,7 +269,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
         <span role="status" aria-live="polite" class="p-hidden-accessible">
             {{ selectedMessageText }}
         </span>
-        <span #lastHiddenFocusableElement role="presentation" class="p-hidden-accessible p-hidden-focusable" [tabindex]="!disabled ? tabindex : -1" (focus)="onLastHiddenFocus($event)" [attr.data-p-hidden-focusable]="true"> </span>
+        <span #lastHiddenFocusableElement role="presentation" class="p-hidden-accessible p-hidden-focusable" [tabindex]="!disabled() ? tabindex : -1" (focus)="onLastHiddenFocus($event)" [attr.data-p-hidden-focusable]="true"> </span>
     `,
     providers: [
         LISTBOX_VALUE_ACCESSOR,
@@ -284,10 +285,10 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     host: {
         '[attr.id]': 'id',
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
-export class Listbox extends BaseInput implements AfterContentInit, OnInit, ControlValueAccessor, OnDestroy {
+export class Listbox extends BaseEditableHolder implements AfterContentInit, OnInit, ControlValueAccessor, OnDestroy {
     /**
      * Unique identifier of the component.
      * @group Props
@@ -546,11 +547,16 @@ export class Listbox extends BaseInput implements AfterContentInit, OnInit, Cont
      */
     @Input({ transform: booleanAttribute }) dragdrop: boolean = false;
     /**
+     * Spans 100% width of the container when enabled.
+     * @defaultValue undefined
+     * @group Props
+     */
+    fluid = input(undefined, { transform: booleanAttribute });
+    /**
      * Callback to invoke on value change.
      * @param {ListboxChangeEvent} event - Custom change event.
      * @group Emits
      */
-
     @Output() onChange: EventEmitter<ListboxChangeEvent> = new EventEmitter<ListboxChangeEvent>();
     /**
      * Callback to invoke when option is clicked.

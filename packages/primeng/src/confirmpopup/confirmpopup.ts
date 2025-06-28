@@ -37,13 +37,13 @@ import { ConfirmPopupStyle } from './style/confirmpopupstyle';
  * @group Components
  */
 @Component({
-    selector: 'p-confirmPopup, p-confirmpopup, p-confirm-popup',
+    selector: 'p-confirmpopup',
     standalone: true,
     imports: [CommonModule, SharedModule, ButtonModule],
     template: `
         <div
             *ngIf="visible"
-            [class]="cx('root')"
+            [class]="cn(cx('root'), styleClass)"
             [ngStyle]="style"
             role="alertdialog"
             (click)="onOverlayClick($event)"
@@ -247,6 +247,7 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
                 }
 
                 this.visible = true;
+                this.align();
             }
         });
     }
@@ -354,7 +355,7 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
         if (containerOffset.left < targetOffset.left) {
             arrowLeft = targetOffset.left - containerOffset.left;
         }
-        (this.container as HTMLDivElement).style.setProperty('--p-confirmpopup-arrow-left', `${arrowLeft}px`);
+        (this.container as HTMLDivElement)?.style?.setProperty('--p-confirmpopup-arrow-left', `${arrowLeft}px`);
 
         if (containerOffset.top < targetOffset.top) {
             addClass(this.container, 'p-confirm-popup-flipped');

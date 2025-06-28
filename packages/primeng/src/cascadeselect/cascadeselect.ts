@@ -13,6 +13,7 @@ import {
     forwardRef,
     HostListener,
     inject,
+    input,
     Input,
     NgModule,
     numberAttribute,
@@ -30,13 +31,14 @@ import { calculateScrollbarWidth, equals, findLastIndex, findSingle, focus, getH
 import { OverlayOptions, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
+import { Fluid } from 'primeng/fluid';
 import { AngleRightIcon, ChevronDownIcon, TimesIcon } from 'primeng/icons';
 import { Overlay } from 'primeng/overlay';
 import { Ripple } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { CascadeSelectBeforeHideEvent, CascadeSelectBeforeShowEvent, CascadeSelectChangeEvent, CascadeSelectHideEvent, CascadeSelectShowEvent } from './cascadeselect.interface';
 import { CascadeSelectStyle } from './style/cascadeselectstyle';
-import { BaseInput } from 'primeng/baseinput';
 
 export const CASCADESELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -249,9 +251,11 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
                 readonly
                 type="text"
                 role="combobox"
-                [disabled]="disabled()"
-                [placeholder]="placeholder"
-                [tabindex]="!disabled() ? tabindex : -1"
+                [attr.disabled]="disabled()"
+                [attr.name]="name()"
+                [attr.required]="required()"
+                [attr.placeholder]="placeholder"
+                [attr.tabindex]="!disabled() ? tabindex : -1"
                 [attr.id]="inputId"
                 [attr.aria-label]="ariaLabel"
                 [attr.aria-labelledby]="ariaLabelledBy"
@@ -303,12 +307,11 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
         </span>
         <p-overlay
             #overlay
+            [hostAttrSelector]="attrSelector"
             [(visible)]="overlayVisible"
             [options]="overlayOptions"
             [target]="'@parent'"
-            [appendTo]="appendTo"
-            [showTransitionOptions]="showTransitionOptions"
-            [hideTransitionOptions]="hideTransitionOptions"
+            [appendTo]="$appendTo()"
             (onAnimationDone)="onOverlayAnimationDone($event)"
             (onBeforeShow)="onBeforeShow.emit($event)"
             (onShow)="show($event)"
@@ -353,13 +356,13 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': "cx('root')",
+        '[class]': "cn(cx('root'), styleClass)",
         '[style]': "sx('root')",
         '[attr.data-pc-name]': "'cascadeselect'",
         '[attr.data-pc-section]': "'root'"
     }
 })
-export class CascadeSelect extends BaseInput implements OnInit, AfterContentInit {
+export class CascadeSelect extends BaseEditableHolder implements OnInit, AfterContentInit {
     /**
      * Unique identifier of the component
      * @group Props
@@ -491,11 +494,6 @@ export class CascadeSelect extends BaseInput implements OnInit, AfterContentInit
      */
     @Input() ariaLabel: string | undefined;
     /**
-     * Id of the element or "body" for document where the overlay should be appended to.
-     * @group Props
-     */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
-    /**
      * When enabled, a clear icon is displayed to clear the value.
      * @group Props
      */
@@ -521,18 +519,6 @@ export class CascadeSelect extends BaseInput implements OnInit, AfterContentInit
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
-     * Transition options of the show animation.
-     * @group Props
-     * @deprecated deprecated since v14.2.0, use overlayOptions property instead.
-     */
-    @Input() get showTransitionOptions(): string {
-        return this._showTransitionOptions;
-    }
-    set showTransitionOptions(val: string) {
-        this._showTransitionOptions = val;
-        console.log('The showTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
-    }
-    /**
      * Whether the dropdown is in loading state.
      * @group Props
      */
@@ -543,22 +529,28 @@ export class CascadeSelect extends BaseInput implements OnInit, AfterContentInit
      */
     @Input() loadingIcon: string | undefined;
     /**
-     * Transition options of the hide animation.
-     * @group Props
-     * @deprecated deprecated since v14.2.0, use overlayOptions property instead.
-     */
-    @Input() get hideTransitionOptions(): string {
-        return this._hideTransitionOptions;
-    }
-    set hideTransitionOptions(val: string) {
-        this._hideTransitionOptions = val;
-        console.log('The hideTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
-    }
-    /**
      * The breakpoint to define the maximum width boundary.
      * @group Props
      */
     @Input() breakpoint: string = '960px';
+    /**
+     * Specifies the size of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    size = input<'large' | 'small' | undefined>();
+    /**
+     * Specifies the input variant of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    variant = input<'filled' | 'outlined' | undefined>();
+    /**
+     * Spans 100% width of the container when enabled.
+     * @defaultValue undefined
+     * @group Props
+     */
+    fluid = input(undefined, { transform: booleanAttribute });
     /**
      * Callback to invoke on value change.
      * @param {CascadeSelectChangeEvent} event - Custom change event.
@@ -682,10 +674,6 @@ export class CascadeSelect extends BaseInput implements OnInit, AfterContentInit
 
     _clearIconTemplate: TemplateRef<any> | undefined;
 
-    _showTransitionOptions: string = '';
-
-    _hideTransitionOptions: string = '';
-
     selectionPath: any = null;
 
     focused: boolean = false;
@@ -713,6 +701,14 @@ export class CascadeSelect extends BaseInput implements OnInit, AfterContentInit
     _componentStyle = inject(CascadeSelectStyle);
 
     initialized: boolean = false;
+
+    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
+
+    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
+
+    get hasFluid() {
+        return this.fluid() ?? !!this.pcFluid;
+    }
 
     @HostListener('click', ['$event'])
     onHostClick(event: MouseEvent) {

@@ -1,4 +1,4 @@
-import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
+import { ElementRef, inject, Injectable, PLATFORM_ID, signal, TemplateRef } from '@angular/core';
 import { FilterMatchMode, OverlayOptions, Translation } from 'primeng/api';
 import { Subject } from 'rxjs';
 import { ThemeConfigType, ThemeProvider } from './themeprovider';
@@ -13,6 +13,10 @@ export type ZIndex = {
 
 export type PrimeNGConfigType = {
     ripple?: boolean;
+    overlayAppendTo?: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    /**
+     * @deprecated Since v20. Use `inputVariant` instead.
+     */
     inputStyle?: 'outlined' | 'filled';
     inputVariant?: 'outlined' | 'filled';
     csp?: {
@@ -29,10 +33,14 @@ export class PrimeNG extends ThemeProvider {
     ripple = signal<boolean>(false);
 
     public platformId: any = inject(PLATFORM_ID);
-
+    /**
+     * @deprecated Since v20. Use `inputVariant` instead.
+     */
     inputStyle = signal<'outlined' | 'filled'>(null);
 
     inputVariant = signal<'outlined' | 'filled'>(null);
+
+    overlayAppendTo = signal<HTMLElement | ElementRef | TemplateRef<any> | 'self' | 'body' | null | undefined | any>('self');
 
     overlayOptions: OverlayOptions = {};
 
@@ -81,7 +89,9 @@ export class PrimeNG extends ThemeProvider {
         dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
         dayNamesMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
         monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        jalaliMonthNames: ['Farvardin', 'Ordibehesht', 'Khordaad', 'Tir', 'Amordaad', 'Shahrivar', 'Mehr', 'Aabaan', 'Aazar', 'Dey', 'Bahman', 'Esfand'],
         monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        jalaliMonthNamesShort: ['Far', 'Ord', 'Kho', 'Tir', 'Amo', 'Sha', 'Mehr', 'Aab', 'Aaz', 'Dey', 'Bah', 'Esf'],
         chooseYear: 'Choose Year',
         chooseMonth: 'Choose Month',
         chooseDate: 'Choose Date',
@@ -101,7 +111,10 @@ export class PrimeNG extends ThemeProvider {
         pm: 'pm',
         dateFormat: 'mm/dd/yy',
         firstDayOfWeek: 0,
+        jalaliFirstDayOfWeek: 6,
         today: 'Today',
+        gregorianCalenderName: 'Gregorian',
+        jalaliCalenderName: 'Jalali',
         weekHeader: 'Wk',
         weak: 'Weak',
         medium: 'Medium',
@@ -194,9 +207,10 @@ export class PrimeNG extends ThemeProvider {
     }
 
     setConfig(config: PrimeNGConfigType): void {
-        const { csp, ripple, inputStyle, inputVariant, theme, overlayOptions, translation, filterMatchModeOptions } = config || {};
+        const { csp, ripple, inputStyle, inputVariant, theme, overlayOptions, translation, filterMatchModeOptions, overlayAppendTo } = config || {};
 
         if (csp) this.csp.set(csp);
+        if (overlayAppendTo) this.overlayAppendTo.set(overlayAppendTo);
         if (ripple) this.ripple.set(ripple);
         if (inputStyle) this.inputStyle.set(inputStyle);
         if (inputVariant) this.inputVariant.set(inputVariant);

@@ -1,33 +1,18 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from 'primeng/base';
 import { css, dt } from '@primeuix/styled';
 import { style } from '@primeuix/styles/datepicker';
+import { BaseStyle } from 'primeng/base';
 
 const theme = css`
     ${style}
 
     /* For PrimeNG */
-
-    .p-datepicker:has(.p-datepicker-dropdown) .p-datepicker-clear-icon,
-    .p-datepicker:has(.p-datepicker-input-icon-container) .p-datepicker-clear-icon {
-        inset-inline-end: calc(${dt('datepicker.dropdown.width')} + ${dt('form.field.padding.x')});
-    }
-
-    .p-datepicker-clear-icon {
-        position: absolute;
-        top: 50%;
-        margin-top: -0.5rem;
-        cursor: pointer;
-        color: ${dt('form.field.icon.color')};
-        inset-inline-end: ${dt('form.field.padding.x')};
-    }
-
-    p-calendar.ng-invalid.ng-dirty .p-datepicker.p-inputwrapper .p-inputtext {
-        border-color: ${dt('inputtext.invalid.border.color')};
-    }
-
     .p-datepicker.ng-invalid.ng-dirty .p-inputtext {
         border-color: ${dt('inputtext.invalid.border.color')};
+    }
+
+    .p-datepicker-header .p-iconwrapper:dir(rtl) {
+        transform: rotate(180deg);
     }
 `;
 
@@ -38,7 +23,6 @@ const inlineStyles = {
 const classes = {
     root: ({ instance }) => [
         'p-datepicker p-component p-inputwrapper',
-        instance.styleClass,
         {
             'p-invalid': instance.invalid(),
             'p-datepicker-fluid': instance.hasFluid,
@@ -130,7 +114,8 @@ const classes = {
     buttonbar: 'p-datepicker-buttonbar',
     pcTodayButton: 'p-datepicker-today-button',
     pcClearButton: 'p-datepicker-clear-button',
-    clearIcon: 'p-datepicker-clear-icon'
+    clearIcon: 'p-datepicker-clear-icon',
+    pcChangeCalendarButton: 'p-datepicker-change-calendar-button'
 };
 
 @Injectable()
@@ -306,6 +291,10 @@ export enum DatePickerClasses {
      * Class name of the clear button element
      */
     pcClearButton = 'p-datepicker-clear-button',
+    /**
+     * Class name of the change calendar button element
+     */
+    pcChangeCalendarButton = 'p-datepicker-change-calendar-button',
     /**
      * Class name of the clear icon
      */

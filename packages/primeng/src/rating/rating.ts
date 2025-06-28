@@ -22,11 +22,11 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { focus, getFirstFocusableElement, uuid } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { StarFillIcon, StarIcon } from 'primeng/icons';
 import { Nullable } from 'primeng/ts-helpers';
 import { RatingRateEvent } from './rating.interface';
 import { RatingStyle } from './style/ratingstyle';
-import { BaseInput } from 'primeng/baseinput';
 
 export const RATING_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -52,14 +52,11 @@ export const RATING_VALUE_ACCESSOR: any = {
                             [attr.id]="nameattr"
                             [attr.name]="name()"
                             [attr.value]="modelValue()"
-                            [attr.min]="min()"
-                            [attr.minlength]="minlength()"
-                            [attr.maxlength]="maxlength()"
                             [attr.disabled]="disabled()"
                             [attr.required]="required()"
                             [checked]="value === 0"
-                            [disabled]="disabled()"
-                            [readonly]="readonly"
+                            [attr.disabled]="disabled()"
+                            [attr.readonly]="readonly"
                             [attr.aria-label]="starAriaLabel(star + 1)"
                             (focus)="onInputFocus($event, star + 1)"
                             (blur)="onInputBlur($event)"
@@ -93,7 +90,7 @@ export const RATING_VALUE_ACCESSOR: any = {
         '[attr.data-pc-section]': "'root'"
     }
 })
-export class Rating extends BaseInput implements OnInit, ControlValueAccessor {
+export class Rating extends BaseEditableHolder implements OnInit, ControlValueAccessor {
     /**
      * When present, changing the value is not possible.
      * @group Props

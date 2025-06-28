@@ -60,7 +60,7 @@ import { DataViewStyle } from './style/dataviewstyle';
             [styleClass]="cx('pcPaginator', { position: 'top' })"
             [rowsPerPageOptions]="rowsPerPageOptions"
             *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition == 'both')"
-            [dropdownAppendTo]="paginatorDropdownAppendTo"
+            [appendTo]="paginatorDropdownAppendTo"
             [dropdownScrollHeight]="paginatorDropdownScrollHeight"
             [templateLeft]="paginatorleft"
             [templateRight]="paginatorright"
@@ -113,7 +113,7 @@ import { DataViewStyle } from './style/dataviewstyle';
             [styleClass]="cx('pcPaginator', { position: 'bottom' })"
             [rowsPerPageOptions]="rowsPerPageOptions"
             *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition == 'both')"
-            [dropdownAppendTo]="paginatorDropdownAppendTo"
+            [appendTo]="paginatorDropdownAppendTo"
             [dropdownScrollHeight]="paginatorDropdownScrollHeight"
             [templateLeft]="paginatorleft"
             [templateRight]="paginatorright"
@@ -134,7 +134,7 @@ import { DataViewStyle } from './style/dataviewstyle';
     encapsulation: ViewEncapsulation.None,
     providers: [DataViewStyle],
     host: {
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class DataView extends BaseComponent implements OnInit, OnDestroy, BlockableUI, OnChanges {

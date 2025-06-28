@@ -1,12 +1,30 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, EventEmitter, forwardRef, HostListener, inject, Input, NgModule, numberAttribute, Output, QueryList, TemplateRef } from '@angular/core';
+import {
+    AfterContentInit,
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChild,
+    ContentChildren,
+    EventEmitter,
+    forwardRef,
+    HostListener,
+    inject,
+    input,
+    Input,
+    NgModule,
+    numberAttribute,
+    Output,
+    QueryList,
+    TemplateRef
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { Ripple } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { ToggleButtonStyle } from './style/togglebuttonstyle';
 import { ToggleButtonChangeEvent } from './togglebutton.interface';
-import { BaseInput } from 'primeng/baseinput';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 
 export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -23,13 +41,14 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     imports: [CommonModule, SharedModule],
     hostDirectives: [{ directive: Ripple }],
     host: {
-        '[class]': "cx('root')",
+        '[class]': "cn(cx('root'), styleClass)",
         '[attr.tabindex]': 'tabindex',
         '[attr.disabled]': 'disabled()',
         '[attr.aria-labelledby]': 'ariaLabelledBy',
         '[attr.aria-pressed]': 'checked',
         '[attr.data-p-checked]': 'active',
         '[attr.data-p-disabled]': 'disabled()',
+        '[attr.required]': 'required()',
         '[attr.type]': '"button"'
     },
     template: `<span [class]="cx('content')">
@@ -48,7 +67,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     providers: [TOGGLEBUTTON_VALUE_ACCESSOR, ToggleButtonStyle],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ToggleButton extends BaseInput implements AfterContentInit, ControlValueAccessor {
+export class ToggleButton extends BaseEditableHolder implements AfterContentInit, ControlValueAccessor {
     @HostListener('keydown', ['$event']) onKeyDown(event: KeyboardEvent) {
         switch (event.code) {
             case 'Enter':
@@ -65,6 +84,7 @@ export class ToggleButton extends BaseInput implements AfterContentInit, Control
     @HostListener('click', ['$event']) toggle(event: Event) {
         if (!this.disabled() && !(this.allowEmpty === false && this.checked)) {
             this.checked = !this.checked;
+            this.writeModelValue(this.checked);
             this.onModelChange(this.checked);
             this.onModelTouched();
             this.onChange.emit({
@@ -132,10 +152,21 @@ export class ToggleButton extends BaseInput implements AfterContentInit, Control
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
+     * Defines the size of the component.
+     * @group Props
+     */
+    @Input() size: 'large' | 'small';
+    /**
      * Whether selection can not be cleared.
      * @group Props
      */
     @Input() allowEmpty: boolean | undefined;
+    /**
+     * Spans 100% width of the container when enabled.
+     * @defaultValue undefined
+     * @group Props
+     */
+    fluid = input(undefined, { transform: booleanAttribute });
     /**
      * Callback to invoke on value change.
      * @param {ToggleButtonChangeEvent} event - Custom change event.
@@ -169,6 +200,7 @@ export class ToggleButton extends BaseInput implements AfterContentInit, Control
 
     writeValue(value: any): void {
         this.checked = value;
+        this.writeModelValue(value);
         this.cd.markForCheck();
     }
 

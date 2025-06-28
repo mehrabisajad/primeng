@@ -7,14 +7,6 @@ const theme = css`
     ${style}
 
     /* For PrimeNG */
-    .p-inputnumber-clear-icon {
-        position: absolute;
-        top: 50%;
-        margin-top: -0.5rem;
-        cursor: pointer;
-        right: 0.75rem;
-        color: ${dt('inputnumber.button.color')};
-    }
     p-inputNumber.ng-invalid.ng-dirty > .p-inputtext,
     p-input-number.ng-invalid.ng-dirty > .p-inputtext,
     p-inputnumber.ng-invalid.ng-dirty > .p-inputtext {
@@ -37,7 +29,6 @@ const theme = css`
 const classes = {
     root: ({ instance }) => [
         'p-inputnumber p-component p-inputwrapper',
-        instance.styleClass,
         {
             'p-inputwrapper-filled': instance.$filled() || instance.allowEmpty === false,
             'p-inputwrapper-focus': instance.focused,
@@ -52,14 +43,12 @@ const classes = {
     buttonGroup: 'p-inputnumber-button-group',
     incrementButton: ({ instance }) => [
         'p-inputnumber-button p-inputnumber-increment-button',
-        instance.incrementButtonClass,
         {
             'p-disabled': instance.showButtons && instance.max() !== null && instance.maxlength()
         }
     ],
     decrementButton: ({ instance }) => [
         'p-inputnumber-button p-inputnumber-decrement-button',
-        instance.decrementButtonClass,
         {
             'p-disabled': instance.showButtons && instance.min() !== null && instance.minlength()
         }

@@ -175,7 +175,7 @@ export class OrganizationChartNode extends BaseComponent implements OnDestroy {
     providers: [OrganizationChartStyle],
     host: {
         '[attr.data-pc-section]': "'root'",
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class OrganizationChart extends BaseComponent implements AfterContentInit {
@@ -202,6 +202,7 @@ export class OrganizationChart extends BaseComponent implements AfterContentInit
     @Input({ transform: booleanAttribute }) collapsible: boolean | undefined;
     /**
      * Whether the space allocated by a node is preserved when hidden.
+     * @deprecated since v20.0.0.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) preserveSpace: boolean = true;

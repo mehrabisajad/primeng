@@ -5,6 +5,7 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     ElementRef,
@@ -12,6 +13,7 @@ import {
     forwardRef,
     HostListener,
     inject,
+    input,
     Input,
     NgModule,
     Output,
@@ -24,14 +26,15 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, hasClass, isNotEmpty, uuid } from '@primeuix/utils';
 import { OverlayOptions, PrimeTemplate, ScrollerOptions, SharedModule, TreeNode } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { Chip } from 'primeng/chip';
+import { Fluid } from 'primeng/fluid';
 import { ChevronDownIcon, TimesIcon } from 'primeng/icons';
 import { Overlay } from 'primeng/overlay';
 import { Tree, TreeFilterEvent, TreeNodeSelectEvent, TreeNodeUnSelectEvent } from 'primeng/tree';
 import { Nullable } from 'primeng/ts-helpers';
 import { TreeSelectStyle } from './style/treeselectstyle';
 import { TreeSelectNodeCollapseEvent, TreeSelectNodeExpandEvent } from './treeselect.interface';
-import { BaseInput } from 'primeng/baseinput';
 
 export const TREESELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -54,7 +57,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                 role="combobox"
                 [attr.id]="inputId"
                 readonly
-                [disabled]="disabled()"
+                [attr.disabled]="disabled()"
                 (focus)="onInputFocus($event)"
                 (blur)="onInputBlur($event)"
                 (keydown)="onKeyDown($event)"
@@ -99,12 +102,11 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
         </div>
         <p-overlay
             #overlay
+            [hostAttrSelector]="attrSelector"
             [(visible)]="overlayVisible"
             [options]="overlayOptions"
             [target]="'@parent'"
-            [appendTo]="appendTo"
-            [showTransitionOptions]="showTransitionOptions"
-            [hideTransitionOptions]="hideTransitionOptions"
+            [appendTo]="$appendTo()"
             (onAnimationStart)="onOverlayAnimationStart($event)"
             (onBeforeHide)="onOverlayBeforeHide($event)"
             (onShow)="onShow.emit($event)"
@@ -185,11 +187,11 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
     providers: [TREESELECT_VALUE_ACCESSOR, TreeSelectStyle],
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': "cx('root')",
+        '[class]': "cn(cx('root'), containerStyleClass)",
         '[style]': "sx('root')"
     }
 })
-export class TreeSelect extends BaseInput implements AfterContentInit {
+export class TreeSelect extends BaseEditableHolder implements AfterContentInit {
     /**
      * Identifier of the underlying input element.
      * @group Props
@@ -283,11 +285,6 @@ export class TreeSelect extends BaseInput implements AfterContentInit {
      */
     @Input() emptyMessage: string = '';
     /**
-     * A valid query selector or an HTMLElement to specify where the overlay gets attached. Special keywords are "body" for document body and "self" for the element itself.
-     * @group Props
-     */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
-    /**
      * When specified, displays an input field to filter the items.
      * @group Props
      */
@@ -370,34 +367,28 @@ export class TreeSelect extends BaseInput implements AfterContentInit {
         this.updateTreeState();
     }
     /**
-     * Transition options of the show animation.
-     * @group Props
-     * @deprecated since v14.2.0 use overlayOptions property instead.
-     */
-    @Input() get showTransitionOptions(): string | undefined {
-        return this._showTransitionOptions;
-    }
-    set showTransitionOptions(val: string | undefined) {
-        this._showTransitionOptions = val;
-        console.log('The showTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
-    }
-    /**
-     * Transition options of the hide animation.
-     * @group Props
-     * @deprecated since v14.2.0 use overlayOptions property instead.
-     */
-    @Input() get hideTransitionOptions(): string | undefined {
-        return this._hideTransitionOptions;
-    }
-    set hideTransitionOptions(val: string | undefined) {
-        this._hideTransitionOptions = val;
-        console.log('The hideTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
-    }
-    /**
      * Displays a loader to indicate data load is in progress.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) loading: boolean | undefined;
+    /**
+     * Specifies the size of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    size = input<'large' | 'small' | undefined>();
+    /**
+     * Specifies the input variant of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    variant = input<'filled' | 'outlined' | undefined>();
+    /**
+     * Spans 100% width of the container when enabled.
+     * @defaultValue undefined
+     * @group Props
+     */
+    fluid = input(undefined, { transform: booleanAttribute });
     /**
      * Callback to invoke when a node is expanded.
      * @param {TreeSelectNodeExpandEvent} event - Custom node expand event.
@@ -410,7 +401,6 @@ export class TreeSelect extends BaseInput implements AfterContentInit {
      * @group Emits
      */
     @Output() onNodeCollapse: EventEmitter<TreeSelectNodeCollapseEvent> = new EventEmitter<TreeSelectNodeCollapseEvent>();
-
     /**
      * Callback to invoke when the overlay is shown.
      * @param {Event} event - Browser event.
@@ -475,6 +465,14 @@ export class TreeSelect extends BaseInput implements AfterContentInit {
     @ViewChild('firstHiddenFocusableEl') firstHiddenFocusableElementOnOverlay: Nullable<ElementRef>;
 
     @ViewChild('lastHiddenFocusableEl') lastHiddenFocusableElementOnOverlay: Nullable<ElementRef>;
+
+    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
+
+    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
+
+    get hasFluid() {
+        return this.fluid() ?? !!this.pcFluid;
+    }
 
     public filteredNodes: TreeNode[] | undefined | null;
 
@@ -583,8 +581,6 @@ export class TreeSelect extends BaseInput implements AfterContentInit {
 
     overlayVisible: Nullable<boolean>;
 
-    selfChange: Nullable<boolean>;
-
     value: any | undefined;
 
     expandedNodes: any[] = [];
@@ -667,7 +663,7 @@ export class TreeSelect extends BaseInput implements AfterContentInit {
                     this._itemLoadingIconTemplate = item.template;
                     break;
 
-                default: //TODO: @deprecated Used "value" template instead
+                default: //TODO: @deprecated Use "value" template instead
                     if (item.name) this.templateMap[item.name] = item.template;
                     else this.valueTemplate = item.template;
                     break;

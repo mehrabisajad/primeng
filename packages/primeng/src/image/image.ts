@@ -21,9 +21,9 @@ import {
 } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { addClass, appendChild, focus } from '@primeuix/utils';
-import { blockBodyScroll, unblockBodyScroll } from 'primeng/dom';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
+import { blockBodyScroll, unblockBodyScroll } from 'primeng/dom';
 import { FocusTrap } from 'primeng/focustrap';
 import { EyeIcon, RefreshIcon, SearchMinusIcon, SearchPlusIcon, TimesIcon, UndoIcon } from 'primeng/icons';
 import { Nullable } from 'primeng/ts-helpers';
@@ -112,7 +112,7 @@ import { ImageStyle } from './style/imagestyle';
     encapsulation: ViewEncapsulation.None,
     providers: [ImageStyle],
     host: {
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'),styleClass)"
     }
 })
 export class Image extends BaseComponent implements AfterContentInit {
@@ -182,11 +182,6 @@ export class Image extends BaseComponent implements AfterContentInit {
      * @group Props
      */
     @Input() loading: 'lazy' | 'eager' | undefined;
-    /**
-     * Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
-     * @group Props
-     */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
     /**
      * Controls the preview functionality.
      * @group Props
@@ -429,6 +424,7 @@ export class Image extends BaseComponent implements AfterContentInit {
             case 'visible':
                 this.container = event.element;
                 this.wrapper = this.container?.parentElement;
+                this.attrSelector && this.wrapper.setAttribute(this.attrSelector, '');
                 this.appendContainer();
                 this.moveOnTop();
 
@@ -464,9 +460,9 @@ export class Image extends BaseComponent implements AfterContentInit {
     }
 
     appendContainer() {
-        if (this.appendTo) {
-            if (this.appendTo === 'body') this.document.body.appendChild(this.wrapper as HTMLElement);
-            else appendChild(this.appendTo, this.wrapper);
+        if (this.$appendTo() && this.$appendTo() !== 'self') {
+            if (this.$appendTo() === 'body') this.document.body.appendChild(this.wrapper as HTMLElement);
+            else appendChild(this.$appendTo(), this.wrapper);
         }
     }
 

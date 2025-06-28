@@ -110,7 +110,7 @@ import { AutoFocusModule } from 'primeng/autofocus';
                                 <SpinnerIcon [styleClass]="cn(cx('nodeToggleIcon'), 'pi-spin')" />
                             </ng-container>
                         </ng-container>
-                        <span *ngIf="tree.togglerIconTemplate || tree._togglerIconTemplate" [styleClass]="cx('nodeToggleIcon')">
+                        <span *ngIf="tree.togglerIconTemplate || tree._togglerIconTemplate" [class]="cx('nodeToggleIcon')">
                             <ng-template *ngTemplateOutlet="tree.togglerIconTemplate || tree._togglerIconTemplate; context: { $implicit: node.expanded, loading: node.loading }"></ng-template>
                         </span>
                     </button>
@@ -721,7 +721,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
         @if (filterTemplate || _filterTemplate) {
             <ng-container *ngTemplateOutlet="filterTemplate || _filterTemplate; context: { $implicit: filterOptions }"></ng-container>
         } @else {
-            <p-iconField *ngIf="filter" [class]="cx('pcFilterContainer')">
+            <p-iconfield *ngIf="filter" [class]="cx('pcFilterContainer')">
                 <input
                     #filter
                     [pAutoFocus]="filterInputAutoFocus"
@@ -731,15 +731,15 @@ export class UITreeNode extends BaseComponent implements OnInit {
                     [class]="cx('pcFilterInput')"
                     [attr.placeholder]="filterPlaceholder"
                     (keydown.enter)="$event.preventDefault()"
-                    (input)="_filter($event.target.value)"
+                    (input)="_filter($event.target?.value)"
                 />
-                <p-inputIcon>
+                <p-inputicon>
                     <SearchIcon *ngIf="!filterIconTemplate && !_filterIconTemplate" [class]="cx('filterIcon')" />
                     <span *ngIf="filterIconTemplate || _filterIconTemplate" [class]="cx('filterIcon')">
                         <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate"></ng-template>
                     </span>
-                </p-inputIcon>
-            </p-iconField>
+                </p-inputicon>
+            </p-iconfield>
         }
 
         <ng-container *ngIf="getRootNode()?.length">
@@ -751,7 +751,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
                 [styleClass]="cx('wrapper')"
                 [style]="{ height: scrollHeight !== 'flex' ? scrollHeight : undefined }"
                 [scrollHeight]="scrollHeight !== 'flex' ? undefined : '100%'"
-                [itemSize]="virtualScrollItemSize || _virtualNodeHeight"
+                [itemSize]="virtualScrollItemSize"
                 [lazy]="lazy"
                 (onScroll)="onScroll.emit($event)"
                 (onScrollIndexChange)="onScrollIndexChange.emit($event)"
@@ -811,7 +811,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
     encapsulation: ViewEncapsulation.None,
     providers: [TreeStyle],
     host: {
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnChanges, OnDestroy, BlockableUI {
@@ -1001,19 +1001,6 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
      * @group Props
      */
     @Input({ transform: booleanAttribute }) highlightOnSelect: boolean = false;
-    /**
-     * Height of the node.
-     * @group Props
-     * @deprecated use virtualScrollItemSize property instead.
-     */
-    _virtualNodeHeight: number | undefined;
-    @Input() get virtualNodeHeight(): number | undefined {
-        return this._virtualNodeHeight;
-    }
-    set virtualNodeHeight(val: number | undefined) {
-        this._virtualNodeHeight = val;
-        console.log('The virtualNodeHeight property is deprecated, use virtualScrollItemSize property instead.');
-    }
     /**
      * Callback to invoke on selection change.
      * @param {(TreeNode<any> | TreeNode<any>[] | null)} event - Custom selection change event.

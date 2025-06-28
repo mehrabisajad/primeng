@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { css, dt } from '@primeuix/styled';
-import { BaseStyle } from 'primeng/base';
 import { style } from '@primeuix/styles/multiselect';
+import { BaseStyle } from 'primeng/base';
 
 const theme = css`
     ${style}
@@ -15,26 +15,15 @@ const theme = css`
     p-multiselect.ng-invalid.ng-dirty .p-multiselect-label.p-placeholder {
         color: ${dt('multiselect.invalid.placeholder.color')};
     }
-
-    .p-multiselect-clear-icon {
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        background: transparent;
-        color: ${dt('multiselect.clear.icon.color')};
-    }
 `;
 
 const inlineStyles = {
-    root: ({ instance }) => ({ position: instance.appendTo === 'self' ? 'relative' : undefined })
+    root: ({ instance }) => ({ position: instance.$appendTo() === 'self' ? 'relative' : undefined })
 };
 
 const classes = {
     root: ({ instance }) => [
         'p-multiselect p-component p-inputwrapper',
-        instance.styleClass,
         {
             'p-multiselect p-component p-inputwrapper': true,
             'p-multiselect-display-chip': instance.display === 'chip',

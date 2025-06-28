@@ -1,16 +1,16 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, inject, Input, NgModule, numberAttribute, OnDestroy, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, forwardRef, inject, Input, NgModule, OnDestroy, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { absolutePosition, appendChild, isTouchDevice, relativePosition } from '@primeuix/utils';
+import { absolutePosition, cn, isTouchDevice, relativePosition } from '@primeuix/utils';
 import { OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
-import { ConnectedOverlayScrollHandler } from 'primeng/dom';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { ColorPickerChangeEvent } from './colorpicker.interface';
 import { ColorPickerStyle } from './style/colorpickerstyle';
-import { BaseInput } from 'primeng/baseinput';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 
 export const COLORPICKER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -73,12 +73,12 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': "cx('root')",
+        '[class]': "cn(cx('root'), styleClass)",
         '[attr.data-pc-name]': '"colorpicker"',
         '[attr.data-pc-section]': '"root"'
     }
 })
-export class ColorPicker extends BaseInput implements ControlValueAccessor, OnDestroy, AfterViewInit {
+export class ColorPicker extends BaseEditableHolder implements ControlValueAccessor, OnDestroy, AfterViewInit {
     /**
      * Style class of the component.
      * @deprecated since v20.0.0, use `class` instead.
@@ -96,11 +96,6 @@ export class ColorPicker extends BaseInput implements ControlValueAccessor, OnDe
      */
     @Input() format: 'hex' | 'rgb' | 'hsb' = 'hex';
     /**
-     * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
-     * @group Props
-     */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
-    /**
      * Index of the element in tabbing order.
      * @group Props
      */
@@ -115,11 +110,6 @@ export class ColorPicker extends BaseInput implements ControlValueAccessor, OnDe
      * @group Props
      */
     @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
-    /**
-     * Base zIndex value to use in layering.
-     * @group Props
-     */
-    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
     /**
      * Transition options of the show animation.
      * @group Props
@@ -401,6 +391,7 @@ export class ColorPicker extends BaseInput implements ControlValueAccessor, OnDe
             case 'visible':
                 if (!this.inline) {
                     this.overlay = event.element;
+                    this.attrSelector && this.overlay.setAttribute(this.attrSelector, '');
                     this.appendOverlay();
 
                     if (this.autoZIndex) {
@@ -442,21 +433,18 @@ export class ColorPicker extends BaseInput implements ControlValueAccessor, OnDe
     }
 
     appendOverlay() {
-        if (this.appendTo) {
-            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.overlay);
-            else appendChild(this.appendTo, this.overlay);
-        }
+        DomHandler.appendOverlay(this.overlay, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
     }
 
     restoreOverlayAppend() {
-        if (this.overlay && this.appendTo) {
-            this.renderer.appendChild(this.el.nativeElement, this.overlay);
+        if (this.overlay && this.$appendTo() !== 'self') {
+            this.renderer.appendChild(this.inputViewChild?.nativeElement, this.overlay);
         }
     }
 
     alignOverlay() {
-        if (this.appendTo) absolutePosition(this.overlay, this.inputViewChild?.nativeElement);
-        else relativePosition(this.overlay, this.inputViewChild?.nativeElement);
+        if (this.$appendTo() === 'self') relativePosition(this.overlay, this.inputViewChild?.nativeElement);
+        else absolutePosition(this.overlay, this.inputViewChild?.nativeElement);
     }
 
     hide() {
@@ -777,6 +765,8 @@ export class ColorPicker extends BaseInput implements ControlValueAccessor, OnDe
         this.restoreOverlayAppend();
         this.onOverlayHide();
     }
+
+    protected readonly cn = cn;
 }
 
 @NgModule({

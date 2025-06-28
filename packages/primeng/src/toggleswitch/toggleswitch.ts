@@ -11,6 +11,7 @@ import {
     forwardRef,
     HostListener,
     inject,
+    input,
     Input,
     NgModule,
     numberAttribute,
@@ -23,9 +24,9 @@ import {
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { ToggleSwitchStyle } from './style/toggleswitchstyle';
 import { ToggleSwitchChangeEvent } from './toggleswitch.interface';
-import { BaseInput } from 'primeng/baseinput';
 
 /**
  * Context interface for the handle template.
@@ -57,7 +58,8 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
             role="switch"
             [class]="cx('input')"
             [checked]="checked()"
-            [disabled]="disabled()"
+            [attr.disabled]="disabled()"
+            [attr.required]="required()"
             [attr.aria-checked]="checked()"
             [attr.aria-labelledby]="ariaLabelledBy"
             [attr.aria-label]="ariaLabel"
@@ -68,25 +70,25 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
             [attr.data-pc-section]="'hiddenInput'"
             [pAutoFocus]="autofocus"
         />
-        <span [class]="cx('slider')" [attr.data-pc-section]="'slider'">
+        <div [class]="cx('slider')" [attr.data-pc-section]="'slider'">
             <div [class]="cx('handle')">
                 @if (handleTemplate || _handleTemplate) {
                     <ng-container *ngTemplateOutlet="handleTemplate || _handleTemplate; context: { checked: checked() }" />
                 }
             </div>
-        </span>
+        </div>
     `,
     providers: [TOGGLESWITCH_VALUE_ACCESSOR, ToggleSwitchStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': "cx('root')",
+        '[class]': "cn(cx('root'), styleClass)",
         '[style]': "sx('root')",
         '[attr.data-pc-name]': "'toggleswitch'",
         '[attr.data-pc-section]': "'root'"
     }
 })
-export class ToggleSwitch extends BaseInput implements AfterContentInit {
+export class ToggleSwitch extends BaseEditableHolder implements AfterContentInit {
     /**
      * Style class of the component.
      * @deprecated since v20.0.0, use `class` instead.
@@ -124,6 +126,12 @@ export class ToggleSwitch extends BaseInput implements AfterContentInit {
      */
     @Input() ariaLabel: string | undefined;
     /**
+     * Specifies the size of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    size = input<'large' | 'small' | undefined>();
+    /**
      * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
      * @group Props
      */
@@ -155,8 +163,6 @@ export class ToggleSwitch extends BaseInput implements AfterContentInit {
 
     _handleTemplate: TemplateRef<any> | undefined;
 
-    modelValue: any = false;
-
     focused: boolean = false;
 
     onModelChange: Function = () => {};
@@ -187,12 +193,12 @@ export class ToggleSwitch extends BaseInput implements AfterContentInit {
 
     onClick(event: Event) {
         if (!this.disabled() && !this.readonly) {
-            this.modelValue = this.checked() ? this.falseValue : this.trueValue;
+            this.writeModelValue(this.checked() ? this.falseValue : this.trueValue);
 
-            this.onModelChange(this.modelValue);
+            this.onModelChange(this.modelValue());
             this.onChange.emit({
                 originalEvent: event,
-                checked: this.modelValue
+                checked: this.modelValue()
             });
 
             this.input.nativeElement.focus();
@@ -209,7 +215,7 @@ export class ToggleSwitch extends BaseInput implements AfterContentInit {
     }
 
     writeValue(value: any): void {
-        this.modelValue = value;
+        this.writeModelValue(value);
         this.cd.markForCheck();
     }
 
@@ -222,7 +228,7 @@ export class ToggleSwitch extends BaseInput implements AfterContentInit {
     }
 
     checked() {
-        return this.modelValue === this.trueValue;
+        return this.modelValue() === this.trueValue;
     }
 }
 

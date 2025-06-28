@@ -22,13 +22,12 @@ const theme = css`
 `;
 
 const inlineStyles = {
-    root: ({ instance }) => ({ position: instance.appendTo === 'self' ? 'relative' : undefined, ...instance.containerStyle })
+    root: ({ instance }) => ({ position: instance.$appendTo() === 'self' ? 'relative' : undefined, ...instance.containerStyle })
 };
 
 const classes = {
     root: ({ instance }) => [
         'p-treeselect p-component p-inputwrapper',
-        instance.containerStyleClass,
         {
             'p-treeselect-display-chip': instance.display === 'chip',
             'p-disabled': instance.disabled(),

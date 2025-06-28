@@ -150,7 +150,7 @@ export class TreeTableService {
             *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition == 'both')"
             [templateLeft]="paginatorLeftTemplate ?? _paginatorLeftTemplate"
             [templateRight]="paginatorRightTemplate ?? _paginatorRightTemplate"
-            [dropdownAppendTo]="paginatorDropdownAppendTo"
+            [appendTo]="paginatorDropdownAppendTo"
             [currentPageReportTemplate]="currentPageReportTemplate"
             [showFirstLastIcon]="showFirstLastIcon"
             [dropdownItemTemplate]="paginatorDropdownItemTemplate ?? _paginatorDropdownItemTemplate"
@@ -214,7 +214,7 @@ export class TreeTableService {
             *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition == 'both')"
             [templateLeft]="paginatorLeftTemplate ?? _paginatorLeftTemplate"
             [templateRight]="paginatorRightTemplate ?? _paginatorRightTemplate"
-            [dropdownAppendTo]="paginatorDropdownAppendTo"
+            [appendTo]="paginatorDropdownAppendTo"
             [currentPageReportTemplate]="currentPageReportTemplate"
             [showFirstLastIcon]="showFirstLastIcon"
             [dropdownItemTemplate]="paginatorDropdownItemTemplate ?? _paginatorDropdownItemTemplate"
@@ -256,7 +256,7 @@ export class TreeTableService {
     providers: [TreeTableService, TreeTableStyle],
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': "cx('root')",
+        '[class]': "cn(cx('root'), styleClass)",
         '[attr.data-scrollselectors]': "'.p-treetable-scrollable-body'"
     }
 })

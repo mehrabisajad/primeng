@@ -24,11 +24,10 @@ import {
 import { FormsModule } from '@angular/forms';
 import { Aria, PrimeTemplate, SelectItem, SharedModule } from 'primeng/api';
 import { BaseComponent } from 'primeng/basecomponent';
-import { DropdownChangeEvent } from 'primeng/dropdown';
+import { Select, SelectChangeEvent } from 'primeng/select';
 import { AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleLeftIcon, AngleRightIcon } from 'primeng/icons';
 import { InputNumber } from 'primeng/inputnumber';
 import { Ripple } from 'primeng/ripple';
-import { Select } from 'primeng/select';
 import { Nullable } from 'primeng/ts-helpers';
 import { PaginatorState } from './paginator.interface';
 import { PaginatorStyle } from './style/paginatorstyle';
@@ -79,7 +78,7 @@ import { PaginatorStyle } from './style/paginatorstyle';
             [attr.aria-label]="getAriaLabel('jumpToPageDropdownLabel')"
             [styleClass]="cx('pcJumpToPageDropdown')"
             (onChange)="onPageDropdownChange($event)"
-            [appendTo]="dropdownAppendTo"
+            [appendTo]="dropdownAppendTo || $appendTo()"
             [scrollHeight]="dropdownScrollHeight"
         >
             <ng-template pTemplate="selectedItem">{{ currentPageReport }}</ng-template>
@@ -112,7 +111,7 @@ import { PaginatorStyle } from './style/paginatorstyle';
             [styleClass]="cx('pcRowPerPageDropdown')"
             [disabled]="empty()"
             (onChange)="onRppChange($event)"
-            [appendTo]="dropdownAppendTo"
+            [appendTo]="dropdownAppendTo || $appendTo()"
             [scrollHeight]="dropdownScrollHeight"
             [ariaLabel]="getAriaLabel('rowsPerPageLabel')"
         >
@@ -135,7 +134,7 @@ import { PaginatorStyle } from './style/paginatorstyle';
     host: {
         '[attr.data-pc-name]': "'paginator'",
         '[attr.data-pc-section]': "'root'",
-        '[class]': "cx('paginator')"
+        '[class]': "cn(cx('paginator'), styleClass)"
     }
 })
 export class Paginator extends BaseComponent implements OnInit, AfterContentInit, OnChanges {
@@ -157,6 +156,7 @@ export class Paginator extends BaseComponent implements OnInit, AfterContentInit
     @Input({ transform: booleanAttribute }) alwaysShow: boolean = true;
     /**
      * Target element to attach the dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
+     * @deprecated since v20.0.0. Use `appendTo` instead.
      * @group Props
      */
     @Input() dropdownAppendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
@@ -172,11 +172,6 @@ export class Paginator extends BaseComponent implements OnInit, AfterContentInit
      * @group Props
      */
     @Input() templateRight: TemplateRef<PaginatorState> | undefined;
-    /**
-     * Target element to attach the dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
-     * @group Props
-     */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
     /**
      * Dropdown height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.
      * @group Props
@@ -536,7 +531,7 @@ export class Paginator extends BaseComponent implements OnInit, AfterContentInit
         this.changePage(this.getPage());
     }
 
-    onPageDropdownChange(event: DropdownChangeEvent): void {
+    onPageDropdownChange(event: SelectChangeEvent): void {
         this.changePage(event.value);
     }
 

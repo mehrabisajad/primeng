@@ -19,13 +19,13 @@ const theme = css`
 const classes = {
     root: ({ instance }) => [
         'p-togglebutton p-component',
-        instance.styleClass,
         {
             'p-togglebutton-checked': instance.checked,
             'p-invalid': instance.invalid(),
             'p-disabled': instance.disabled(),
-            'p-togglebutton-sm p-inputfield-sm': instance.size() === 'small',
-            'p-togglebutton-lg p-inputfield-lg': instance.size() === 'large'
+            'p-togglebutton-sm p-inputfield-sm': instance.size === 'small',
+            'p-togglebutton-lg p-inputfield-lg': instance.size === 'large',
+            'p-togglebutton-fluid': instance.fluid()
         }
     ],
     content: 'p-togglebutton-content',

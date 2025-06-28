@@ -82,6 +82,7 @@ import {
     TableRowUnSelectEvent,
     TableSelectAllChangeEvent
 } from './table.interface';
+import { isRTL } from '@primeuix/utils';
 
 @Injectable()
 export class TableService {
@@ -154,7 +155,7 @@ export class TableService {
             *ngIf="paginator && (paginatorPosition === 'top' || paginatorPosition == 'both')"
             [templateLeft]="paginatorLeftTemplate || _paginatorLeftTemplate"
             [templateRight]="paginatorRightTemplate || _paginatorRightTemplate"
-            [dropdownAppendTo]="paginatorDropdownAppendTo"
+            [appendTo]="paginatorDropdownAppendTo"
             [dropdownScrollHeight]="paginatorDropdownScrollHeight"
             [currentPageReportTemplate]="currentPageReportTemplate"
             [showFirstLastIcon]="showFirstLastIcon"
@@ -197,7 +198,7 @@ export class TableService {
                     height: scrollHeight !== 'flex' ? scrollHeight : undefined
                 }"
                 [scrollHeight]="scrollHeight !== 'flex' ? undefined : '100%'"
-                [itemSize]="virtualScrollItemSize || _virtualRowHeight"
+                [itemSize]="virtualScrollItemSize"
                 [step]="rows"
                 [delay]="lazy ? virtualScrollDelay : 0"
                 [inline]="true"
@@ -296,7 +297,7 @@ export class TableService {
             *ngIf="paginator && (paginatorPosition === 'bottom' || paginatorPosition == 'both')"
             [templateLeft]="paginatorLeftTemplate || _paginatorLeftTemplate"
             [templateRight]="paginatorRightTemplate || _paginatorRightTemplate"
-            [dropdownAppendTo]="paginatorDropdownAppendTo"
+            [appendTo]="paginatorDropdownAppendTo"
             [dropdownScrollHeight]="paginatorDropdownScrollHeight"
             [currentPageReportTemplate]="currentPageReportTemplate"
             [showFirstLastIcon]="showFirstLastIcon"
@@ -348,7 +349,7 @@ export class TableService {
     encapsulation: ViewEncapsulation.None,
     host: {
         '[attr.id]': 'id',
-        '[class]': "cx('root')"
+        '[class]': "cn(cx('root'), styleClass)"
     }
 })
 export class Table<RowData = any> extends BaseComponent implements OnInit, AfterViewInit, AfterContentInit, BlockableUI, OnChanges {
@@ -575,12 +576,6 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
      */
     @Input({ transform: booleanAttribute }) scrollable: boolean | undefined;
     /**
-     * Orientation of the scrolling, options are "vertical", "horizontal" and "both".
-     * @group Props
-     * @deprecated Property is obselete since v14.2.0.
-     */
-    @Input() scrollDirection: 'vertical' | 'horizontal' | 'both' = 'vertical';
-    /**
      * Type of the row grouping, valid values are "subheader" and "rowspan".
      * @group Props
      */
@@ -615,19 +610,6 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
      * @group Props
      */
     @Input() frozenWidth: string | undefined;
-    /**
-     * Defines if the table is responsive.
-     * @group Props
-     * @deprecated table is always responsive with scrollable behavior.
-     */
-    @Input() get responsive(): boolean | undefined | null {
-        return this._responsive;
-    }
-    set responsive(val: boolean | undefined | null) {
-        this._responsive = val;
-        console.log('responsive property is deprecated as table is always responsive with scrollable behavior.');
-    }
-    _responsive: boolean | undefined | null;
     /**
      * Local ng-template varilable of a ContextMenu.
      * @group Props
@@ -678,11 +660,6 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
      * @group Props
      */
     @Input({ transform: booleanAttribute }) showInitialSortBadge: boolean = true;
-    /**
-     * Whether the cell widths scale according to their content or not.  Deprecated:  Table layout is always "auto".
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) autoLayout: boolean | undefined;
     /**
      * Export function.
      * @group Props
@@ -735,6 +712,7 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
     @Input({ transform: numberAttribute }) groupRowsByOrder: number = 1;
     /**
      * Defines the responsive mode, valid options are "stack" and "scroll".
+     * @deprecated since v20.0.0, always defaults to scroll, stack mode needs custom implementation
      * @group Props
      */
     @Input() responsiveLayout: string = 'scroll';
@@ -838,18 +816,6 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
     }
     set selection(val: any) {
         this._selection = val;
-    }
-    /**
-     * Indicates the height of rows to be scrolled.
-     * @group Props
-     * @deprecated use virtualScrollItemSize property instead.
-     */
-    @Input() get virtualRowHeight(): number {
-        return this._virtualRowHeight;
-    }
-    set virtualRowHeight(val: number) {
-        this._virtualRowHeight = val;
-        console.log('The virtualRowHeight property is deprecated.');
     }
     /**
      * Whether all data is selected.
@@ -1020,8 +986,6 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
     @ViewChild('scroller') scroller: Nullable<Scroller>;
 
     @ContentChildren(PrimeTemplate) _templates: Nullable<QueryList<PrimeTemplate>>;
-
-    _virtualRowHeight: number = 28;
 
     _value: RowData[] = [];
 
@@ -2652,7 +2616,8 @@ export class Table<RowData = any> extends BaseComponent implements OnInit, After
     }
 
     onColumnResizeEnd() {
-        const delta = this.resizeHelperViewChild?.nativeElement.offsetLeft - <number>this.lastResizerHelperX;
+        const currentX = DomHandler.getOffset(this.resizeHelperViewChild?.nativeElement).left - DomHandler.getOffset(this.el?.nativeElement).left;
+        const delta = isRTL(this.el?.nativeElement) ? this.lastResizerHelperX - currentX : currentX - this.lastResizerHelperX;
         const columnWidth = this.resizeColumnElement.offsetWidth;
         const newColumnWidth = columnWidth + delta;
         const elementMinWidth = this.resizeColumnElement.style.minWidth.replace(/[^\d.]/g, '');

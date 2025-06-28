@@ -5,15 +5,16 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     ContentChildren,
     Directive,
-    DoCheck,
     ElementRef,
     EventEmitter,
     forwardRef,
     HostListener,
     inject,
+    input,
     Input,
     NgModule,
     NgZone,
@@ -33,8 +34,10 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { absolutePosition, addClass, getOuterWidth, hasClass, isTouchDevice, relativePosition, removeClass } from '@primeuix/utils';
 import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseEditableHolder } from 'primeng/baseeditableholder';
+import { BaseInput } from 'primeng/baseinput';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { Fluid } from 'primeng/fluid';
 import { EyeIcon, EyeSlashIcon, TimesIcon } from 'primeng/icons';
 import { InputText } from 'primeng/inputtext';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
@@ -58,7 +61,7 @@ type Meter = {
     },
     providers: [PasswordStyle]
 })
-export class PasswordDirective extends BaseComponent implements OnDestroy, DoCheck {
+export class PasswordDirective extends BaseEditableHolder implements OnDestroy {
     /**
      * Text to prompt password entry. Defaults to PrimeNG I18N API configuration.
      * @group Props
@@ -93,14 +96,30 @@ export class PasswordDirective extends BaseComponent implements OnDestroy, DoChe
     }
     /**
      * Specifies the input variant of the component.
+     * @defaultValue undefined
      * @group Props
      */
-    @Input() variant: 'filled' | 'outlined';
+    variant = input<'filled' | 'outlined' | undefined>();
     /**
      * Spans 100% width of the container when enabled.
+     * @defaultValue undefined
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) fluid: boolean = false;
+    fluid = input(undefined, { transform: booleanAttribute });
+    /**
+     * Specifies the size of the component.
+     * @defaultValue undefined
+     * @group Props
+     */
+    size = input<'large' | 'small' | undefined>(undefined, { alias: 'pSize' });
+
+    pcFluid: Fluid = inject(Fluid, { optional: true, host: true, skipSelf: true });
+
+    $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
+
+    get hasFluid() {
+        return this.fluid() ?? !!this.pcFluid;
+    }
 
     panel: Nullable<HTMLDivElement>;
 
@@ -120,27 +139,13 @@ export class PasswordDirective extends BaseComponent implements OnDestroy, DoChe
 
     _componentStyle = inject(PasswordStyle);
 
-    get hasFluid() {
-        const nativeElement = this.el.nativeElement;
-        const fluidComponent = nativeElement.closest('p-fluid');
-        return this.fluid || !!fluidComponent;
-    }
-
     constructor(public zone: NgZone) {
         super();
     }
 
-    ngDoCheck() {
-        this.updateFilledState();
-    }
-
     @HostListener('input', ['$event'])
     onInput(e: Event) {
-        this.updateFilledState();
-    }
-
-    updateFilledState() {
-        this.filled = this.el.nativeElement.value && this.el.nativeElement.value.length;
+        this.writeModelValue(this.el.nativeElement.value);
     }
 
     createPanel() {
@@ -304,10 +309,6 @@ export class PasswordDirective extends BaseComponent implements OnDestroy, DoChe
         else return 1 + 0.5 * (x / (x + y / 4));
     }
 
-    get disabled(): boolean {
-        return this.el.nativeElement.disabled;
-    }
-
     bindScrollListener() {
         if (!this.scrollHandler) {
             this.scrollHandler = new ConnectedOverlayScrollHandler(this.el.nativeElement, () => {
@@ -402,20 +403,24 @@ export const Password_VALUE_ACCESSOR: any = {
             [attr.id]="inputId"
             [attr.tabindex]="tabindex"
             pInputText
-            [disabled]="disabled"
-            [pSize]="size"
+            [attr.disabled]="disabled()"
+            [pSize]="size()"
             [ngStyle]="inputStyle"
             [class]="cn(cx('pcInputText'), inputStyleClass)"
             [attr.type]="unmasked | mapper: inputType"
             [attr.placeholder]="placeholder"
             [attr.autocomplete]="autocomplete"
             [value]="value"
-            [variant]="variant"
+            [variant]="$variant()"
+            [attr.name]="name()"
+            [attr.required]="required()"
+            [attr.maxlength]="maxlength() || maxLength"
+            [attr.minlength]="minlength()"
+            [invalid]="invalid()"
             (input)="onInput($event)"
             (focus)="onInputFocus($event)"
             (blur)="onInputBlur($event)"
             (keyup)="onKeyUp($event)"
-            [attr.maxlength]="maxLength"
             [attr.data-pc-section]="'input'"
             [pAutoFocus]="autofocus"
         />
@@ -445,6 +450,7 @@ export const Password_VALUE_ACCESSOR: any = {
             #overlay
             *ngIf="overlayVisible"
             [class]="cx('overlay')"
+            [style]="sx('overlay')"
             (click)="onOverlayClick($event)"
             [@overlayAnimation]="{
                 value: 'visible',
@@ -474,23 +480,18 @@ export const Password_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[class]': "cx('root')",
+        '[class]': "cn(cx('root'), styleClass)",
         '[style]': "sx('root')",
-        '[attr.data-pc-name]': 'password',
-        '[attr.data-pc-section]': 'root'
+        'data-pc-name': 'password',
+        'data-pc-section': 'root'
     }
 })
-export class Password extends BaseComponent implements OnInit, AfterContentInit {
+export class Password extends BaseInput implements OnInit, AfterContentInit {
     /**
      * Defines a string that labels the input for accessibility.
      * @group Props
      */
     @Input() ariaLabel: string | undefined;
-    /**
-     * Whether the component should span the full width of its parent.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) fluid: boolean | undefined;
     /**
      * Specifies one or more IDs in the DOM that labels the input field.
      * @group Props
@@ -501,11 +502,6 @@ export class Password extends BaseComponent implements OnInit, AfterContentInit 
      * @group Props
      */
     @Input() label: string | undefined;
-    /**
-     * Indicates whether the component is disabled or not.
-     * @group Props
-     */
-    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * Text to prompt password entry. Defaults to PrimeNG I18N API configuration.
      * @group Props
@@ -533,6 +529,7 @@ export class Password extends BaseComponent implements OnInit, AfterContentInit 
     @Input() mediumLabel: string | undefined;
     /**
      * specifies the maximum number of characters allowed in the input element.
+     * @deprecated since v20.0.0, use maxlength instead.
      * @group Props
      */
     @Input({ transform: numberAttribute }) maxLength: number | undefined;
@@ -552,20 +549,10 @@ export class Password extends BaseComponent implements OnInit, AfterContentInit 
      */
     @Input({ transform: booleanAttribute }) feedback: boolean = true;
     /**
-     * Id of the element or "body" for document where the overlay should be appended to.
-     * @group Props
-     */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
-    /**
      * Whether to show an icon to display the password as plain text.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) toggleMask: boolean | undefined;
-    /**
-     * Defines the size of the component.
-     * @group Props
-     */
-    @Input() size: 'large' | 'small';
     /**
      * Style class of the input field.
      * @group Props
@@ -612,11 +599,6 @@ export class Password extends BaseComponent implements OnInit, AfterContentInit 
      * @group Props
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
-    /**
-     * Specifies the input variant of the component.
-     * @group Props
-     */
-    @Input() variant: 'filled' | 'outlined';
     /**
      * Index of the element in tabbing order.
      * @group Props
@@ -686,7 +668,7 @@ export class Password extends BaseComponent implements OnInit, AfterContentInit 
 
     scrollHandler: Nullable<ConnectedOverlayScrollHandler>;
 
-    overlay: HTMLElement | ElementRef | null | undefined;
+    overlay: any;
 
     value: Nullable<string> = null;
 
@@ -697,12 +679,6 @@ export class Password extends BaseComponent implements OnInit, AfterContentInit 
     translationSubscription: Nullable<Subscription>;
 
     _componentStyle = inject(PasswordStyle);
-
-    get hasFluid() {
-        const nativeElement = this.el.nativeElement;
-        const fluidComponent = nativeElement.closest('p-fluid');
-        return this.fluid || !!fluidComponent;
-    }
 
     overlayService = inject(OverlayService);
 
@@ -755,6 +731,7 @@ export class Password extends BaseComponent implements OnInit, AfterContentInit 
             case 'visible':
                 this.overlay = event.element;
                 ZIndexUtils.set('overlay', this.overlay, this.config.zIndex.overlay);
+                this.attrSelector && this.overlay.setAttribute(this.attrSelector, '');
                 this.appendContainer();
                 this.alignOverlay();
                 this.bindScrollListener();
@@ -778,19 +755,13 @@ export class Password extends BaseComponent implements OnInit, AfterContentInit 
     }
 
     appendContainer() {
-        if (this.appendTo) {
-            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.overlay);
-            else (this.document as any).getElementById(this.appendTo).appendChild(this.overlay as HTMLElement);
-        }
+        DomHandler.appendOverlay(this.overlay, this.$appendTo() === 'body' ? this.document.body : this.$appendTo(), this.$appendTo());
     }
 
     alignOverlay() {
-        if (this.appendTo) {
-            (this.overlay as HTMLElement).style.minWidth = getOuterWidth(this.input.nativeElement) + 'px';
-            absolutePosition(this.overlay as any, this.input.nativeElement);
-        } else {
-            relativePosition(this.overlay as any, this.input.nativeElement);
-        }
+        (this.overlay as HTMLElement).style.minWidth = getOuterWidth(this.input.nativeElement) + 'px';
+        if (this.$appendTo() === 'self') relativePosition(this.overlay as HTMLElement, this.input?.nativeElement);
+        else absolutePosition(this.overlay as HTMLElement, this.input?.nativeElement);
     }
 
     onInput(event: Event) {
@@ -899,7 +870,7 @@ export class Password extends BaseComponent implements OnInit, AfterContentInit 
         else this.value = value;
 
         if (this.feedback) this.updateUI(this.value || '');
-
+        this.writeModelValue(this.value);
         this.cd.markForCheck();
     }
 
@@ -909,11 +880,6 @@ export class Password extends BaseComponent implements OnInit, AfterContentInit 
 
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
-    }
-
-    setDisabledState(val: boolean): void {
-        this.disabled = val;
-        this.cd.markForCheck();
     }
 
     bindScrollListener() {
@@ -956,10 +922,6 @@ export class Password extends BaseComponent implements OnInit, AfterContentInit 
         }
     }
 
-    filled() {
-        return this.value != null && this.value.toString().length > 0;
-    }
-
     promptText() {
         return this.promptLabel || this.getTranslation(TranslationKeys.PASSWORD_PROMPT);
     }
@@ -977,9 +939,9 @@ export class Password extends BaseComponent implements OnInit, AfterContentInit 
     }
 
     restoreAppend() {
-        if (this.overlay && this.appendTo) {
-            if (this.appendTo === 'body') this.renderer.removeChild(this.document.body, this.overlay);
-            else (this.document as any).getElementById(this.appendTo).removeChild(this.overlay);
+        if (this.overlay && this.$appendTo()) {
+            if (this.$appendTo() === 'body') this.renderer.removeChild(this.document.body, this.overlay);
+            else (this.document as any).getElementById(this.$appendTo()).removeChild(this.overlay);
         }
     }
 

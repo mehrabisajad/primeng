@@ -1,9 +1,18 @@
 import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
 import { style } from '@primeuix/styles/picklist';
+import { css } from '@primeuix/styled';
+
+const theme = css`
+    ${style}
+
+    .p-picklist-controls.p-picklist-target-controls .p-iconwrapper:dir(rtl) {
+        transform: rotate(-180deg);
+    }
+`;
 
 const classes = {
-    root: ({ instance }) => ['p-picklist p-component', instance.styleClass],
+    root: () => ['p-picklist p-component'],
     sourceControls: 'p-picklist-controls p-picklist-source-controls',
     sourceListContainer: 'p-picklist-list-container p-picklist-source-list-container',
     transferControls: 'p-picklist-controls p-picklist-transfer-controls',
@@ -15,7 +24,7 @@ const classes = {
 export class PickListStyle extends BaseStyle {
     name = 'picklist';
 
-    theme = style;
+    theme = theme;
 
     classes = classes;
 }
